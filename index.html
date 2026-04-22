@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BorrowClever — Ireland's Independent Loan & Credit Card Comparison</title>
+<meta name="description" content="Compare personal loans and credit cards from every Irish lender including credit unions. See total cost, not just monthly repayments. Launching soon.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: #ffffff;
+  color: #0d1b2a;
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5%;
+  height: 68px;
+  border-bottom: 1px solid #eef0f3;
+  position: sticky;
+  top: 0;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(8px);
+  z-index: 100;
+}
+
+.nav-logo {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #0d1b2a;
+  letter-spacing: -0.03em;
+}
+
+.nav-logo span { color: #1a6e42; }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: #4a5568;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: #0d1b2a; }
+
+.nav-cta {
+  background: #1a6e42;
+  color: white !important;
+  padding: 0.55rem 1.3rem;
+  border-radius: 100px;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  transition: background 0.2s !important;
+}
+
+.nav-cta:hover { background: #155c37 !important; color: white !important; }
+
+/* ── HERO ── */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: calc(100vh - 68px);
+  overflow: hidden;
+}
+
+/* LEFT */
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5rem 5% 5rem 6%;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #1a6e42;
+  margin-bottom: 1.25rem;
+}
+
+h1 {
+  font-size: clamp(2.4rem, 3.8vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  color: #0d1b2a;
+  margin-bottom: 1.25rem;
+}
+
+.hero-sub {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.7;
+  color: #4a5568;
+  max-width: 420px;
+  margin-bottom: 2.25rem;
+}
+
+.btn-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  background: #1a6e42;
+  color: white;
+  border: none;
+  padding: 0.85rem 1.75rem;
+  border-radius: 100px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-primary:hover { background: #155c37; transform: translateY(-1px); }
+
+.btn-secondary {
+  background: transparent;
+  color: #1a6e42;
+  border: 1.5px solid #1a6e42;
+  padding: 0.82rem 1.65rem;
+  border-radius: 100px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-secondary:hover {
+  background: #f0faf4;
+  transform: translateY(-1px);
+}
+
+.trust-row {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  color: #4a5568;
+  font-weight: 500;
+}
+
+.trust-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #1a6e42;
+  flex-shrink: 0;
+}
+
+/* RIGHT — bold bg panel */
+.hero-right {
+  background: #0f4a2a;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2.5rem;
+}
+
+/* decorative shapes */
+.hero-right::before {
+  content: '';
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 340px; height: 340px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+}
+
+.hero-right::after {
+  content: '';
+  position: absolute;
+  bottom: -60px; left: -60px;
+  width: 260px; height: 260px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+}
+
+/* floating card stack */
+.card-stack {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* MAIN comparison card */
+.main-card {
+  background: white;
+  border-radius: 16px;
+  padding: 18px 20px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+.mc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.mc-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #0d1b2a;
+}
+
+.mc-sub {
+  font-size: 10px;
+  color: #718096;
+  font-weight: 500;
+}
+
+.mc-badge {
+  background: #f0faf4;
+  color: #1a6e42;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 100px;
+  border: 1px solid #b7e4ca;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* lender rows */
+.lender-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border-radius: 10px;
+  margin-bottom: 6px;
+  background: #f8fafc;
+}
+
+.lender-row.best-row {
+  background: #f0faf4;
+  border: 1.5px solid #b7e4ca;
+}
+
+.lender-row:last-child { margin-bottom: 0; }
+
+.l-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: 700;
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+}
+
+.l-icon.ptsb { background: #dbeafe; color: #1e40af; }
+.l-icon.apm  { background: #fef3c7; color: #92400e; }
+.l-icon.boi  { background: #d1fae5; color: #065f46; }
+.l-icon.aib  { background: #fee2e2; color: #991b1b; }
+
+.l-info { flex: 1; min-width: 0; }
+
+.l-name {
+  font-size: 11px;
+  font-weight: 600;
+  color: #0d1b2a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.l-type { font-size: 9px; color: #718096; margin-top: 1px; }
+
+.l-bar-wrap {
+  width: 60px;
+  height: 4px;
+  background: #e2e8f0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.l-bar { height: 100%; border-radius: 4px; }
+
+.l-right { text-align: right; flex-shrink: 0; }
+
+.l-apr {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.l-apr.green { color: #1a6e42; }
+.l-apr.mid   { color: #2d6a9f; }
+.l-apr.red   { color: #c53030; }
+
+.l-cost { font-size: 9px; color: #718096; margin-top: 2px; }
+
+.l-pill {
+  font-size: 8px;
+  font-weight: 700;
+  background: #1a6e42;
+  color: white;
+  padding: 2px 7px;
+  border-radius: 100px;
+  margin-top: 3px;
+  display: inline-block;
+}
+
+/* summary strip */
+.summary-strip {
+  background: #0f4a2a;
+  border-radius: 10px;
+  padding: 10px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.ss-label { font-size: 10px; color: rgba(255,255,255,0.6); font-weight: 500; }
+.ss-value { font-size: 16px; font-weight: 800; color: #4ade80; }
+
+/* floating mini card — top right */
+.mini-card {
+  position: absolute;
+  top: 2.5rem;
+  right: 1.5rem;
+  background: white;
+  border-radius: 12px;
+  padding: 12px 14px;
+  width: 160px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+  z-index: 3;
+  transform: rotate(2deg);
+}
+
+.mini-label { font-size: 9px; color: #718096; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+.mini-stat { font-size: 18px; font-weight: 800; color: #1a6e42; line-height: 1; }
+.mini-sub { font-size: 9px; color: #718096; margin-top: 3px; }
+
+/* floating mini card — bottom left */
+.mini-card-2 {
+  position: absolute;
+  bottom: 3rem;
+  left: 1rem;
+  background: white;
+  border-radius: 12px;
+  padding: 11px 13px;
+  width: 150px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+  z-index: 3;
+  transform: rotate(-1.5deg);
+}
+
+/* ── EMAIL SECTION ── */
+.email-section {
+  background: #f8fafc;
+  border-top: 1px solid #eef0f3;
+  padding: 1.5rem 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.email-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #0d1b2a;
+}
+
+.email-sublabel {
+  font-size: 0.8rem;
+  color: #718096;
+  margin-top: 2px;
+}
+
+.email-form {
+  display: flex;
+  gap: 0;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 100px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  flex: 1;
+  max-width: 420px;
+}
+
+.email-form input[type="email"] {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 0.75rem 1.25rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.88rem;
+  color: #0d1b2a;
+  background: transparent;
+  min-width: 0;
+}
+
+.email-form input::placeholder { color: #a0aec0; }
+
+.email-form button {
+  background: #1a6e42;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.4rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  border-radius: 0 100px 100px 0;
+  transition: background 0.2s;
+}
+
+.email-form button:hover { background: #155c37; }
+
+/* success */
+.success-inline {
+  display: none;
+  background: #f0faf4;
+  border: 1px solid #b7e4ca;
+  border-radius: 100px;
+  padding: 0.75rem 1.4rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #1a6e42;
+  flex: 1;
+  max-width: 420px;
+}
+
+/* ── LOGOS BAR ── */
+.logos-bar {
+  padding: 2.5rem 6%;
+  border-top: 1px solid #eef0f3;
+  border-bottom: 1px solid #eef0f3;
+}
+
+.logos-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #a0aec0;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.logos-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.lender-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #f8fafc;
+  border: 1px solid #eef0f3;
+  border-radius: 100px;
+  padding: 0.45rem 1rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #4a5568;
+}
+
+.lender-pill-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── FEATURES ── */
+.features {
+  padding: 5rem 6%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.features-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #1a6e42;
+  margin-bottom: 0.75rem;
+}
+
+.features h2 {
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #0d1b2a;
+  margin-bottom: 0.75rem;
+  line-height: 1.15;
+}
+
+.features-sub {
+  font-size: 1rem;
+  color: #4a5568;
+  max-width: 500px;
+  line-height: 1.65;
+  margin-bottom: 3rem;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.feat-card {
+  border: 1px solid #eef0f3;
+  border-radius: 16px;
+  padding: 1.75rem;
+  transition: border-color 0.2s, transform 0.2s;
+  background: white;
+}
+
+.feat-card:hover {
+  border-color: #b7e4ca;
+  transform: translateY(-3px);
+}
+
+.feat-num {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #a0aec0;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.feat-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: #f0faf4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.feat-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0d1b2a;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.feat-card p {
+  font-size: 0.86rem;
+  color: #4a5568;
+  line-height: 1.65;
+}
+
+/* ── STATS ── */
+.stats-section {
+  background: #0f4a2a;
+  padding: 5rem 6%;
+  position: relative;
+  overflow: hidden;
+}
+
+.stats-section::before {
+  content: '';
+  position: absolute;
+  top: -100px; right: -100px;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+}
+
+.stats-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.stats-left .features-eyebrow { color: #4ade80; }
+.stats-left h2 { color: white; margin-bottom: 1rem; }
+.stats-left p { color: rgba(255,255,255,0.65); font-size: 0.95rem; line-height: 1.7; }
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.stat-box {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 14px;
+  padding: 1.5rem;
+}
+
+.stat-num {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #4ade80;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+
+.stat-lbl {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.4;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: #0d1b2a;
+  padding: 2rem 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer-logo { font-size: 1rem; font-weight: 800; color: rgba(255,255,255,0.7); }
+.footer-logo span { color: #4ade80; }
+
+.footer-note {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.35);
+  max-width: 520px;
+  line-height: 1.5;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; min-height: auto; }
+  .hero-right { min-height: 500px; padding: 2.5rem 1.5rem; }
+  .mini-card { display: none; }
+  .mini-card-2 { display: none; }
+  .hero-left { padding: 3.5rem 5%; }
+  .features-grid { grid-template-columns: 1fr; }
+  .stats-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .email-section { flex-direction: column; align-items: flex-start; }
+  .email-form { max-width: 100%; width: 100%; }
+  .success-inline { max-width: 100%; }
+  .logos-row { gap: 1rem; }
+  nav .nav-links { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Borrow<span>Clever</span></div>
+  <ul class="nav-links">
+    <li><a href="#features">How it works</a></li>
+    <li><a href="#lenders">Lenders</a></li>
+    <li><a href="#signup" class="nav-cta">Join waitlist</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+
+  <!-- LEFT -->
+  <div class="hero-left">
+    <span class="eyebrow">Ireland's independent comparison</span>
+    <h1>Stop overpaying on your loan.</h1>
+    <p class="hero-sub">BorrowClever compares personal loans and credit cards from every Irish lender — banks, fintechs, and credit unions. We rank by total cost of credit, not monthly repayment. No bias. No hidden rankings.</p>
+
+    <div class="btn-group">
+      <a href="#signup" class="btn-primary">Join the waitlist</a>
+      <a href="#features" class="btn-secondary">See how it works</a>
+    </div>
+
+    <div class="trust-row">
+      <div class="trust-item"><div class="trust-dot"></div> Includes credit unions</div>
+      <div class="trust-item"><div class="trust-dot"></div> Rates verified fortnightly</div>
+      <div class="trust-item"><div class="trust-dot"></div> 100% independent</div>
+    </div>
+  </div>
+
+  <!-- RIGHT — dark panel with floating cards -->
+  <div class="hero-right">
+
+    <!-- floating top-right mini card -->
+    <div class="mini-card">
+      <div class="mini-label">You could save</div>
+      <div class="mini-stat">€770</div>
+      <div class="mini-sub">on a €10k loan vs AIB</div>
+    </div>
+
+    <!-- floating bottom-left mini card -->
+    <div class="mini-card-2">
+      <div class="mini-label">Lenders compared</div>
+      <div class="mini-stat" style="color:#0f4a2a;font-size:20px;font-weight:800;">14</div>
+      <div class="mini-sub">banks + credit unions</div>
+    </div>
+
+    <!-- MAIN comparison card -->
+    <div class="card-stack">
+      <div class="main-card">
+        <div class="mc-header">
+          <div>
+            <div class="mc-title">Personal loans — €10,000 over 5 years</div>
+            <div class="mc-sub">Ranked by total cost of credit · April 2026</div>
+          </div>
+          <div class="mc-badge">Live rates</div>
+        </div>
+
+        <!-- PTSB -->
+        <div class="lender-row best-row">
+          <div class="l-icon ptsb">PTSB</div>
+          <div class="l-info">
+            <div class="l-name">PTSB Personal Loan</div>
+            <div class="l-type">Variable · No conditions</div>
+            <div class="l-bar-wrap"><div class="l-bar" style="width:30%;background:#1a6e42;"></div></div>
+          </div>
+          <div class="l-right">
+            <div class="l-apr green">6.20%</div>
+            <div class="l-cost">€1,602 total interest</div>
+            <div class="l-pill">Cheapest</div>
+          </div>
+        </div>
+
+        <!-- An Post -->
+        <div class="lender-row">
+          <div class="l-icon apm">APM</div>
+          <div class="l-info">
+            <div class="l-name">An Post Money</div>
+            <div class="l-type">Fixed · No early repayment fee</div>
+            <div class="l-bar-wrap"><div class="l-bar" style="width:42%;background:#93c5fd;"></div></div>
+          </div>
+          <div class="l-right">
+            <div class="l-apr mid">6.90%</div>
+            <div class="l-cost">€1,795 total interest</div>
+          </div>
+        </div>
+
+        <!-- BOI -->
+        <div class="lender-row">
+          <div class="l-icon boi">BOI</div>
+          <div class="l-info">
+            <div class="l-name">Bank of Ireland</div>
+            <div class="l-type">Variable · Defer 3 payments</div>
+            <div class="l-bar-wrap"><div class="l-bar" style="width:52%;background:#93c5fd;"></div></div>
+          </div>
+          <div class="l-right">
+            <div class="l-apr mid">7.10%</div>
+            <div class="l-cost">€1,851 total interest</div>
+          </div>
+        </div>
+
+        <!-- AIB -->
+        <div class="lender-row">
+          <div class="l-icon aib">AIB</div>
+          <div class="l-info">
+            <div class="l-name">AIB Personal Loan</div>
+            <div class="l-type">Variable · 3-hour decision</div>
+            <div class="l-bar-wrap"><div class="l-bar" style="width:100%;background:#fca5a5;"></div></div>
+          </div>
+          <div class="l-right">
+            <div class="l-apr red">8.95%</div>
+            <div class="l-cost">€2,372 total interest</div>
+          </div>
+        </div>
+
+        <div class="summary-strip">
+          <div>
+            <div class="ss-label">Switch AIB → PTSB and save</div>
+          </div>
+          <div class="ss-value">€770</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EMAIL SIGNUP BAR -->
+<div class="email-section" id="signup">
+  <div>
+    <div class="email-label">Be first to know when we launch</div>
+    <div class="email-sublabel">We'll send you Ireland's best loan rates as a thank you.</div>
+  </div>
+  <div class="email-form" id="email-form-wrap">
+    <input type="email" placeholder="your@email.com" id="email-input" />
+    <button onclick="handleSignup()">Notify me at launch</button>
+  </div>
+  <div class="success-inline" id="success-msg">
+    ✓ You're on the list — we'll be in touch at launch.
+  </div>
+</div>
+
+<!-- LENDERS BAR -->
+<div class="logos-bar" id="lenders">
+  <div class="logos-label">Lenders we compare</div>
+  <div class="logos-row">
+    <div class="lender-pill"><div class="lender-pill-dot" style="background:#1e40af;"></div>PTSB</div>
+    <div class="lender-pill"><div class="lender-pill-dot" style="background:#92400e;"></div>An Post Money</div>
+    <div class="lender-pill"><div class="lender-pill-dot" style="background:#065f46;"></div>Bank of Ireland</div>
+    <div class="lender-pill"><div class="lender-pill-dot" style="background:#991b1b;"></div>AIB</div>
+    <div class="lender-pill"><div class="lender-pill-dot" style="background:#5b21b6;"></div>Avant Money</div>
+    <div class="lender-pill"><div class="lender-pill-dot" style="background:#1d4ed8;"></div>Revolut</div>
+    <div class="lender-pill"><div class="lender-pill-dot" style="background:#1a6e42;"></div>Credit Unions</div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="features-eyebrow">Why BorrowClever</div>
+  <h2>Built to show you what<br>other sites hide</h2>
+  <p class="features-sub">Most Irish comparison tools are broker-led, exclude credit unions, and rank by monthly repayment — not what borrowing actually costs you.</p>
+
+  <div class="features-grid">
+    <div class="feat-card">
+      <div class="feat-num">01</div>
+      <div class="feat-icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#1a6e42" stroke-width="1.5"><path d="M3 10h14M3 6h14M3 14h7"/></svg>
+      </div>
+      <h3>Total cost — always first</h3>
+      <p>Banks advertise low monthly repayments. We show you the total interest you'll pay across the full loan term — the only number that matters.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-num">02</div>
+      <div class="feat-icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#1a6e42" stroke-width="1.5"><circle cx="10" cy="10" r="7"/><path d="M10 7v3l2 2"/></svg>
+      </div>
+      <h3>Credit unions included</h3>
+      <p>Bonkers and Switcher compare banks only. We include credit union rates — which are often better for car loans and home improvements.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-num">03</div>
+      <div class="feat-icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#1a6e42" stroke-width="1.5"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138"/></svg>
+      </div>
+      <h3>No hidden rankings</h3>
+      <p>Our default sort is always total cost, lowest first. Commission agreements with lenders never influence where a result appears in the list.</p>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-section">
+  <div class="stats-inner">
+    <div class="stats-left">
+      <div class="features-eyebrow">The problem we're solving</div>
+      <h2>Irish borrowers are overpaying</h2>
+      <p>The ESRI found that Irish consumers routinely make bad loan decisions by focusing on monthly repayments. Banks design their marketing around this tendency. Meanwhile, over three million credit union members are invisible to every major comparison site.</p>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="stat-num">€2,100</div>
+        <div class="stat-lbl">Extra interest paid by choosing the wrong lender on a €30k loan</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">3M+</div>
+        <div class="stat-lbl">Irish credit union members excluded from existing comparison tools</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">3%</div>
+        <div class="stat-lbl">Lowest personal loan APR in Ireland — most people don't know it exists</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">14</div>
+        <div class="stat-lbl">Lenders compared — banks, fintechs and credit unions</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Borrow<span>Clever</span></div>
+  <div class="footer-note">BorrowClever is an independent financial comparison service. Rates sourced from lender websites and CCPC.ie. Always verify with the lender before applying. This is not financial advice. © 2026 BorrowClever Ireland Limited.</div>
+</footer>
+
+<script>
+function handleSignup() {
+  const email = document.getElementById('email-input').value.trim();
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!email || !regex.test(email)) {
+    document.getElementById('email-input').focus();
+    document.getElementById('email-input').style.outline = '2px solid #e53e3e';
+    return;
+  }
+  document.getElementById('email-form-wrap').style.display = 'none';
+  document.getElementById('success-msg').style.display = 'block';
+  console.log('Signup:', email);
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && document.activeElement.id === 'email-input') handleSignup();
+});
+</script>
+
+</body>
+</html>
