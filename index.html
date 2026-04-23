@@ -887,6 +887,102 @@ footer {
 .csb-label { font-size: 0.88rem; color: rgba(255,255,255,0.7); }
 .csb-value { font-size: 1.5rem; font-weight: 800; color: #4ade80; white-space: nowrap; }
 
+/* ── MAILERLITE FORM OVERRIDES ── */
+.ml-embedded { width: 100%; }
+
+/* strip the ML wrapper chrome */
+.ml-form-embedWrapper {
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  max-width: 420px !important;
+}
+
+/* pill container — mirrors .email-form */
+.ml-form-embedBody.ml-form-embedBodyDefault.row-form {
+  background: white !important;
+  border: 1.5px solid #e2e8f0 !important;
+  border-radius: 100px !important;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06) !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+}
+
+/* make the form itself a flex row */
+.ml-form-embedBody.ml-form-embedBodyDefault.row-form .ml-block-form {
+  display: flex !important;
+  align-items: stretch !important;
+  gap: 0 !important;
+  margin: 0 !important;
+}
+
+/* input wrapper stretches to fill */
+.ml-form-embedBody.ml-form-embedBodyDefault.row-form .ml-form-fieldRow {
+  flex: 1 !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.ml-form-embedBody.ml-form-embedBodyDefault.row-form .ml-field-group {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* email input */
+.ml-form-embedBody.ml-form-embedBodyDefault.row-form input[type="email"] {
+  width: 100% !important;
+  border: none !important;
+  outline: none !important;
+  padding: 0.75rem 1.25rem !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 0.88rem !important;
+  color: #0d1b2a !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  height: auto !important;
+}
+
+.ml-form-embedBody.ml-form-embedBodyDefault.row-form input[type="email"]::placeholder {
+  color: #a0aec0 !important;
+}
+
+/* submit button wrapper */
+.ml-form-embedBody.ml-form-embedBodyDefault.row-form .ml-form-embedSubmit {
+  margin: 0 !important;
+  padding: 0 !important;
+  flex-shrink: 0 !important;
+}
+
+/* submit button */
+.ml-form-embedBody.ml-form-embedBodyDefault.row-form .ml-form-embedSubmit button {
+  background: #1a6e42 !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 0 100px 100px 0 !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 0.85rem !important;
+  font-weight: 700 !important;
+  padding: 0.75rem 1.4rem !important;
+  cursor: pointer !important;
+  transition: background 0.2s !important;
+  white-space: nowrap !important;
+  height: 100% !important;
+}
+
+.ml-form-embedBody.ml-form-embedBodyDefault.row-form .ml-form-embedSubmit button:hover {
+  background: #155c37 !important;
+}
+
+/* hide any extra ML chrome (recaptcha note, etc.) */
+.ml-form-embedBody.ml-form-embedBodyDefault.row-form .ml-form-recaptcha,
+.ml-form-embedBody.ml-form-embedBodyDefault.row-form .ml-form-checkboxRow {
+  display: none !important;
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
   .hero { grid-template-columns: 1fr; min-height: auto; }
@@ -1041,13 +1137,7 @@ footer {
     <div class="email-label">Be first to know when we launch</div>
     <div class="email-sublabel">We'll send you Ireland's best loan rates as a thank you.</div>
   </div>
-  <div class="email-form" id="email-form-wrap">
-    <input type="email" placeholder="your@email.com" id="email-input" />
-    <button onclick="handleSignup()">Notify me at launch</button>
-  </div>
-  <div class="success-inline" id="success-msg">
-    ✓ You're on the list — we'll be in touch at launch.
-  </div>
+  <div class="ml-embedded" data-form="cRWsOH"></div>
 </div>
 
 <!-- LENDERS BAR -->
@@ -1171,18 +1261,6 @@ footer {
 </footer>
 
 <script>
-function handleSignup() {
-  const email = document.getElementById('email-input').value.trim();
-  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!email || !regex.test(email)) {
-    document.getElementById('email-input').focus();
-    document.getElementById('email-input').style.outline = '2px solid #e53e3e';
-    return;
-  }
-  document.getElementById('email-form-wrap').style.display = 'none';
-  document.getElementById('success-msg').style.display = 'block';
-  console.log('Signup:', email);
-}
 
 // ── LOAN CALCULATOR ──
 const LENDERS = [
@@ -1258,10 +1336,17 @@ document.querySelectorAll('.term-btn').forEach(btn => {
 });
 updateCalc();
 
-document.addEventListener('keydown', e => {
-  if (e.key === 'Enter' && document.activeElement.id === 'email-input') handleSignup();
-});
 </script>
+
+<!-- MailerLite Universal -->
+<script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '2289382');
+</script>
+<!-- End MailerLite Universal -->
 
 </body>
 </html>
