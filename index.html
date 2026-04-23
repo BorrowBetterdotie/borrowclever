@@ -888,98 +888,110 @@ footer {
 .csb-value { font-size: 1.5rem; font-weight: 800; color: #4ade80; white-space: nowrap; }
 
 /* ── MAILERLITE FORM OVERRIDES ── */
-.ml-embedded { width: 100%; }
 
-/* strip the ML wrapper chrome */
-.ml-form-embedWrapper {
+/* scope everything to .ml-embedded so we don't fight ML's global sheet */
+.ml-embedded,
+.ml-embedded * {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  box-sizing: border-box !important;
+}
+
+/* strip wrapper chrome at every nesting level ML uses */
+.ml-embedded .ml-form-embedWrapper,
+.ml-embedded .ml-form-align-center,
+.ml-embedded .ml-form-embedBody {
   background: transparent !important;
   box-shadow: none !important;
   border-radius: 0 !important;
   padding: 0 !important;
+  margin: 0 !important;
   width: 100% !important;
   max-width: 420px !important;
 }
 
-/* pill container — mirrors .email-form */
-.ml-form-embedBody.ml-form-embedBodyDefault.row-form {
+/* pill shell — wraps input + button */
+.ml-embedded .ml-block-form {
+  display: flex !important;
+  align-items: stretch !important;
+  gap: 0 !important;
+  margin: 0 !important;
   background: white !important;
   border: 1.5px solid #e2e8f0 !important;
   border-radius: 100px !important;
   box-shadow: 0 2px 12px rgba(0,0,0,0.06) !important;
   overflow: hidden !important;
-  padding: 0 !important;
 }
 
-/* make the form itself a flex row */
-.ml-form-embedBody.ml-form-embedBodyDefault.row-form .ml-block-form {
-  display: flex !important;
-  align-items: stretch !important;
-  gap: 0 !important;
-  margin: 0 !important;
-}
-
-/* input wrapper stretches to fill */
-.ml-form-embedBody.ml-form-embedBodyDefault.row-form .ml-form-fieldRow {
+/* field row fills remaining width */
+.ml-embedded .ml-form-fieldRow {
   flex: 1 !important;
   min-width: 0 !important;
   margin: 0 !important;
   padding: 0 !important;
 }
 
-.ml-form-embedBody.ml-form-embedBodyDefault.row-form .ml-field-group {
+.ml-embedded .ml-field-group {
   margin: 0 !important;
   padding: 0 !important;
+  height: 100% !important;
 }
 
 /* email input */
-.ml-form-embedBody.ml-form-embedBodyDefault.row-form input[type="email"] {
+.ml-embedded input[type="email"],
+.ml-embedded input[type="email"].form-control {
   width: 100% !important;
+  height: 100% !important;
   border: none !important;
   outline: none !important;
-  padding: 0.75rem 1.25rem !important;
-  font-family: 'Plus Jakarta Sans', sans-serif !important;
-  font-size: 0.88rem !important;
-  color: #0d1b2a !important;
+  box-shadow: none !important;
   background: transparent !important;
   border-radius: 0 !important;
-  box-shadow: none !important;
-  height: auto !important;
+  padding: 0.75rem 1.25rem !important;
+  font-size: 0.88rem !important;
+  font-weight: 400 !important;
+  color: #0d1b2a !important;
 }
 
-.ml-form-embedBody.ml-form-embedBodyDefault.row-form input[type="email"]::placeholder {
+.ml-embedded input[type="email"]::placeholder,
+.ml-embedded input[type="email"].form-control::placeholder {
   color: #a0aec0 !important;
 }
 
-/* submit button wrapper */
-.ml-form-embedBody.ml-form-embedBodyDefault.row-form .ml-form-embedSubmit {
+/* submit wrapper — no extra padding */
+.ml-embedded .ml-form-embedSubmit {
   margin: 0 !important;
   padding: 0 !important;
   flex-shrink: 0 !important;
+  display: flex !important;
+  align-items: stretch !important;
 }
 
 /* submit button */
-.ml-form-embedBody.ml-form-embedBodyDefault.row-form .ml-form-embedSubmit button {
+.ml-embedded .ml-form-embedSubmit button[type="submit"],
+.ml-embedded .ml-form-embedSubmit button.primary {
   background: #1a6e42 !important;
   color: white !important;
   border: none !important;
   border-radius: 0 100px 100px 0 !important;
-  font-family: 'Plus Jakarta Sans', sans-serif !important;
   font-size: 0.85rem !important;
   font-weight: 700 !important;
   padding: 0.75rem 1.4rem !important;
   cursor: pointer !important;
   transition: background 0.2s !important;
   white-space: nowrap !important;
-  height: 100% !important;
+  line-height: 1 !important;
 }
 
-.ml-form-embedBody.ml-form-embedBodyDefault.row-form .ml-form-embedSubmit button:hover {
+.ml-embedded .ml-form-embedSubmit button[type="submit"]:hover,
+.ml-embedded .ml-form-embedSubmit button.primary:hover {
   background: #155c37 !important;
 }
 
-/* hide any extra ML chrome (recaptcha note, etc.) */
-.ml-form-embedBody.ml-form-embedBodyDefault.row-form .ml-form-recaptcha,
-.ml-form-embedBody.ml-form-embedBodyDefault.row-form .ml-form-checkboxRow {
+/* hide ML chrome we don't want */
+.ml-embedded .ml-form-recaptcha,
+.ml-embedded .ml-form-checkboxRow,
+.ml-embedded .ml-form-embedPermissions,
+.ml-embedded .ml-form-interestGroupsRow {
   display: none !important;
 }
 
@@ -1008,6 +1020,7 @@ footer {
 <nav>
   <div class="nav-logo">Borrow<span>Clever</span></div>
   <ul class="nav-links">
+    <li><a href="loans.html">Compare loans</a></li>
     <li><a href="#features">How it works</a></li>
     <li><a href="#lenders">Lenders</a></li>
     <li><a href="#signup" class="nav-cta">Join waitlist</a></li>
@@ -1265,10 +1278,10 @@ footer {
 // ── LOAN CALCULATOR ──
 const LENDERS = [
   { name: 'PTSB Personal Loan',  type: 'Variable · No conditions',       apr: 6.20, icon: 'PTSB', cls: 'ptsb' },
-  { name: 'Avant Money',         type: 'Fixed · No early repayment fee', apr: 6.50, icon: 'AVT',  cls: 'avt'  },
   { name: 'An Post Money',       type: 'Fixed · No early repayment fee', apr: 6.90, icon: 'APM',  cls: 'apm'  },
-  { name: 'Revolut',             type: 'Fixed · Instant approval',       apr: 6.99, icon: 'REV',  cls: 'rev'  },
   { name: 'Bank of Ireland',     type: 'Variable · Defer 3 payments',    apr: 7.10, icon: 'BOI',  cls: 'boi'  },
+  { name: 'Avant Money',         type: 'Fixed · Under €30k',             apr: 8.50, icon: 'AVT',  cls: 'avt'  },
+  { name: 'Revolut',             type: 'Variable · Avg rate',            apr: 8.41, icon: 'REV',  cls: 'rev'  },
   { name: 'AIB Personal Loan',   type: 'Variable · 3-hour decision',     apr: 8.95, icon: 'AIB',  cls: 'aib'  },
 ];
 
@@ -1347,6 +1360,103 @@ updateCalc();
     ml('account', '2289382');
 </script>
 <!-- End MailerLite Universal -->
+
+<script>
+(function () {
+  function set(el, prop, val) {
+    el.style.setProperty(prop, val, 'important');
+  }
+
+  function styleMLForm() {
+    var container = document.querySelector('.ml-form-embedContainer');
+    if (!container) return;
+
+    // strip wrapper chrome
+    container.querySelectorAll('.ml-form-align-center, .ml-form-embedWrapper, .ml-form-embedBody').forEach(function (el) {
+      set(el, 'background', 'transparent');
+      set(el, 'box-shadow', 'none');
+      set(el, 'border-radius', '0');
+      set(el, 'padding', '0');
+      set(el, 'margin', '0');
+      set(el, 'width', '100%');
+      set(el, 'max-width', '100%');
+    });
+
+    // pill shell on form
+    var form = container.querySelector('form.ml-block-form');
+    if (form) {
+      set(form, 'display', 'flex');
+      set(form, 'align-items', 'stretch');
+      set(form, 'width', '100%');
+      set(form, 'margin', '0');
+      set(form, 'padding', '0');
+      set(form, 'background', 'white');
+      set(form, 'border', '1.5px solid #e2e8f0');
+      set(form, 'border-radius', '100px');
+      set(form, 'box-shadow', '0 2px 12px rgba(0,0,0,0.06)');
+      set(form, 'overflow', 'hidden');
+    }
+
+    // field row
+    var fieldRow = container.querySelector('.ml-form-fieldRow');
+    if (fieldRow) { set(fieldRow, 'flex', '1'); set(fieldRow, 'min-width', '0'); set(fieldRow, 'margin', '0'); set(fieldRow, 'padding', '0'); }
+
+    var fieldGroup = container.querySelector('.ml-field-group');
+    if (fieldGroup) { set(fieldGroup, 'display', 'block'); set(fieldGroup, 'width', '100%'); set(fieldGroup, 'height', '100%'); set(fieldGroup, 'margin', '0'); set(fieldGroup, 'padding', '0'); }
+
+    // input
+    var input = container.querySelector('input[type="email"]');
+    if (input) {
+      set(input, 'display', 'block');
+      set(input, 'width', '100%');
+      set(input, 'height', '100%');
+      set(input, 'text-align', 'center');
+      set(input, 'border', 'none');
+      set(input, 'outline', 'none');
+      set(input, 'box-shadow', 'none');
+      set(input, 'background', 'transparent');
+      set(input, 'border-radius', '0');
+      set(input, 'padding', '0.75rem 1.25rem');
+      set(input, 'font-size', '0.88rem');
+      set(input, 'font-family', "'Plus Jakarta Sans', sans-serif");
+      set(input, 'color', '#0d1b2a');
+    }
+
+    // submit wrapper
+    var submitWrap = container.querySelector('.ml-form-embedSubmit');
+    if (submitWrap) { set(submitWrap, 'margin', '0'); set(submitWrap, 'padding', '0'); set(submitWrap, 'flex-shrink', '0'); set(submitWrap, 'flex-grow', '0'); set(submitWrap, 'width', 'auto'); set(submitWrap, 'display', 'flex'); set(submitWrap, 'align-items', 'stretch'); }
+
+    // button
+    var btn = container.querySelector('button[type="submit"]');
+    if (btn) {
+      set(btn, 'background', '#1a6e42');
+      set(btn, 'color', 'white');
+      set(btn, 'border', 'none');
+      set(btn, 'border-radius', '0 100px 100px 0');
+      set(btn, 'font-size', '0.85rem');
+      set(btn, 'font-weight', '700');
+      set(btn, 'padding', '0.75rem 1.4rem');
+      set(btn, 'width', 'auto');
+      set(btn, 'cursor', 'pointer');
+      set(btn, 'white-space', 'nowrap');
+      set(btn, 'font-family', "'Plus Jakarta Sans', sans-serif");
+      set(btn, 'line-height', '1');
+      btn.onmouseenter = function () { set(btn, 'background', '#155c37'); };
+      btn.onmouseleave = function () { set(btn, 'background', '#1a6e42'); };
+    }
+  }
+
+  var observer = new MutationObserver(function () {
+    if (document.querySelector('.ml-form-embedContainer form.ml-block-form')) {
+      observer.disconnect();
+      // run immediately and again after ML finishes its own init
+      styleMLForm();
+      setTimeout(styleMLForm, 300);
+    }
+  });
+  observer.observe(document.body, { childList: true, subtree: true });
+})();
+</script>
 
 </body>
 </html>

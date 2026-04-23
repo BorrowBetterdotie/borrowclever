@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personal Loan Comparison Ireland 2026 — BorrowClever</title>
+<meta name="description" content="Compare personal loan rates from every Irish lender — banks, fintechs and credit unions. Ranked by total cost of credit on €10,000 over 5 years. Verified April 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Plus Jakarta Sans', sans-serif; background: #ffffff; color: #0d1b2a; overflow-x: hidden; }
+
+/* ── NAV ── */
+nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 5%; height: 68px; border-bottom: 1px solid #eef0f3;
+  position: sticky; top: 0; background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(8px); z-index: 100;
+}
+.nav-logo { font-size: 1.25rem; font-weight: 800; color: #0d1b2a; letter-spacing: -0.03em; text-decoration: none; }
+.nav-logo span { color: #1a6e42; }
+.nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+.nav-links a { font-size: 0.88rem; font-weight: 500; color: #4a5568; text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover { color: #0d1b2a; }
+.nav-links a.active { color: #1a6e42; font-weight: 700; }
+.nav-cta { background: #1a6e42; color: white !important; padding: 0.55rem 1.3rem; border-radius: 100px; font-size: 0.85rem !important; font-weight: 600 !important; transition: background 0.2s !important; }
+.nav-cta:hover { background: #155c37 !important; }
+
+/* ── PAGE HEADER ── */
+.page-header {
+  background: #0f4a2a; padding: 4.5rem 6%;
+  position: relative; overflow: hidden;
+}
+.page-header::before {
+  content: ''; position: absolute; top: -100px; right: -100px;
+  width: 420px; height: 420px; border-radius: 50%; background: rgba(255,255,255,0.04);
+}
+.page-header::after {
+  content: ''; position: absolute; bottom: -60px; left: -60px;
+  width: 260px; height: 260px; border-radius: 50%; background: rgba(255,255,255,0.03);
+}
+.page-header-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+.eyebrow { display: inline-block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #4ade80; margin-bottom: 1rem; }
+.page-header h1 { font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 800; color: white; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 1rem; }
+.page-header-sub { font-size: 1rem; color: rgba(255,255,255,0.7); max-width: 580px; line-height: 1.7; margin-bottom: 2.5rem; }
+.header-stats { display: flex; gap: 3rem; flex-wrap: wrap; }
+.header-stat-val { font-size: 2rem; font-weight: 800; color: #4ade80; letter-spacing: -0.04em; line-height: 1; }
+.header-stat-lbl { font-size: 0.78rem; color: rgba(255,255,255,0.5); margin-top: 0.4rem; max-width: 160px; line-height: 1.4; }
+
+/* ── COMPARE SECTION ── */
+.compare-section { padding: 3.5rem 6% 2rem; }
+.compare-inner { max-width: 1180px; margin: 0 auto; }
+.section-eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #1a6e42; margin-bottom: 0.5rem; }
+.section-title { font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 800; color: #0d1b2a; letter-spacing: -0.03em; margin-bottom: 0.5rem; }
+.section-sub { font-size: 0.9rem; color: #4a5568; margin-bottom: 2rem; line-height: 1.65; }
+
+/* ── TABLE ── */
+.table-wrap { overflow-x: auto; border-radius: 16px; border: 1px solid #eef0f3; box-shadow: 0 4px 24px rgba(0,0,0,0.05); }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.875rem; min-width: 780px; }
+
+thead th {
+  background: #f8fafc; padding: 0.85rem 1rem; text-align: left;
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.07em;
+  text-transform: uppercase; color: #a0aec0; border-bottom: 1px solid #eef0f3;
+  white-space: nowrap;
+}
+thead th:first-child { padding-left: 1.5rem; }
+thead th:last-child { padding-right: 1.5rem; }
+
+tbody tr { border-bottom: 1px solid #f0f4f8; transition: background 0.12s; }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: #fafcff !important; }
+tbody tr.row-green { background: #f0faf4; }
+tbody tr.row-cu { background: #fafafa; }
+
+td { padding: 1rem 1rem; vertical-align: middle; }
+td:first-child { padding-left: 1.5rem; }
+td:last-child { padding-right: 1.5rem; }
+
+/* section header rows */
+tbody tr.section-row td {
+  background: #f8fafc; font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 0.09em; text-transform: uppercase; color: #a0aec0;
+  padding: 0.6rem 1.5rem; border-bottom: 1px solid #eef0f3; border-top: 1px solid #eef0f3;
+}
+tbody tr.section-row:first-child td { border-top: none; }
+
+/* rank */
+.rank { font-size: 0.78rem; font-weight: 700; color: #cbd5e0; }
+.rank.top { color: #1a6e42; font-size: 0.85rem; }
+
+/* lender cell */
+.lender-cell { display: flex; align-items: center; gap: 0.75rem; min-width: 180px; }
+.l-icon {
+  width: 36px; height: 36px; border-radius: 50%; display: flex;
+  align-items: center; justify-content: center; font-size: 8px;
+  font-weight: 800; flex-shrink: 0; letter-spacing: 0.02em;
+}
+.l-icon.ptsb { background: #dbeafe; color: #1e40af; }
+.l-icon.apm  { background: #fef3c7; color: #92400e; }
+.l-icon.avt  { background: #ede9fe; color: #5b21b6; }
+.l-icon.boi  { background: #d1fae5; color: #065f46; }
+.l-icon.aib  { background: #fee2e2; color: #991b1b; }
+.l-icon.rev  { background: #e0f2fe; color: #0369a1; }
+.l-icon.cu   { background: #ccfbf1; color: #0f766e; }
+.l-name { font-size: 0.88rem; font-weight: 600; color: #0d1b2a; }
+.l-product { font-size: 0.75rem; color: #718096; margin-top: 1px; }
+
+/* APR */
+.apr { font-size: 1rem; font-weight: 800; white-space: nowrap; }
+.apr.green { color: #1a6e42; }
+.apr.mid   { color: #2d6a9f; }
+.apr.red   { color: #c53030; }
+
+/* cost cells */
+.cell-mono { font-weight: 600; color: #0d1b2a; white-space: nowrap; }
+.cell-sub  { font-weight: 400; color: #718096; white-space: nowrap; }
+.cell-total { font-weight: 700; color: #0d1b2a; white-space: nowrap; }
+
+/* badges */
+.badges { display: flex; flex-direction: column; gap: 4px; }
+.badge {
+  display: inline-block; font-size: 0.68rem; font-weight: 700;
+  padding: 2px 8px; border-radius: 100px; white-space: nowrap; width: fit-content;
+}
+.badge-cheapest    { background: #1a6e42; color: white; }
+.badge-best        { background: #1e40af; color: white; }
+.badge-seai        { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+.badge-green-prod  { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+.badge-cu          { background: #ccfbf1; color: #0f766e; border: 1px solid #99f6e4; }
+
+/* notes */
+.note-text { font-size: 0.76rem; color: #718096; line-height: 1.45; max-width: 200px; }
+
+/* ── NOTES SECTION ── */
+.notes-section {
+  background: #f8fafc; border-top: 1px solid #eef0f3;
+  border-bottom: 1px solid #eef0f3; padding: 3rem 6%;
+}
+.notes-inner { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.note-card { background: white; border: 1px solid #eef0f3; border-radius: 14px; padding: 1.5rem; }
+.note-card h4 { font-size: 0.9rem; font-weight: 700; color: #0d1b2a; margin-bottom: 0.6rem; }
+.note-card p { font-size: 0.82rem; color: #4a5568; line-height: 1.65; }
+.note-icon { width: 36px; height: 36px; border-radius: 9px; background: #f0faf4; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+
+/* ── DISCLAIMER ── */
+.disclaimer { padding: 2rem 6%; max-width: 1180px; margin: 0 auto; font-size: 0.74rem; color: #a0aec0; line-height: 1.65; }
+.disclaimer strong { color: #718096; }
+
+/* ── FOOTER ── */
+footer {
+  background: #0d1b2a; padding: 2rem 6%;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1rem;
+}
+.footer-logo { font-size: 1rem; font-weight: 800; color: rgba(255,255,255,0.7); }
+.footer-logo span { color: #4ade80; }
+.footer-note { font-size: 0.72rem; color: rgba(255,255,255,0.35); max-width: 520px; line-height: 1.5; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav .nav-links { display: none; }
+  .notes-inner { grid-template-columns: 1fr; }
+  .header-stats { gap: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Borrow<span>Clever</span></a>
+  <ul class="nav-links">
+    <li><a href="loans.html" class="active">Compare loans</a></li>
+    <li><a href="index.html#calculator">Calculator</a></li>
+    <li><a href="index.html#lenders">Lenders</a></li>
+    <li><a href="index.html#signup" class="nav-cta">Join waitlist</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="eyebrow">Ireland's independent comparison</div>
+    <h1>Personal loan rates compared</h1>
+    <p class="page-header-sub">Every Irish personal loan ranked by total cost of credit on €10,000 over 5 years — banks, fintechs and credit unions. Rates verified April 2026.</p>
+    <div class="header-stats">
+      <div>
+        <div class="header-stat-val">3.00%</div>
+        <div class="header-stat-lbl">Lowest rate available (SEAI green loan)</div>
+      </div>
+      <div>
+        <div class="header-stat-val">€1,967</div>
+        <div class="header-stat-lbl">Max saving vs highest-rate bank on €10k</div>
+      </div>
+      <div>
+        <div class="header-stat-val">14</div>
+        <div class="header-stat-lbl">Lenders compared</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TABLE -->
+<div class="compare-section">
+  <div class="compare-inner">
+    <div class="section-eyebrow">Full comparison · €10,000 over 5 years</div>
+    <h2 class="section-title">All loans ranked by total cost of credit</h2>
+    <p class="section-sub">Sorted by total interest paid on €10,000 borrowed over 60 months, lowest first. Green rows indicate green or energy-upgrade loan products. <strong>Rows 1–2 require an SEAI home energy grant.</strong></p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Lender</th>
+            <th>APR</th>
+            <th>Rate type</th>
+            <th>Monthly</th>
+            <th>Total interest</th>
+            <th>Total repayable</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr class="row-green">
+            <td><span class="rank top">1</span></td>
+            <td>
+              <div class="lender-cell">
+                <div class="l-icon boi">BOI</div>
+                <div><div class="l-name">Bank of Ireland</div><div class="l-product">SBCI Home Energy Upgrade</div></div>
+              </div>
+            </td>
+            <td><span class="apr green">3.00%</span></td>
+            <td><span class="cell-sub">Variable</span></td>
+            <td><span class="cell-mono">€179.69</span></td>
+            <td><span class="cell-sub">€781.40</span></td>
+            <td><span class="cell-total">€10,781.40</span></td>
+            <td>
+              <div class="badges">
+                <span class="badge badge-cheapest">Cheapest overall</span>
+                <span class="badge badge-seai">SEAI grant required</span>
+              </div>
+              <div class="note-text" style="margin-top:5px;">75% of loan on qualifying energy works</div>
+            </td>
+          </tr>
+
+          <tr class="row-green">
+            <td><span class="rank">2</span></td>
+            <td>
+              <div class="lender-cell">
+                <div class="l-icon aib">AIB</div>
+                <div><div class="l-name">AIB</div><div class="l-product">SBCI Home Energy Upgrade</div></div>
+              </div>
+            </td>
+            <td><span class="apr green">3.55%</span></td>
+            <td><span class="cell-sub">Variable</span></td>
+            <td><span class="cell-mono">€182.27</span></td>
+            <td><span class="cell-sub">€936.20</span></td>
+            <td><span class="cell-total">€10,936.20</span></td>
+            <td>
+              <div class="badges">
+                <span class="badge badge-seai">SEAI grant required</span>
+              </div>
+              <div class="note-text" style="margin-top:5px;">75% of loan on qualifying energy works</div>
+            </td>
+          </tr>
+
+          <tr>
+            <td><span class="rank">3</span></td>
+            <td>
+              <div class="lender-cell">
+                <div class="l-icon ptsb">PTSB</div>
+                <div><div class="l-name">PTSB</div><div class="l-product">Personal Loan</div></div>
+              </div>
+            </td>
+            <td><span class="apr green">6.20%</span></td>
+            <td><span class="cell-sub">Variable</span></td>
+            <td><span class="cell-mono">€193.37</span></td>
+            <td><span class="cell-sub">€1,602.20</span></td>
+            <td><span class="cell-total">€11,602.20</span></td>
+            <td>
+              <div class="badges"><span class="badge badge-best">Best standard rate</span></div>
+              <div class="note-text" style="margin-top:5px;">Max APR 8.80%. Reduced Sept 2025. €1k–€75k, up to 84 months</div>
+            </td>
+          </tr>
+
+          <tr class="row-green">
+            <td><span class="rank">4</span></td>
+            <td>
+              <div class="lender-cell">
+                <div class="l-icon aib">AIB</div>
+                <div><div class="l-name">AIB</div><div class="l-product">Green Personal Loan</div></div>
+              </div>
+            </td>
+            <td><span class="apr green">6.40%</span></td>
+            <td><span class="cell-sub">Variable</span></td>
+            <td><span class="cell-mono">€194.28</span></td>
+            <td><span class="cell-sub">€1,656.80</span></td>
+            <td><span class="cell-total">€11,656.80</span></td>
+            <td>
+              <div class="badges"><span class="badge badge-green-prod">Green product</span></div>
+              <div class="note-text" style="margin-top:5px;">50%+ of loan must go toward green upgrades</div>
+            </td>
+          </tr>
+
+          <tr class="row-green">
+            <td><span class="rank">5</span></td>
+            <td>
+              <div class="lender-cell">
+                <div class="l-icon boi">BOI</div>
+                <div><div class="l-name">Bank of Ireland</div><div class="l-product">Green Car / Home Improvement</div></div>
+              </div>
+            </td>
+            <td><span class="apr green">6.50%</span></td>
+            <td><span class="cell-sub">Variable</span></td>
+            <td><span class="cell-mono">€194.74</span></td>
+            <td><span class="cell-sub">€1,684.40</span></td>
+            <td><span class="cell-total">€11,684.40</span></td>
+            <td>
+              <div class="badges"><span class="badge badge-green-prod">Green product</span></div>
+              <div class="note-text" style="margin-top:5px;">Electric or plug-in hybrid only / energy efficiency works</div>
+            </td>
+          </tr>
+
+          <tr>
+            <td><span class="rank">6</span></td>
+            <td>
+              <div class="lender-cell">
+                <div class="l-icon avt">AVT</div>
+                <div><div class="l-name">Avant Money</div><div class="l-product">Personal Loan (over €30k)</div></div>
+              </div>
+            </td>
+            <td><span class="apr green">6.70%</span></td>
+            <td><span class="cell-sub">Fixed</span></td>
+            <td><span class="cell-mono">€195.66</span></td>
+            <td><span class="cell-sub">€1,739.60</span></td>
+            <td><span class="cell-total">€11,739.60</span></td>
+            <td><div class="note-text">Best fixed rate for loans over €30k. No early repayment fee. €30k–€75k, up to 120 months</div></td>
+          </tr>
+
+          <tr>
+            <td><span class="rank">7</span></td>
+            <td>
+              <div class="lender-cell">
+                <div class="l-icon apm">APM</div>
+                <div><div class="l-name">An Post Money</div><div class="l-product">Personal Loan</div></div>
+              </div>
+            </td>
+            <td><span class="apr green">6.90%</span></td>
+            <td><span class="cell-sub">Fixed</span></td>
+            <td><span class="cell-mono">€196.58</span></td>
+            <td><span class="cell-sub">€1,794.80</span></td>
+            <td><span class="cell-total">€11,794.80</span></td>
+            <td><div class="note-text">No early repayment fee. €5k–€75k, up to 120 months</div></td>
+          </tr>
+
+          <tr>
+            <td><span class="rank">8</span></td>
+            <td>
+              <div class="lender-cell">
+                <div class="l-icon boi">BOI</div>
+                <div><div class="l-name">Bank of Ireland</div><div class="l-product">Personal Loan</div></div>
+              </div>
+            </td>
+            <td><span class="apr mid">7.10%</span></td>
+            <td><span class="cell-sub">Variable</span></td>
+            <td><span class="cell-mono">€197.51</span></td>
+            <td><span class="cell-sub">€1,850.60</span></td>
+            <td><span class="cell-total">€11,850.60</span></td>
+            <td><div class="note-text">Can defer first 3 payments. €2k–€75k, up to 84 months</div></td>
+          </tr>
+
+          <tr>
+            <td><span class="rank">9</span></td>
+            <td>
+              <div class="lender-cell">
+                <div class="l-icon rev">REV</div>
+                <div><div class="l-name">Revolut</div><div class="l-product">Personal Loan</div></div>
+              </div>
+            </td>
+            <td><span class="apr mid">8.41%</span></td>
+            <td><span class="cell-sub">Variable</span></td>
+            <td><span class="cell-mono">€203.67</span></td>
+            <td><span class="cell-sub">€2,220.20</span></td>
+            <td><span class="cell-total">€12,220.20</span></td>
+            <td><div class="note-text">Average rate shown. Range 6.5–12.99% by credit score. €1k–€50k, up to 60 months</div></td>
+          </tr>
+
+          <tr>
+            <td><span class="rank">10</span></td>
+            <td>
+              <div class="lender-cell">
+                <div class="l-icon avt">AVT</div>
+                <div><div class="l-name">Avant Money</div><div class="l-product">Personal Loan (under €30k)</div></div>
+              </div>
+            </td>
+            <td><span class="apr red">8.50%</span></td>
+            <td><span class="cell-sub">Fixed</span></td>
+            <td><span class="cell-mono">€204.09</span></td>
+            <td><span class="cell-sub">€2,245.40</span></td>
+            <td><span class="cell-total">€12,245.40</span></td>
+            <td><div class="note-text">Max APR 19.9%. €5k–€29,999, up to 84 months</div></td>
+          </tr>
+
+          <tr>
+            <td><span class="rank">11</span></td>
+            <td>
+              <div class="lender-cell">
+                <div class="l-icon aib">AIB</div>
+                <div><div class="l-name">AIB</div><div class="l-product">Home Improvement Loan</div></div>
+              </div>
+            </td>
+            <td><span class="apr red">8.65%</span></td>
+            <td><span class="cell-sub">Variable</span></td>
+            <td><span class="cell-mono">€204.78</span></td>
+            <td><span class="cell-sub">€2,286.80</span></td>
+            <td><span class="cell-total">€12,286.80</span></td>
+            <td><div class="note-text">€1k–€75k, up to 120 months</div></td>
+          </tr>
+
+          <tr class="row-cu">
+            <td><span class="rank">12</span></td>
+            <td>
+              <div class="lender-cell">
+                <div class="l-icon cu">CU</div>
+                <div><div class="l-name">First Choice CU</div><div class="l-product">Personal Loan (€15k–€25k)</div></div>
+              </div>
+            </td>
+            <td><span class="apr red">8.84%</span></td>
+            <td><span class="cell-sub">Variable</span></td>
+            <td><span class="cell-mono">€205.78</span></td>
+            <td><span class="cell-sub">€2,346.80</span></td>
+            <td><span class="cell-total">€12,346.80</span></td>
+            <td><div class="badges"><span class="badge badge-cu">Credit Union</span></div></td>
+          </tr>
+
+          <tr>
+            <td><span class="rank">13</span></td>
+            <td>
+              <div class="lender-cell">
+                <div class="l-icon aib">AIB</div>
+                <div><div class="l-name">AIB</div><div class="l-product">Personal Loan</div></div>
+              </div>
+            </td>
+            <td><span class="apr red">8.95%</span></td>
+            <td><span class="cell-sub">Variable</span></td>
+            <td><span class="cell-mono">€206.20</span></td>
+            <td><span class="cell-sub">€2,372.00</span></td>
+            <td><span class="cell-total">€12,372.00</span></td>
+            <td><div class="note-text">3-hour decision for existing customers. €1k–€75k, up to 60 months</div></td>
+          </tr>
+
+          <tr class="row-cu">
+            <td><span class="rank">14</span></td>
+            <td>
+              <div class="lender-cell">
+                <div class="l-icon cu">CU</div>
+                <div><div class="l-name">Credit Union average</div><div class="l-product">Personal Loan — ILCU affiliated</div></div>
+              </div>
+            </td>
+            <td><span class="apr red">10.42%</span></td>
+            <td><span class="cell-sub">Variable</span></td>
+            <td><span class="cell-mono">€212.47</span></td>
+            <td><span class="cell-sub">€2,748.20</span></td>
+            <td><span class="cell-total">€12,748.20</span></td>
+            <td>
+              <div class="badges"><span class="badge badge-cu">Credit Union</span></div>
+              <div class="note-text" style="margin-top:5px;">ILCU survey avg, Jul/Aug 2025. Max legal rate 12.68% APR</div>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- NOTES -->
+<div class="notes-section">
+  <div class="notes-inner">
+    <div class="note-card">
+      <div class="note-icon">
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#1a6e42" stroke-width="1.6"><path d="M9 12l2 2 4-4"/><path d="M12 2a7 7 0 11-4.88 12.03"/></svg>
+      </div>
+      <h4>Green loan rates (3.00% &amp; 3.55%)</h4>
+      <p>SBCI green loan rates are exclusively available to homeowners with an approved SEAI home energy grant. At least 75% of the loan must be used for SEAI-qualifying energy upgrade works. Apply through Bank of Ireland or AIB after your SEAI grant is confirmed.</p>
+    </div>
+    <div class="note-card">
+      <div class="note-icon">
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#1a6e42" stroke-width="1.6"><circle cx="10" cy="10" r="7"/><path d="M10 6v4l2.5 2.5"/></svg>
+      </div>
+      <h4>Credit union rates</h4>
+      <p>Credit union rates vary significantly by institution, loan amount, and individual member circumstances. The ILCU average is based on a survey of affiliated credit unions conducted in July/August 2025. The maximum legal rate for Irish credit unions is 12.68% APR.</p>
+    </div>
+    <div class="note-card">
+      <div class="note-icon">
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#1a6e42" stroke-width="1.6"><path d="M3 10h14M3 6h14M3 14h7"/></svg>
+      </div>
+      <h4>How costs are calculated</h4>
+      <p>All figures are calculated on €10,000 borrowed over 60 months (5 years) using the standard compound interest formula. Monthly repayments and total interest are rounded to the nearest cent. Results are for comparison purposes only — your actual rate may differ.</p>
+    </div>
+  </div>
+</div>
+
+<!-- DISCLAIMER -->
+<div class="disclaimer">
+  <strong>Rates verified April 2026</strong> from lender websites and CCPC.ie. Always confirm the current rate and full loan terms directly with the lender before applying. Rates are subject to change and individual eligibility. This comparison is for informational purposes only and does not constitute financial advice. BorrowClever Ireland Limited accepts no responsibility for errors or changes in lender rates subsequent to publication.
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Borrow<span>Clever</span></div>
+  <div class="footer-note">BorrowClever is an independent financial comparison service. Rates sourced from lender websites and CCPC.ie. Always verify with the lender before applying. This is not financial advice. © 2026 BorrowClever Ireland Limited.</div>
+</footer>
+
+</body>
+</html>
