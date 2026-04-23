@@ -688,6 +688,205 @@ footer {
   line-height: 1.5;
 }
 
+/* ── CALCULATOR ── */
+.calculator {
+  padding: 5rem 6%;
+  background: #f8fafc;
+  border-top: 1px solid #eef0f3;
+  border-bottom: 1px solid #eef0f3;
+}
+
+.calc-inner {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.calc-controls {
+  background: white;
+  border: 1px solid #eef0f3;
+  border-radius: 20px;
+  padding: 2rem;
+  margin-bottom: 1.75rem;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.calc-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 1.1rem;
+}
+
+.calc-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #4a5568;
+}
+
+.calc-amount-val {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #0d1b2a;
+  letter-spacing: -0.03em;
+}
+
+.calc-slider {
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 4px;
+  background: linear-gradient(to right, #1a6e42 0%, #1a6e42 20%, #e2e8f0 20%);
+  outline: none;
+  cursor: pointer;
+}
+
+.calc-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #1a6e42;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(26,110,66,0.35);
+  border: 3px solid white;
+}
+
+.calc-slider::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #1a6e42;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(26,110,66,0.35);
+  border: 3px solid white;
+}
+
+.calc-range-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: #a0aec0;
+  margin-top: 0.5rem;
+}
+
+.term-buttons {
+  display: flex;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+}
+
+.term-btn {
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 100px;
+  padding: 0.5rem 1rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #4a5568;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.term-btn:hover { border-color: #1a6e42; color: #1a6e42; }
+.term-btn.active { background: #1a6e42; border-color: #1a6e42; color: white; }
+
+.calc-results { display: flex; flex-direction: column; gap: 0.65rem; }
+
+.calc-row {
+  background: white;
+  border: 1px solid #eef0f3;
+  border-radius: 14px;
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: border-color 0.2s, transform 0.15s;
+}
+
+.calc-row.best { border-color: #b7e4ca; background: #f0faf4; }
+.calc-row:hover { border-color: #b7e4ca; transform: translateY(-1px); }
+
+.cr-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: 700;
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+}
+
+.cr-icon.ptsb { background: #dbeafe; color: #1e40af; }
+.cr-icon.avt  { background: #ede9fe; color: #5b21b6; }
+.cr-icon.apm  { background: #fef3c7; color: #92400e; }
+.cr-icon.rev  { background: #e0f2fe; color: #0369a1; }
+.cr-icon.boi  { background: #d1fae5; color: #065f46; }
+.cr-icon.aib  { background: #fee2e2; color: #991b1b; }
+
+.cr-info { flex: 1; min-width: 0; }
+
+.cr-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #0d1b2a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cr-type { font-size: 0.75rem; color: #718096; margin-top: 2px; }
+
+.cr-apr { text-align: right; flex-shrink: 0; }
+
+.cr-apr-val {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #0d1b2a;
+  line-height: 1;
+}
+
+.cr-apr-val.green { color: #1a6e42; }
+.cr-apr-val.red   { color: #c53030; }
+.cr-apr-label { font-size: 0.7rem; color: #718096; margin-top: 2px; }
+
+.cr-costs { text-align: right; min-width: 145px; flex-shrink: 0; }
+.cr-monthly { font-size: 0.92rem; font-weight: 700; color: #0d1b2a; }
+.cr-total   { font-size: 0.75rem; color: #718096; margin-top: 2px; }
+
+.cr-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  background: #1a6e42;
+  color: white;
+  padding: 3px 10px;
+  border-radius: 100px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.calc-savings-banner {
+  background: #0f4a2a;
+  border-radius: 14px;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.25rem;
+  gap: 1rem;
+}
+
+.csb-label { font-size: 0.88rem; color: rgba(255,255,255,0.7); }
+.csb-value { font-size: 1.5rem; font-weight: 800; color: #4ade80; white-space: nowrap; }
+
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
   .hero { grid-template-columns: 1fr; min-height: auto; }
@@ -697,6 +896,8 @@ footer {
   .hero-left { padding: 3.5rem 5%; }
   .features-grid { grid-template-columns: 1fr; }
   .stats-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .calc-controls { grid-template-columns: 1fr; }
+  .cr-costs { min-width: auto; }
   .email-section { flex-direction: column; align-items: flex-start; }
   .email-form { max-width: 100%; width: 100%; }
   .success-inline { max-width: 100%; }
@@ -728,7 +929,7 @@ footer {
 
     <div class="btn-group">
       <a href="#signup" class="btn-primary">Join the waitlist</a>
-      <a href="#features" class="btn-secondary">See how it works</a>
+      <a href="#calculator" class="btn-secondary">See how it works</a>
     </div>
 
     <div class="trust-row">
@@ -863,6 +1064,43 @@ footer {
   </div>
 </div>
 
+<!-- CALCULATOR -->
+<section class="calculator" id="calculator">
+  <div class="calc-inner">
+    <div class="features-eyebrow">Loan Calculator</div>
+    <h2 style="font-size:clamp(1.8rem,3vw,2.5rem);font-weight:800;letter-spacing:-0.03em;color:#0d1b2a;margin-bottom:0.75rem;line-height:1.15;">See what you'd actually pay</h2>
+    <p class="features-sub">Adjust the amount and term to compare real total costs across Irish lenders — not just monthly repayments.</p>
+
+    <div class="calc-controls">
+      <div>
+        <div class="calc-label-row">
+          <span class="calc-label">Loan amount</span>
+          <span class="calc-amount-val" id="amount-display">€10,000</span>
+        </div>
+        <input type="range" class="calc-slider" id="amount-slider" min="1000" max="50000" step="500" value="10000">
+        <div class="calc-range-labels"><span>€1,000</span><span>€50,000</span></div>
+      </div>
+
+      <div>
+        <div class="calc-label-row">
+          <span class="calc-label">Loan term</span>
+        </div>
+        <div class="term-buttons">
+          <button class="term-btn" data-years="1">1 yr</button>
+          <button class="term-btn" data-years="2">2 yr</button>
+          <button class="term-btn" data-years="3">3 yr</button>
+          <button class="term-btn" data-years="4">4 yr</button>
+          <button class="term-btn active" data-years="5">5 yr</button>
+          <button class="term-btn" data-years="6">6 yr</button>
+          <button class="term-btn" data-years="7">7 yr</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="calc-results" id="calc-results"></div>
+  </div>
+</section>
+
 <!-- FEATURES -->
 <section class="features" id="features">
   <div class="features-eyebrow">Why BorrowClever</div>
@@ -945,6 +1183,80 @@ function handleSignup() {
   document.getElementById('success-msg').style.display = 'block';
   console.log('Signup:', email);
 }
+
+// ── LOAN CALCULATOR ──
+const LENDERS = [
+  { name: 'PTSB Personal Loan',  type: 'Variable · No conditions',       apr: 6.20, icon: 'PTSB', cls: 'ptsb' },
+  { name: 'Avant Money',         type: 'Fixed · No early repayment fee', apr: 6.50, icon: 'AVT',  cls: 'avt'  },
+  { name: 'An Post Money',       type: 'Fixed · No early repayment fee', apr: 6.90, icon: 'APM',  cls: 'apm'  },
+  { name: 'Revolut',             type: 'Fixed · Instant approval',       apr: 6.99, icon: 'REV',  cls: 'rev'  },
+  { name: 'Bank of Ireland',     type: 'Variable · Defer 3 payments',    apr: 7.10, icon: 'BOI',  cls: 'boi'  },
+  { name: 'AIB Personal Loan',   type: 'Variable · 3-hour decision',     apr: 8.95, icon: 'AIB',  cls: 'aib'  },
+];
+
+function calcLoan(principal, years, apr) {
+  const n = years * 12;
+  const r = apr / 100 / 12;
+  const monthly = principal * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
+  return { monthly, total: monthly * n, interest: monthly * n - principal };
+}
+
+function fmtEur(n) {
+  return '€' + Math.round(n).toLocaleString('en-IE');
+}
+
+function updateCalc() {
+  const amount = parseInt(document.getElementById('amount-slider').value);
+  const years  = parseInt(document.querySelector('.term-btn.active').dataset.years);
+
+  document.getElementById('amount-display').textContent = fmtEur(amount);
+
+  const pct = ((amount - 1000) / (50000 - 1000)) * 100;
+  document.getElementById('amount-slider').style.background =
+    `linear-gradient(to right, #1a6e42 ${pct}%, #e2e8f0 ${pct}%)`;
+
+  const results = LENDERS
+    .map(l => ({ ...l, ...calcLoan(amount, years, l.apr) }))
+    .sort((a, b) => a.interest - b.interest);
+
+  const cheapest = results[0];
+  const priciest = results[results.length - 1];
+  const saving   = priciest.interest - cheapest.interest;
+
+  document.getElementById('calc-results').innerHTML =
+    results.map((l, i) => `
+      <div class="calc-row${i === 0 ? ' best' : ''}">
+        <div class="cr-icon ${l.cls}">${l.icon}</div>
+        <div class="cr-info">
+          <div class="cr-name">${l.name}</div>
+          <div class="cr-type">${l.type}</div>
+        </div>
+        <div class="cr-apr">
+          <div class="cr-apr-val ${i === 0 ? 'green' : i === results.length - 1 ? 'red' : ''}">${l.apr.toFixed(2)}%</div>
+          <div class="cr-apr-label">APR</div>
+        </div>
+        <div class="cr-costs">
+          <div class="cr-monthly">${fmtEur(l.monthly)}/mo</div>
+          <div class="cr-total">${fmtEur(l.interest)} total interest</div>
+        </div>
+        ${i === 0 ? '<div class="cr-badge">Cheapest</div>' : ''}
+      </div>
+    `).join('') + `
+    <div class="calc-savings-banner">
+      <div class="csb-label">Switch ${priciest.name.replace(' Personal Loan','').replace(' Money','')} → ${cheapest.name.replace(' Personal Loan','').replace(' Money','')} and save</div>
+      <div class="csb-value">${fmtEur(saving)}</div>
+    </div>`;
+}
+
+document.getElementById('amount-slider').addEventListener('input', updateCalc);
+document.querySelectorAll('.term-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.term-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    updateCalc();
+  });
+});
+updateCalc();
 
 document.addEventListener('keydown', e => {
   if (e.key === 'Enter' && document.activeElement.id === 'email-input') handleSignup();
