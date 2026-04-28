@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700&amp;display=swap');
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="1000" fill="#ffffff"/>
+
+  <!-- Wordmark: "Borrow" navy + "Clever" green, single line, centered -->
+  <text
+    x="500"
+    y="500"
+    font-family="'Plus Jakarta Sans', Arial, sans-serif"
+    font-weight="700"
+    font-size="148"
+    text-anchor="middle"
+    dominant-baseline="middle"
+    letter-spacing="-1"
+  >
+    <tspan fill="#1e2d3d">Borrow</tspan><tspan fill="#3d7c2e">Clever</tspan>
+  </text>
+</svg>
