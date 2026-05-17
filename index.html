@@ -881,6 +881,67 @@ footer {
 .csb-value { font-size: 1.5rem; font-weight: 800; color: #4ade80; white-space: nowrap; }
 
 
+/* ── HAMBURGER ── */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 200;
+}
+.nav-hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: #0d1b2a;
+  border-radius: 2px;
+  transition: transform 0.25s, opacity 0.25s;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile nav dropdown */
+.mobile-nav {
+  display: none;
+  position: fixed;
+  top: 68px;
+  left: 0; right: 0;
+  background: white;
+  border-bottom: 1px solid #eef0f3;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  z-index: 99;
+  padding: 1rem 5% 1.5rem;
+  flex-direction: column;
+  gap: 0;
+}
+.mobile-nav.open { display: flex; }
+.mobile-nav a {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #0d1b2a;
+  text-decoration: none;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid #f0f4f8;
+  display: block;
+}
+.mobile-nav a:last-child { border-bottom: none; }
+.mobile-nav a.active { color: #1a6e42; font-weight: 700; }
+.mobile-nav .mobile-cta {
+  margin-top: 1rem;
+  background: #1a6e42;
+  color: white !important;
+  text-align: center;
+  padding: 0.85rem 1.5rem;
+  border-radius: 100px;
+  font-weight: 700 !important;
+  border-bottom: none !important;
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
   .hero { grid-template-columns: 1fr; min-height: auto; }
@@ -894,6 +955,7 @@ footer {
   .cr-costs { min-width: auto; }
   .logos-row { gap: 1rem; }
   nav .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
   .email-section { flex-direction: column; align-items: flex-start; }
   .brevo-form-wrapper { max-width: 100%; width: 100%; }
   .brevo-success { max-width: 100%; }
@@ -987,7 +1049,18 @@ footer {
     <li><a href="#lenders">Lenders</a></li>
     <li><a href="#signup" class="nav-cta">Join waitlist</a></li>
   </ul>
+  <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE NAV DROPDOWN -->
+<div class="mobile-nav" id="mobile-nav">
+  <a href="loans.html">Compare loans</a>
+  <a href="#features">How it works</a>
+  <a href="#lenders">Lenders</a>
+  <a href="#signup" class="mobile-cta">Join waitlist</a>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -1320,6 +1393,24 @@ document.querySelectorAll('.term-btn').forEach(btn => {
 });
 updateCalc();
 
+</script>
+
+<script>
+// ── MOBILE NAV TOGGLE ──
+const hamburger = document.getElementById('hamburger');
+const mobileNav = document.getElementById('mobile-nav');
+hamburger.addEventListener('click', () => {
+  const open = mobileNav.classList.toggle('open');
+  hamburger.classList.toggle('open', open);
+  hamburger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+});
+// Close when a link is tapped
+mobileNav.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    mobileNav.classList.remove('open');
+    hamburger.classList.remove('open');
+  });
+});
 </script>
 
 <script>
