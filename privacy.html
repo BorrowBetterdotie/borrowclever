@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — BorrowClever</title>
+<meta name="description" content="BorrowClever privacy policy. How we collect, use and store your personal data including email addresses.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Plus Jakarta Sans', sans-serif; background: #ffffff; color: #0d1b2a; overflow-x: hidden; }
+
+/* ── NAV ── */
+nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 5%; height: 68px; border-bottom: 1px solid #eef0f3;
+  position: sticky; top: 0; background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(8px); z-index: 100;
+}
+.nav-logo { font-size: 1.25rem; font-weight: 800; color: #0d1b2a; letter-spacing: -0.03em; text-decoration: none; }
+.nav-logo span { color: #1a6e42; }
+.nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+.nav-links a { font-size: 0.88rem; font-weight: 500; color: #4a5568; text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover { color: #0d1b2a; }
+.nav-cta { background: #1a6e42; color: white !important; padding: 0.55rem 1.3rem; border-radius: 100px; font-size: 0.85rem !important; font-weight: 600 !important; transition: background 0.2s !important; }
+.nav-cta:hover { background: #155c37 !important; }
+
+/* ── PAGE HEADER ── */
+.page-header {
+  background: #0f4a2a; padding: 4rem 6%;
+  position: relative; overflow: hidden;
+}
+.page-header::before {
+  content: ''; position: absolute; top: -100px; right: -100px;
+  width: 420px; height: 420px; border-radius: 50%; background: rgba(255,255,255,0.04);
+}
+.page-header-inner { max-width: 860px; margin: 0 auto; position: relative; z-index: 1; }
+.eyebrow { display: inline-block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #4ade80; margin-bottom: 1rem; }
+.page-header h1 { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 800; color: white; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 0.75rem; }
+.page-header-sub { font-size: 0.95rem; color: rgba(255,255,255,0.6); line-height: 1.65; }
+
+/* ── CONTENT ── */
+.content {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 4rem 6%;
+}
+
+.content h2 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #0d1b2a;
+  letter-spacing: -0.02em;
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.content h2:first-child { margin-top: 0; }
+
+.content p {
+  font-size: 0.92rem;
+  color: #4a5568;
+  line-height: 1.75;
+  margin-bottom: 1rem;
+}
+
+.content ul {
+  margin: 0.5rem 0 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.content ul li {
+  font-size: 0.92rem;
+  color: #4a5568;
+  line-height: 1.65;
+}
+
+.content a { color: #1a6e42; }
+
+.info-box {
+  background: #f0faf4;
+  border: 1px solid #b7e4ca;
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  margin: 2rem 0;
+}
+
+.info-box p {
+  font-size: 0.88rem;
+  color: #1a6e42;
+  margin: 0;
+  font-weight: 500;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid #eef0f3;
+  margin: 2rem 0;
+}
+
+/* ── HAMBURGER ── */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 200;
+}
+.nav-hamburger span {
+  display: block; width: 22px; height: 2px;
+  background: #0d1b2a; border-radius: 2px;
+  transition: transform 0.25s, opacity 0.25s;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.mobile-nav {
+  display: none; position: fixed; top: 68px; left: 0; right: 0;
+  background: white; border-bottom: 1px solid #eef0f3;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08); z-index: 99;
+  padding: 1rem 5% 1.5rem; flex-direction: column; gap: 0;
+}
+.mobile-nav.open { display: flex; }
+.mobile-nav a {
+  font-size: 1rem; font-weight: 500; color: #0d1b2a;
+  text-decoration: none; padding: 0.85rem 0;
+  border-bottom: 1px solid #f0f4f8; display: block;
+}
+.mobile-nav a:last-child { border-bottom: none; }
+.mobile-nav .mobile-cta {
+  margin-top: 1rem; background: #1a6e42; color: white !important;
+  text-align: center; padding: 0.85rem 1.5rem; border-radius: 100px;
+  font-weight: 700 !important; border-bottom: none !important;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: #0d1b2a; padding: 2rem 6%;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1rem;
+}
+.footer-logo { font-size: 1rem; font-weight: 800; color: rgba(255,255,255,0.7); text-decoration: none; }
+.footer-logo span { color: #4ade80; }
+.footer-links { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+.footer-links a { font-size: 0.72rem; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: rgba(255,255,255,0.7); }
+.footer-note { font-size: 0.72rem; color: rgba(255,255,255,0.35); max-width: 520px; line-height: 1.5; }
+
+@media (max-width: 900px) {
+  nav .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+  .content { padding: 3rem 5%; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Borrow<span>Clever</span></a>
+  <ul class="nav-links">
+    <li><a href="loans.html">Compare loans</a></li>
+    <li><a href="index.html#calculator">Calculator</a></li>
+    <li><a href="index.html#lenders">Lenders</a></li>
+    <li><a href="index.html#signup" class="nav-cta">Join waitlist</a></li>
+  </ul>
+  <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobile-nav">
+  <a href="loans.html">Compare loans</a>
+  <a href="index.html#calculator">Calculator</a>
+  <a href="index.html#lenders">Lenders</a>
+  <a href="index.html#signup" class="mobile-cta">Join waitlist</a>
+</div>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="eyebrow">Legal</div>
+    <h1>Privacy Policy</h1>
+    <p class="page-header-sub">Last updated: 19 June 2026</p>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <div class="info-box">
+    <p>BorrowClever Ireland Limited ("BorrowClever", "we", "us") is committed to protecting your personal data. This policy explains what data we collect, why we collect it, and your rights under the General Data Protection Regulation (GDPR) and the Irish Data Protection Act 2018.</p>
+  </div>
+
+  <h2>1. Who we are</h2>
+  <p>BorrowClever Ireland Limited is the data controller for personal data collected through this website (<strong>borrowclever.ie</strong>). If you have any questions about this policy or how your data is handled, you can contact us at <a href="mailto:hello@borrowclever.ie">hello@borrowclever.ie</a>.</p>
+
+  <hr class="divider">
+
+  <h2>2. What data we collect</h2>
+  <p>We collect only the personal data that is necessary for the purposes described in this policy. Currently, the only personal data we collect is:</p>
+  <ul>
+    <li><strong>Email address</strong> — when you sign up to our waitlist via the form on our website.</li>
+  </ul>
+  <p>We do not collect names, phone numbers, financial details, or any other personal identifiers as part of the waitlist sign-up process.</p>
+
+  <hr class="divider">
+
+  <h2>3. Why we collect your email address</h2>
+  <p>We collect your email address for the following purposes:</p>
+  <ul>
+    <li>To notify you when BorrowClever launches, as you have requested.</li>
+    <li>To send you a summary of the best Irish loan rates as described at the point of sign-up.</li>
+    <li>To send you occasional updates about the BorrowClever service prior to launch.</li>
+  </ul>
+  <p>The legal basis for this processing is <strong>consent</strong> (Article 6(1)(a) GDPR). You provide your email address voluntarily and may withdraw your consent at any time (see Section 7).</p>
+
+  <hr class="divider">
+
+  <h2>4. How we store your email address</h2>
+  <p>Your email address is stored securely by <strong>Brevo</strong> (formerly Sendinblue), an email marketing platform operated by Sendinblue SAS, which acts as our data processor. Brevo stores data on servers located within the European Union and is fully GDPR-compliant.</p>
+  <p>We do not store your email address on our own servers, and we do not transfer it to any country outside the European Economic Area (EEA) except in circumstances where Brevo's standard contractual clauses apply.</p>
+  <p>Your email address is retained on our waitlist until:</p>
+  <ul>
+    <li>you unsubscribe or request deletion; or</li>
+    <li>BorrowClever determines it is no longer needed for the purpose for which it was collected.</li>
+  </ul>
+
+  <hr class="divider">
+
+  <h2>5. Who we share your data with</h2>
+  <p>We do not sell, rent, or trade your email address. We share it only with:</p>
+  <ul>
+    <li><strong>Brevo</strong> — as our email marketing service provider, acting as a data processor on our behalf under a data processing agreement.</li>
+  </ul>
+  <p>We will not share your email address with lenders, financial institutions, or any third-party advertisers.</p>
+
+  <hr class="divider">
+
+  <h2>6. Cookies and analytics</h2>
+  <p>This website may use standard browser analytics (e.g., page view tracking) to understand how visitors use the site. No personal data is linked to this analytics data at this time. We do not use advertising cookies or cross-site tracking.</p>
+
+  <hr class="divider">
+
+  <h2>7. Your rights</h2>
+  <p>Under GDPR, you have the following rights regarding your personal data:</p>
+  <ul>
+    <li><strong>Right to access</strong> — you can request a copy of the personal data we hold about you.</li>
+    <li><strong>Right to rectification</strong> — you can ask us to correct inaccurate data.</li>
+    <li><strong>Right to erasure</strong> — you can ask us to delete your email address at any time.</li>
+    <li><strong>Right to withdraw consent</strong> — you can unsubscribe from our waitlist at any time by clicking the unsubscribe link in any email we send, or by emailing us at <a href="mailto:hello@borrowclever.ie">hello@borrowclever.ie</a>.</li>
+    <li><strong>Right to object</strong> — you can object to our processing of your personal data.</li>
+    <li><strong>Right to data portability</strong> — you can request your data in a machine-readable format.</li>
+  </ul>
+  <p>To exercise any of these rights, please contact us at <a href="mailto:hello@borrowclever.ie">hello@borrowclever.ie</a>. We will respond within 30 days.</p>
+  <p>You also have the right to lodge a complaint with the <strong>Data Protection Commission (DPC)</strong>, Ireland's supervisory authority for data protection matters: <a href="https://www.dataprotection.ie" target="_blank" rel="noopener noreferrer">dataprotection.ie</a>.</p>
+
+  <hr class="divider">
+
+  <h2>8. Changes to this policy</h2>
+  <p>We may update this privacy policy from time to time. When we do, we will update the "Last updated" date at the top of this page. If we make material changes that affect how we process your email address, we will notify you by email where possible.</p>
+
+  <hr class="divider">
+
+  <h2>9. Contact us</h2>
+  <p>If you have any questions about this privacy policy or your personal data, please contact us:</p>
+  <ul>
+    <li>Email: <a href="mailto:hello@borrowclever.ie">hello@borrowclever.ie</a></li>
+    <li>Website: <a href="https://borrowclever.ie">borrowclever.ie</a></li>
+  </ul>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <a href="index.html" class="footer-logo">Borrow<span>Clever</span></a>
+  <div class="footer-links">
+    <a href="privacy.html">Privacy Policy</a>
+  </div>
+  <div class="footer-note">BorrowClever is an independent financial comparison service. Rates sourced from lender websites and CCPC.ie. Always verify with the lender before applying. This is not financial advice. © 2026 BorrowClever Ireland Limited.</div>
+</footer>
+
+<script>
+const hamburger = document.getElementById('hamburger');
+const mobileNav = document.getElementById('mobile-nav');
+hamburger.addEventListener('click', () => {
+  const open = mobileNav.classList.toggle('open');
+  hamburger.classList.toggle('open', open);
+  hamburger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+});
+mobileNav.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    mobileNav.classList.remove('open');
+    hamburger.classList.remove('open');
+  });
+});
+</script>
+
+</body>
+</html>
