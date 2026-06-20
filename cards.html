@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Credit Card Comparison Ireland 2026 — BorrowClever</title>
+<meta name="description" content="Compare credit cards from every Irish provider — banks and fintechs. Ranked by representative APR, with balance-transfer intro offers. Verified June 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!--
+================================================================================
+  TODO — VERIFY BEFORE PUBLISHING
+  Every balance-transfer cell left blank below must be confirmed against the
+  issuer's website and CCPC.ie before this page goes live.
+
+  Row 1  — AIB Click:            Balance-transfer offer (any current intro rate?)
+  Row 2  — An Post Flex:         0% intro on transfers; 90-day transfer deadline — confirm period
+  Row 3  — AIB Platinum:         Balance-transfer offer (any current intro rate?)
+  Row 4  — Revolut:              ✅ CONFIRMED — 0% for up to 6 months
+  Row 5  — BOI Platinum Adv:     0% intro offer advertised — confirm period & deadline
+  Row 6  — BOI Affinity:         Balance-transfer offer (any current intro rate?)
+  Row 7  — AIB Student:          Balance-transfer offer (any current intro rate?)
+  Row 8  — BOI Classic:          0% intro offer advertised — confirm period & deadline
+  Row 9  — PTSB Ice:             Balance-transfer offer (any current intro rate?)
+  Row 10 — BOI Aer Credit Card:  Balance-transfer offer (any current intro rate?)
+  Row 11 — AIB 'be':             Historically 0% intro on transfers — confirm current
+  Row 12 — An Post Classic:      0% intro on transfers; 90-day transfer deadline — confirm period
+  Row 13 — Avant Card:           Long-standing balance-transfer specialist — confirm current offer
+
+  Also verify: AIB Click purchase rate (listed as 9.11% nominal), AIB Platinum
+  Rep. APR (17.0%), BOI Platinum Advantage Rep. APR (19.6%), PTSB Ice Rep. APR
+  (22.53%), and figures marked with ~ (approximate).
+================================================================================
+-->
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Plus Jakarta Sans', sans-serif; background: #ffffff; color: #0d1b2a; overflow-x: hidden; }
+
+/* ── NAV ── */
+nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 5%; height: 68px; border-bottom: 1px solid #eef0f3;
+  position: sticky; top: 0; background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(8px); z-index: 100;
+}
+.nav-logo { font-size: 1.25rem; font-weight: 800; color: #0d1b2a; letter-spacing: -0.03em; text-decoration: none; }
+.nav-logo span { color: #1a6e42; }
+.nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+.nav-links a { font-size: 0.88rem; font-weight: 500; color: #4a5568; text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover { color: #0d1b2a; }
+.nav-links a.active { color: #1a6e42; font-weight: 700; }
+.nav-cta { background: #1a6e42; color: white !important; padding: 0.55rem 1.3rem; border-radius: 100px; font-size: 0.85rem !important; font-weight: 600 !important; transition: background 0.2s !important; }
+.nav-cta:hover { background: #155c37 !important; }
+
+/* ── PAGE HEADER ── */
+.page-header {
+  background: #0f4a2a; padding: 4.5rem 6%;
+  position: relative; overflow: hidden;
+}
+.page-header::before {
+  content: ''; position: absolute; top: -100px; right: -100px;
+  width: 420px; height: 420px; border-radius: 50%; background: rgba(255,255,255,0.04);
+}
+.page-header::after {
+  content: ''; position: absolute; bottom: -60px; left: -60px;
+  width: 260px; height: 260px; border-radius: 50%; background: rgba(255,255,255,0.03);
+}
+.page-header-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+.eyebrow { display: inline-block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #4ade80; margin-bottom: 1rem; }
+.page-header h1 { font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 800; color: white; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 1rem; }
+.page-header-sub { font-size: 1rem; color: rgba(255,255,255,0.7); max-width: 580px; line-height: 1.7; margin-bottom: 2.5rem; }
+.header-stats { display: flex; gap: 3rem; flex-wrap: wrap; }
+.header-stat-val { font-size: 2rem; font-weight: 800; color: #4ade80; letter-spacing: -0.04em; line-height: 1; }
+.header-stat-lbl { font-size: 0.78rem; color: rgba(255,255,255,0.5); margin-top: 0.4rem; max-width: 160px; line-height: 1.4; }
+
+/* ── COMPARE SECTION ── */
+.compare-section { padding: 3.5rem 6% 2rem; }
+.compare-inner { max-width: 1280px; margin: 0 auto; }
+.section-eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #1a6e42; margin-bottom: 0.5rem; }
+.section-title { font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 800; color: #0d1b2a; letter-spacing: -0.03em; margin-bottom: 0.5rem; }
+.section-sub { font-size: 0.9rem; color: #4a5568; margin-bottom: 2rem; line-height: 1.65; }
+
+/* ── TABLE ── */
+.table-wrap { overflow-x: auto; border-radius: 16px; border: 1px solid #eef0f3; box-shadow: 0 4px 24px rgba(0,0,0,0.05); }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.875rem; min-width: 900px; }
+
+thead th {
+  background: #f8fafc; padding: 0.85rem 1rem; text-align: left;
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.07em;
+  text-transform: uppercase; color: #a0aec0; border-bottom: 1px solid #eef0f3;
+  white-space: nowrap;
+}
+thead th:first-child { padding-left: 1.5rem; }
+thead th:last-child { padding-right: 1.5rem; }
+thead th.col-bt { color: #1a6e42; }
+
+tbody tr { border-bottom: 1px solid #f0f4f8; transition: background 0.12s; }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: #fafcff !important; }
+
+td { padding: 1rem 1rem; vertical-align: middle; }
+td:first-child { padding-left: 1.5rem; }
+td:last-child { padding-right: 1.5rem; }
+
+/* rank */
+.rank { font-size: 0.78rem; font-weight: 700; color: #cbd5e0; }
+.rank.top { color: #1a6e42; font-size: 0.85rem; }
+
+/* lender cell */
+.lender-cell { display: flex; align-items: center; gap: 0.75rem; min-width: 180px; }
+.l-icon {
+  width: 36px; height: 36px; border-radius: 50%; display: flex;
+  align-items: center; justify-content: center; font-size: 8px;
+  font-weight: 800; flex-shrink: 0; letter-spacing: 0.02em;
+}
+.l-icon.aib  { background: #fee2e2; color: #991b1b; }
+.l-icon.apm  { background: #fef3c7; color: #92400e; }
+.l-icon.boi  { background: #d1fae5; color: #065f46; }
+.l-icon.ptsb { background: #dbeafe; color: #1e40af; }
+.l-icon.rev  { background: #e0f2fe; color: #0369a1; }
+.l-icon.avt  { background: #ede9fe; color: #5b21b6; }
+.l-name { font-size: 0.88rem; font-weight: 600; color: #0d1b2a; }
+.l-product { font-size: 0.75rem; color: #718096; margin-top: 1px; }
+
+/* APR */
+.apr { font-size: 1rem; font-weight: 800; white-space: nowrap; }
+.apr.green { color: #1a6e42; }
+.apr.mid   { color: #2d6a9f; }
+.apr.red   { color: #c53030; }
+
+/* cost cells */
+.cell-mono { font-weight: 600; color: #0d1b2a; white-space: nowrap; }
+.cell-sub  { font-weight: 400; color: #718096; white-space: nowrap; }
+
+/* badges */
+.badges { display: flex; flex-direction: column; gap: 4px; }
+.badge {
+  display: inline-block; font-size: 0.68rem; font-weight: 700;
+  padding: 2px 8px; border-radius: 100px; white-space: nowrap; width: fit-content;
+}
+.badge-cheapest { background: #1a6e42; color: white; }
+
+/* Confirmed live 0% offer — blue accent to distinguish from green loan rows */
+.bt-confirmed {
+  background: #e0f2fe;
+  border: 1px solid #7dd3fc;
+  border-radius: 8px;
+  padding: 0.45rem 0.65rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #075985;
+  line-height: 1.45;
+}
+.bt-confirmed-badge {
+  display: inline-block;
+  background: #0369a1;
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: 100px;
+  margin-bottom: 3px;
+  letter-spacing: 0.03em;
+}
+
+/* notes */
+.note-text { font-size: 0.76rem; color: #718096; line-height: 1.45; max-width: 200px; }
+
+/* ── NOTES SECTION ── */
+.notes-section {
+  background: #f8fafc; border-top: 1px solid #eef0f3;
+  border-bottom: 1px solid #eef0f3; padding: 3rem 6%;
+}
+.notes-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.note-card { background: white; border: 1px solid #eef0f3; border-radius: 14px; padding: 1.5rem; }
+.note-card h4 { font-size: 0.9rem; font-weight: 700; color: #0d1b2a; margin-bottom: 0.6rem; }
+.note-card p { font-size: 0.82rem; color: #4a5568; line-height: 1.65; }
+.note-icon { width: 36px; height: 36px; border-radius: 9px; background: #f0faf4; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+
+/* ── DISCLAIMER ── */
+.disclaimer { padding: 2rem 6%; max-width: 1280px; margin: 0 auto; font-size: 0.74rem; color: #a0aec0; line-height: 1.65; }
+.disclaimer strong { color: #718096; }
+
+/* ── FOOTER ── */
+footer {
+  background: #0d1b2a; padding: 2rem 6%;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1rem;
+}
+.footer-logo { font-size: 1rem; font-weight: 800; color: rgba(255,255,255,0.7); }
+.footer-logo span { color: #4ade80; }
+.footer-links { display: flex; align-items: center; gap: 1.5rem; }
+.footer-links a { font-size: 0.72rem; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: rgba(255,255,255,0.7); }
+.footer-note { font-size: 0.72rem; color: rgba(255,255,255,0.35); max-width: 520px; line-height: 1.5; }
+
+/* ── HAMBURGER ── */
+.nav-hamburger {
+  display: none; flex-direction: column; justify-content: center;
+  gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; z-index: 200;
+}
+.nav-hamburger span {
+  display: block; width: 22px; height: 2px; background: #0d1b2a;
+  border-radius: 2px; transition: transform 0.25s, opacity 0.25s;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.mobile-nav {
+  display: none; position: fixed; top: 68px; left: 0; right: 0;
+  background: white; border-bottom: 1px solid #eef0f3;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08); z-index: 99;
+  padding: 1rem 5% 1.5rem; flex-direction: column; gap: 0;
+}
+.mobile-nav.open { display: flex; }
+.mobile-nav a {
+  font-size: 1rem; font-weight: 500; color: #0d1b2a; text-decoration: none;
+  padding: 0.85rem 0; border-bottom: 1px solid #f0f4f8; display: block;
+}
+.mobile-nav a:last-child { border-bottom: none; }
+.mobile-nav a.active { color: #1a6e42; font-weight: 700; }
+.mobile-nav .mobile-cta {
+  margin-top: 1rem; background: #1a6e42; color: white !important;
+  text-align: center; padding: 0.85rem 1.5rem; border-radius: 100px;
+  font-weight: 700 !important; border-bottom: none !important;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+  .notes-inner { grid-template-columns: 1fr; }
+  .header-stats { gap: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Borrow<span>Clever</span></a>
+  <ul class="nav-links">
+    <li><a href="loans.html">Compare loans</a></li>
+    <li><a href="cards.html" class="active">Compare cards</a></li>
+    <li><a href="index.html#calculator">Calculator</a></li>
+    <li><a href="index.html#lenders">Lenders</a></li>
+    <li><a href="index.html#signup" class="nav-cta">Join waitlist</a></li>
+  </ul>
+  <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE NAV DROPDOWN -->
+<div class="mobile-nav" id="mobile-nav">
+  <a href="loans.html">Compare loans</a>
+  <a href="cards.html" class="active">Compare cards</a>
+  <a href="index.html#calculator">Calculator</a>
+  <a href="index.html#lenders">Lenders</a>
+  <a href="index.html#signup" class="mobile-cta">Join waitlist</a>
+</div>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="eyebrow">Ireland's independent comparison platform</div>
+    <h1>Credit cards compared</h1>
+    <p class="page-header-sub">Every Irish credit card ranked by representative APR, with the balance-transfer intro offers other comparison sites bury. Banks and fintechs. Rates verified June 2026.</p>
+    <div class="header-stats">
+      <div>
+        <div class="header-stat-val">13.8%</div>
+        <div class="header-stat-lbl">Lowest representative APR (AIB Click)</div>
+      </div>
+      <div>
+        <div class="header-stat-val">13</div>
+        <div class="header-stat-lbl">Cards compared</div>
+      </div>
+      <div>
+        <div class="header-stat-val">6</div>
+        <div class="header-stat-lbl">Providers (banks + fintechs)</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TABLE -->
+<div class="compare-section">
+  <div class="compare-inner">
+    <div class="section-eyebrow">Full comparison · All Irish credit cards</div>
+    <h2 class="section-title">All cards ranked by representative APR</h2>
+    <p class="section-sub">Unlike a personal loan, a credit card has no fixed term or balance — so there's no meaningful "total cost of credit" to rank by. Instead, we use the <strong>representative APR</strong>: the standardised metric every Irish lender must publish by law. It assumes a €1,500 balance repaid over 12 months including the €30 government stamp duty. It's the fairest like-for-like comparison across cards. The balance-transfer column is where the real value often hides — check it carefully.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Provider / Card</th>
+            <th>Network</th>
+            <th>Purchase rate (nominal)</th>
+            <th>Rep. APR</th>
+            <th class="col-bt">Balance-transfer intro offer</th>
+            <th>Annual card fee</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr>
+            <td><span class="rank top">1</span></td>
+            <td>
+              <div class="lender-cell">
+                <div class="l-icon aib">AIB</div>
+                <div><div class="l-name">AIB</div><div class="l-product">Click</div></div>
+              </div>
+            </td>
+            <td><span class="cell-sub">Visa</span></td>
+            <td><span class="cell-mono">9.11%</span></td>
+            <td><span class="apr green">13.8%</span></td>
+            <td><!-- TODO: confirm against issuer site + CCPC.ie before publishing --></td>
+            <td><span class="cell-sub">None (+ €30 stamp duty)</span></td>
+            <td>
+              <div class="badges"><span class="badge badge-cheapest">Lowest APR</span></div>
+              <div class="note-text" style="margin-top:5px;">Online-only application.</div>
+            </td>
+          </tr>
+
+          <tr>
+            <td><span class="rank">2</span></td>
+            <td>
+              <div class="lender-cell">
+                <div class="l-icon apm">APM</div>
+                <div><div class="l-name">An Post Money</div><div class="l-product">Flex</div></div>
+              </div>
+            </td>
+            <td><span class="cell-sub">Mastercard</span></td>
+            <td><span class="cell-mono">~14.5%</span></td>
+            <td><span class="apr green">15.7%</span></td>
+            <td><!-- TODO: 0% intro on transfers reported; confirm period & 90-day transfer deadline --></td>
+            <td><span class="cell-sub">None (+ €30 stamp duty)</span></td>
+            <td><div class="note-text">Cheapest non-bank card.</div></td>
+          </tr>
+
+          <tr>
+            <td><span class="rank">3</span></td>
+            <td>
+              <div class="lender-cell">
+                <div class="l-icon aib">AIB</div>
+                <div><div class="l-name">AIB</div><div class="l-product">Platinum</div></div>
+              </div>
+            </td>
+            <td><span class="cell-sub">Visa</span></td>
+            <td><span class="cell-mono">11.84%</span></td>
+            <td><span class="apr green">17.0%</span></td>
+            <td><!-- TODO: confirm against issuer site + CCPC.ie before publishing --></td>
+            <td><span class="cell-sub">None (+ €30 stamp duty)</span></td>
+            <td><div class="note-text">Minimum €40k salary requirement.</div></td>
+          </tr>
+
+          <tr>
+            <td><span class="rank">4</span></td>
+            <td>
+              <div class="lender-cell">
+                <div class="l-icon rev">REV</div>
+                <div><div class="l-name">Revolut</div><div class="l-product">Credit Card</div></div>
+              </div>
+            </td>
+            <td><span class="cell-sub">Visa / Mastercard</span></td>
+            <td><span class="cell-sub">—</span></td>
+            <td><span class="apr mid">17.99%</span></td>
+            <td>
+              <!-- ✅ CONFIRMED — 0% for up to 6 months on balance transfers & purchases -->
+              <div class="bt-confirmed">
+                <span class="bt-confirmed-badge">✅ CONFIRMED</span><br>
+                0% on balance transfers &amp; purchases for up to 6 months (must meet minimum monthly payments)
+              </div>
+            </td>
+            <td><span class="cell-sub">None (+ €30 stamp duty)</span></td>
+            <td><div class="note-text">App-only, near-instant decision. Limit up to €10,000. RevPoints rewards. Cash-advance APR 19.99%.</div></td>
+          </tr>
+
+          <tr>
+            <td><span class="rank">5</span></td>
+            <td>
+              <div class="lender-cell">
+                <div class="l-icon boi">BOI</div>
+                <div><div class="l-name">Bank of Ireland</div><div class="l-product">Platinum Advantage</div></div>
+              </div>
+            </td>
+            <td><span class="cell-sub">Mastercard</span></td>
+            <td><span class="cell-mono">13.79%</span></td>
+            <td><span class="apr mid">19.6%</span></td>
+            <td><!-- TODO: 0% intro offer advertised; confirm period & deadline --></td>
+            <td><span class="cell-sub">€76.18 (+ €30 stamp duty)</span></td>
+            <td><div class="note-text">Worldwide travel insurance. Minimum €40k salary.</div></td>
+          </tr>
+
+          <tr>
+            <td><span class="rank">6</span></td>
+            <td>
+              <div class="lender-cell">
+                <div class="l-icon boi">BOI</div>
+                <div><div class="l-name">Bank of Ireland</div><div class="l-product">Affinity</div></div>
+              </div>
+            </td>
+            <td><span class="cell-sub">Mastercard</span></td>
+            <td><span class="cell-mono">14.57%</span></td>
+            <td><span class="apr mid">20.2%</span></td>
+            <td><!-- TODO: confirm against issuer site + CCPC.ie before publishing --></td>
+            <td><span class="cell-sub">None (+ €30 stamp duty)</span></td>
+            <td><div class="note-text">Charity-linked cards.</div></td>
+          </tr>
+
+          <tr>
+            <td><span class="rank">7</span></td>
+            <td>
+              <div class="lender-cell">
+                <div class="l-icon aib">AIB</div>
+                <div><div class="l-name">AIB</div><div class="l-product">Student</div></div>
+              </div>
+            </td>
+            <td><span class="cell-sub">Visa</span></td>
+            <td><span class="cell-mono">14.85%</span></td>
+            <td><span class="apr mid">20.5%</span></td>
+            <td><!-- TODO: confirm against issuer site + CCPC.ie before publishing --></td>
+            <td><span class="cell-sub">None (+ €30 stamp duty)</span></td>
+            <td><div class="note-text">Students only.</div></td>
+          </tr>
+
+          <tr>
+            <td><span class="rank">8</span></td>
+            <td>
+              <div class="lender-cell">
+                <div class="l-icon boi">BOI</div>
+                <div><div class="l-name">Bank of Ireland</div><div class="l-product">Classic</div></div>
+              </div>
+            </td>
+            <td><span class="cell-sub">Mastercard</span></td>
+            <td><span class="cell-mono">16.12%</span></td>
+            <td><span class="apr red">22.1%</span></td>
+            <td><!-- TODO: 0% intro offer advertised; confirm period & deadline --></td>
+            <td><span class="cell-sub">None (+ €30 stamp duty)</span></td>
+            <td><div class="note-text">No annual card fee.</div></td>
+          </tr>
+
+          <tr>
+            <td><span class="rank">9</span></td>
+            <td>
+              <div class="lender-cell">
+                <div class="l-icon ptsb">PTSB</div>
+                <div><div class="l-name">PTSB</div><div class="l-product">Ice</div></div>
+              </div>
+            </td>
+            <td><span class="cell-sub">Visa</span></td>
+            <td><span class="cell-mono">~16%</span></td>
+            <td><span class="apr red">22.53%</span></td>
+            <td><!-- TODO: confirm against issuer site + CCPC.ie before publishing --></td>
+            <td><span class="cell-sub">None (+ €30 stamp duty)</span></td>
+            <td><div class="note-text">—</div></td>
+          </tr>
+
+          <tr>
+            <td><span class="rank">10</span></td>
+            <td>
+              <div class="lender-cell">
+                <div class="l-icon boi">BOI</div>
+                <div><div class="l-name">Bank of Ireland</div><div class="l-product">Aer Credit Card</div></div>
+              </div>
+            </td>
+            <td><span class="cell-sub">Mastercard</span></td>
+            <td><span class="cell-mono">14.00%</span></td>
+            <td><span class="apr red">22.7%</span></td>
+            <td><!-- TODO: confirm against issuer site + CCPC.ie before publishing --></td>
+            <td><span class="cell-sub">€78 (+ €30 stamp duty)</span></td>
+            <td><div class="note-text">Aer Lingus / AerClub rewards.</div></td>
+          </tr>
+
+          <tr>
+            <td><span class="rank">11</span></td>
+            <td>
+              <div class="lender-cell">
+                <div class="l-icon aib">AIB</div>
+                <div><div class="l-name">AIB</div><div class="l-product">'be'</div></div>
+              </div>
+            </td>
+            <td><span class="cell-sub">Visa / Mastercard</span></td>
+            <td><span class="cell-mono">14.16%–16.79%</span></td>
+            <td><span class="apr red">22.9%</span></td>
+            <td><!-- TODO: historically 0% intro on transfers — confirm if currently live --></td>
+            <td><span class="cell-sub">None (+ €30 stamp duty)</span></td>
+            <td><div class="note-text">Two-tier purchase rate.</div></td>
+          </tr>
+
+          <tr>
+            <td><span class="rank">12</span></td>
+            <td>
+              <div class="lender-cell">
+                <div class="l-icon apm">APM</div>
+                <div><div class="l-name">An Post Money</div><div class="l-product">Classic</div></div>
+              </div>
+            </td>
+            <td><span class="cell-sub">Mastercard</span></td>
+            <td><span class="cell-mono">16.8%</span></td>
+            <td><span class="apr red">22.9%</span></td>
+            <td><!-- TODO: 0% intro on transfers reported; confirm period & 90-day transfer deadline --></td>
+            <td><span class="cell-sub">None (+ €30 stamp duty)</span></td>
+            <td><div class="note-text">Reverts to 22.9% APR after intro period.</div></td>
+          </tr>
+
+          <tr>
+            <td><span class="rank">13</span></td>
+            <td>
+              <div class="lender-cell">
+                <div class="l-icon avt">AVT</div>
+                <div><div class="l-name">Avant Money</div><div class="l-product">Avant Card</div></div>
+              </div>
+            </td>
+            <td><span class="cell-sub">Mastercard</span></td>
+            <td><span class="cell-mono">~16.8%</span></td>
+            <td><span class="apr red">22.9%</span></td>
+            <td><!-- TODO: long-standing balance-transfer specialist — confirm current offer & period --></td>
+            <td><span class="cell-sub">None (+ €30 stamp duty)</span></td>
+            <td><div class="note-text">—</div></td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- NOTES -->
+<div class="notes-section">
+  <div class="notes-inner">
+
+    <div class="note-card">
+      <div class="note-icon">
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#1a6e42" stroke-width="1.6"><path d="M9 12l2 2 4-4"/><circle cx="10" cy="10" r="7"/></svg>
+      </div>
+      <h4>What "representative APR" means</h4>
+      <p>Every Irish credit card issuer is legally required by the CCPC to publish a representative APR. It assumes a €1,500 balance repaid over 12 months including the mandatory €30 government stamp duty. It is the only standardised total-cost metric available for credit cards — because a card has no fixed term or balance, a "total cost of credit" figure like the loans page uses is not meaningful here.</p>
+    </div>
+
+    <div class="note-card">
+      <div class="note-icon">
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#1a6e42" stroke-width="1.6"><path d="M3 10h14M3 6h14M3 14h7"/></svg>
+      </div>
+      <h4>Balance-transfer offers</h4>
+      <p>A 0% balance transfer lets you move debt from a higher-rate card and pay no interest for an introductory period. Intro durations, transfer-window deadlines, and any transfer fees change frequently and are set by each issuer. Only Revolut's offer is confirmed in this table. Always confirm current terms directly with the issuer before applying.</p>
+    </div>
+
+    <div class="note-card">
+      <div class="note-icon">
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#1a6e42" stroke-width="1.6"><circle cx="10" cy="10" r="7"/><path d="M10 6v4l2.5 2.5"/></svg>
+      </div>
+      <h4>Annual fees</h4>
+      <p>All Irish credit cards carry the government stamp duty of €30 per year — this applies to every card on this page. Most cards have no additional annual card fee beyond the stamp duty. Exceptions: Bank of Ireland Platinum Advantage charges approximately €76.18/year, and the BOI Aer Credit Card charges approximately €78/year. Confirm current fee amounts with Bank of Ireland directly.</p>
+    </div>
+
+    <div class="note-card">
+      <div class="note-icon">
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#1a6e42" stroke-width="1.6"><path d="M12 2a7 7 0 11-4.88 12.03"/><path d="M9 9l3 3"/></svg>
+      </div>
+      <h4>The cheapest way to use a credit card</h4>
+      <p>If you clear your full balance every month, you pay zero interest — regardless of the APR on the card. The representative APR only matters if you carry a balance. This is why a card with strong rewards can beat a low-APR card for disciplined payers, while the APR ranking above is the correct metric for anyone who expects to carry a balance.</p>
+    </div>
+
+    <div class="note-card">
+      <div class="note-icon">
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#1a6e42" stroke-width="1.6"><rect x="3" y="5" width="14" height="11" rx="2"/><path d="M3 9h14"/></svg>
+      </div>
+      <h4>Providers included</h4>
+      <p>This table covers all issuers with live credit cards in the Irish market: AIB, Bank of Ireland, PTSB, An Post Money, Avant Money, and Revolut. Monzo and N26 operate in Ireland but do not currently offer a credit card here. KBC and Ulster Bank have exited the Irish market — any older comparison that includes them is out of date.</p>
+    </div>
+
+    <div class="note-card">
+      <div class="note-icon">
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#1a6e42" stroke-width="1.6"><path d="M10 2v4M10 14v4M4.22 4.22l2.83 2.83M12.95 12.95l2.83 2.83M2 10h4M14 10h4M4.22 15.78l2.83-2.83M12.95 7.05l2.83-2.83"/></svg>
+      </div>
+      <h4>Government stamp duty</h4>
+      <p>A €30 government stamp duty applies to all Irish credit cards each year. It is charged once per card per year — not per transaction — and is collected by your card issuer on behalf of Revenue. The €30 is built into the representative APR calculation for each card shown here, so the APR figures already account for it.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- DISCLAIMER -->
+<div class="disclaimer">
+  <strong>Rates verified June 2026</strong> from lender websites and CCPC.ie. Always confirm the current rate and full card terms directly with the provider before applying. Balance-transfer offers and introductory rates are subject to change; blank cells in the balance-transfer column have not yet been verified and must be confirmed with the issuer before publishing. Rates are subject to change and individual eligibility. This comparison is for informational purposes only and does not constitute financial advice. BorrowClever Ireland Limited accepts no responsibility for errors or changes in lender rates subsequent to publication. © 2026 BorrowClever Ireland Limited.
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Borrow<span>Clever</span></div>
+  <div class="footer-links">
+    <a href="privacy.html">Privacy Policy</a>
+  </div>
+  <div class="footer-note">BorrowClever is an independent financial comparison service. Rates sourced from lender websites and CCPC.ie. Always verify with the lender before applying. This is not financial advice. © 2026 BorrowClever Ireland Limited.</div>
+</footer>
+
+<script>
+const hamburger = document.getElementById('hamburger');
+const mobileNav = document.getElementById('mobile-nav');
+hamburger.addEventListener('click', () => {
+  const open = mobileNav.classList.toggle('open');
+  hamburger.classList.toggle('open', open);
+  hamburger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+});
+mobileNav.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    mobileNav.classList.remove('open');
+    hamburger.classList.remove('open');
+  });
+});
+</script>
+
+</body>
+</html>
