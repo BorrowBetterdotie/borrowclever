@@ -17,7 +17,7 @@
 
   Row 1  — AIB Click:            Balance-transfer offer (any current intro rate?)
   Row 2  — An Post Flex:         0% intro on transfers; 90-day transfer deadline — confirm period
-  Row 3  — AIB Platinum:         Balance-transfer offer (any current intro rate?)
+  Row 3  — AIB Platinum:         ✅ CONFIRMED — 3.83% variable intro for 12 months (verified aib.ie 21 Jun 2026)
   Row 4  — Revolut:              ✅ CONFIRMED — 0% for up to 6 months
   Row 5  — BOI Platinum Adv:     0% intro offer advertised — confirm period & deadline
   Row 6  — BOI Affinity:         Balance-transfer offer (any current intro rate?)
@@ -147,25 +147,12 @@ td:last-child { padding-right: 1.5rem; }
 
 /* Confirmed live 0% offer — blue accent to distinguish from green loan rows */
 .bt-confirmed {
-  background: #e0f2fe;
-  border: 1px solid #7dd3fc;
-  border-radius: 8px;
-  padding: 0.45rem 0.65rem;
   font-size: 0.78rem;
-  font-weight: 700;
-  color: #075985;
+  color: #4a5568;
   line-height: 1.45;
 }
 .bt-confirmed-badge {
-  display: inline-block;
-  background: #0369a1;
-  color: white;
-  font-size: 0.65rem;
-  font-weight: 700;
-  padding: 1px 7px;
-  border-radius: 100px;
-  margin-bottom: 3px;
-  letter-spacing: 0.03em;
+  display: none;
 }
 
 /* notes */
@@ -358,9 +345,15 @@ footer {
             <td><span class="cell-sub">Visa</span></td>
             <td><span class="cell-mono">11.84%</span></td>
             <td><span class="apr green">17.0%</span></td>
-            <td><!-- TODO: confirm against issuer site + CCPC.ie before publishing --></td>
+            <td>
+              <!-- ✅ CONFIRMED — 3.83% (variable) intro rate for 12 months on purchases & balance transfers; verified aib.ie 21 Jun 2026 -->
+              <div class="bt-confirmed">
+                <span class="bt-confirmed-badge">✅ CONFIRMED — INTRO RATE</span><br>
+                <strong>3.83%</strong> (variable) on purchases &amp; balance transfers for first 12 months from account opening, then reverts to standard rate. Balance transfers from store cards or non-AIB cards only; capped at €5,000.
+              </div>
+            </td>
             <td><span class="cell-sub">None (+ €30 stamp duty)</span></td>
-            <td><div class="note-text">Minimum €40k salary requirement.</div></td>
+            <td><div class="note-text">Minimum €40k salary. Cash back 0.5% on annual spend €5k–€50k (max €225/yr). Up to 56 days interest-free if cleared in full.</div></td>
           </tr>
 
           <tr>
@@ -552,7 +545,7 @@ footer {
         <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="#1a6e42" stroke-width="1.6"><path d="M3 10h14M3 6h14M3 14h7"/></svg>
       </div>
       <h4>Balance-transfer offers</h4>
-      <p>A 0% balance transfer lets you move debt from a higher-rate card and pay no interest for an introductory period. Intro durations, transfer-window deadlines, and any transfer fees change frequently and are set by each issuer. Only Revolut's offer is confirmed in this table. Always confirm current terms directly with the issuer before applying.</p>
+      <p>An introductory balance-transfer offer lets you move debt from another card at a reduced rate for a set period — this may be 0% (Revolut: 0% for up to 6 months) or a reduced rate (AIB Platinum: 3.83% variable for 12 months). Both of these offers are confirmed in this table. Intro durations, transfer-window deadlines, balance caps (AIB Platinum's is €5,000), and any transfer fees vary by issuer and change frequently. Always confirm current terms directly with the issuer before applying.</p>
     </div>
 
     <div class="note-card">
@@ -619,6 +612,16 @@ mobileNav.querySelectorAll('a').forEach(a => {
   });
 });
 </script>
+
+
+<!-- Cloudflare Web Analytics -->
+<!-- Get your token: Cloudflare dashboard → Analytics & Logs → Web Analytics → "Add a site"
+     (enter borrowclever.ie) → copy the `token` value from the JS snippet Cloudflare generates.
+     Paste it below in place of REPLACE_WITH_CF_WEB_ANALYTICS_TOKEN.
+     No DNS or proxy change needed — the beacon works on DNS-only. -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js"
+  data-cf-beacon='{"token": "REPLACE_WITH_CF_WEB_ANALYTICS_TOKEN"}'></script>
+<!-- End Cloudflare Web Analytics -->
 
 </body>
 </html>

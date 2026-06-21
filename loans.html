@@ -636,5 +636,15 @@ mobileNav.querySelectorAll('a').forEach(a => {
 });
 </script>
 
+
+<!-- Cloudflare Web Analytics -->
+<!-- Get your token: Cloudflare dashboard → Analytics & Logs → Web Analytics → "Add a site"
+     (enter borrowclever.ie) → copy the `token` value from the JS snippet Cloudflare generates.
+     Paste it below in place of REPLACE_WITH_CF_WEB_ANALYTICS_TOKEN.
+     No DNS or proxy change needed — the beacon works on DNS-only. -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js"
+  data-cf-beacon='{"token": "REPLACE_WITH_CF_WEB_ANALYTICS_TOKEN"}'></script>
+<!-- End Cloudflare Web Analytics -->
+
 </body>
 </html>

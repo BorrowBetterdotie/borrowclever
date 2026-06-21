@@ -458,6 +458,16 @@ h1 {
   line-height: 1;
 }
 .brevo-custom-form button[type="submit"]:hover { background: #155c37; }
+/* Honeypot field — visually hidden but not display:none so bots engage with it */
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
 .brevo-success {
   display: none;
   background: #f0faf4;
@@ -1196,6 +1206,8 @@ footer {
     <form id="brevo-email-form" class="brevo-custom-form" novalidate>
       <input type="email" name="EMAIL" placeholder="Your email address" required autocomplete="email">
       <input type="text" name="email_address_check" value="" style="display:none;" aria-hidden="true">
+      <!-- Honeypot: real users never see or fill this; bots often do -->
+      <input type="text" name="website" value="" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
       <input type="hidden" name="locale" value="en">
       <button type="submit">Notify me</button>
     </form>
@@ -1428,6 +1440,8 @@ document.getElementById('brevo-email-form').addEventListener('submit', function(
   var form = this;
   var email = form.querySelector('input[type="email"]').value;
   if (!email || !email.includes('@')) return;
+  // Honeypot check — bots fill this, real users don't
+  if (form.querySelector('input[name="website"]').value !== '') return;
 
   var data = new FormData(form);
 
@@ -1442,6 +1456,16 @@ document.getElementById('brevo-email-form').addEventListener('submit', function(
 });
 </script>
 
+
+
+<!-- Cloudflare Web Analytics -->
+<!-- Get your token: Cloudflare dashboard → Analytics & Logs → Web Analytics → "Add a site"
+     (enter borrowclever.ie) → copy the `token` value from the JS snippet Cloudflare generates.
+     Paste it below in place of REPLACE_WITH_CF_WEB_ANALYTICS_TOKEN.
+     No DNS or proxy change needed — the beacon works on DNS-only. -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js"
+  data-cf-beacon='{"token": "REPLACE_WITH_CF_WEB_ANALYTICS_TOKEN"}'></script>
+<!-- End Cloudflare Web Analytics -->
 
 </body>
 </html>
