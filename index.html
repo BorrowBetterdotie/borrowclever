@@ -1095,7 +1095,7 @@ footer {
     <!-- floating top-right mini card -->
     <div class="mini-card">
       <div class="mini-label">You could save</div>
-      <div class="mini-stat">€770</div>
+      <div class="mini-stat">€499</div>
       <div class="mini-sub">on a €10k loan vs AIB</div>
     </div>
 
@@ -1123,26 +1123,12 @@ footer {
           <div class="l-info">
             <div class="l-name">PTSB Personal Loan</div>
             <div class="l-type">Variable · No conditions</div>
-            <div class="l-bar-wrap"><div class="l-bar" style="width:30%;background:#1a6e42;"></div></div>
+            <div class="l-bar-wrap"><div class="l-bar" style="width:79%;background:#1a6e42;"></div></div>
           </div>
           <div class="l-right">
-            <div class="l-apr green">6.20%</div>
-            <div class="l-cost">€1,602 total interest</div>
+            <div class="l-apr green">7.20%</div>
+            <div class="l-cost">€1,873 total interest</div>
             <div class="l-pill">Cheapest</div>
-          </div>
-        </div>
-
-        <!-- An Post -->
-        <div class="lender-row">
-          <div class="l-icon apm">APM</div>
-          <div class="l-info">
-            <div class="l-name">An Post Money</div>
-            <div class="l-type">Fixed · No early repayment fee</div>
-            <div class="l-bar-wrap"><div class="l-bar" style="width:42%;background:#93c5fd;"></div></div>
-          </div>
-          <div class="l-right">
-            <div class="l-apr mid">6.90%</div>
-            <div class="l-cost">€1,795 total interest</div>
           </div>
         </div>
 
@@ -1152,11 +1138,25 @@ footer {
           <div class="l-info">
             <div class="l-name">Bank of Ireland</div>
             <div class="l-type">Variable · Defer 3 payments</div>
-            <div class="l-bar-wrap"><div class="l-bar" style="width:52%;background:#93c5fd;"></div></div>
+            <div class="l-bar-wrap"><div class="l-bar" style="width:91%;background:#93c5fd;"></div></div>
           </div>
           <div class="l-right">
-            <div class="l-apr mid">7.10%</div>
-            <div class="l-cost">€1,851 total interest</div>
+            <div class="l-apr mid">8.30%</div>
+            <div class="l-cost">€2,167 total interest</div>
+          </div>
+        </div>
+
+        <!-- An Post -->
+        <div class="lender-row">
+          <div class="l-icon apm">APM</div>
+          <div class="l-info">
+            <div class="l-name">An Post Money</div>
+            <div class="l-type">Fixed · No early repayment fee</div>
+            <div class="l-bar-wrap"><div class="l-bar" style="width:93%;background:#93c5fd;"></div></div>
+          </div>
+          <div class="l-right">
+            <div class="l-apr mid">8.40%</div>
+            <div class="l-cost">€2,196 total interest</div>
           </div>
         </div>
 
@@ -1178,7 +1178,7 @@ footer {
           <div>
             <div class="ss-label">Switch AIB → PTSB and save</div>
           </div>
-          <div class="ss-value">€770</div>
+          <div class="ss-value">€499</div>
         </div>
       </div>
     </div>
@@ -1330,9 +1330,9 @@ footer {
 
 // ── LOAN CALCULATOR ──
 const LENDERS = [
-  { name: 'PTSB Personal Loan',  type: 'Variable · No conditions',       apr: 6.20, icon: 'PTSB', cls: 'ptsb' },
-  { name: 'An Post Money',       type: 'Fixed · No early repayment fee', apr: 6.90, icon: 'APM',  cls: 'apm'  },
-  { name: 'Bank of Ireland',     type: 'Variable · Defer 3 payments',    apr: 7.10, icon: 'BOI',  cls: 'boi'  },
+  { name: 'PTSB Personal Loan',  type: 'Variable · No conditions',       apr: 7.20, icon: 'PTSB', cls: 'ptsb' },
+  { name: 'Bank of Ireland',     type: 'Variable · Defer 3 payments',    apr: 8.30, icon: 'BOI',  cls: 'boi'  },
+  { name: 'An Post Money',       type: 'Fixed · No early repayment fee', apr: 8.40, icon: 'APM',  cls: 'apm'  },
   { name: 'Avant Money',         type: 'Fixed · Under €30k',             apr: 8.50, icon: 'AVT',  cls: 'avt'  },
   { name: 'Revolut',             type: 'Variable · Avg rate',            apr: 8.41, icon: 'REV',  cls: 'rev'  },
   { name: 'AIB Personal Loan',   type: 'Variable · 3-hour decision',     apr: 8.95, icon: 'AIB',  cls: 'aib'  },
