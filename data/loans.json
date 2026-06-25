@@ -1,0 +1,161 @@
+[
+  {
+    "id": "boi-sbci-green",
+    "lender": "Bank of Ireland",
+    "product": "SBCI Home Energy Upgrade",
+    "icon": "BOI",
+    "iconCls": "boi",
+    "apr": 3,
+    "rateType": "Variable",
+    "green": true,
+    "seai": true,
+    "notes": "75% of loan on qualifying energy works",
+    "badgeCheapestOverall": true
+  },
+  {
+    "id": "aib-sbci-green",
+    "lender": "AIB",
+    "product": "SBCI Home Energy Upgrade",
+    "icon": "AIB",
+    "iconCls": "aib",
+    "apr": 3.55,
+    "rateType": "Variable",
+    "green": true,
+    "seai": true,
+    "notes": "75% of loan on qualifying energy works"
+  },
+  {
+    "id": "ptsb-sbci-green",
+    "lender": "PTSB",
+    "product": "SBCI Home Energy Upgrade",
+    "icon": "PTSB",
+    "iconCls": "ptsb",
+    "apr": 4.23,
+    "rateType": "Variable",
+    "green": true,
+    "seai": true,
+    "notes": "Tiered rate — €5k–€15k band shown; 2.99% rate (3.00% APR) for €50k–€75k. Rates reduced Jan 2026."
+  },
+  {
+    "id": "ptsb-personal",
+    "lender": "PTSB",
+    "product": "Personal Loan",
+    "icon": "PTSB",
+    "iconCls": "ptsb",
+    "apr": 7.2,
+    "rateType": "Variable",
+    "typeNote": "No conditions",
+    "notes": "Max APR 8.80%. €1k–€75k, up to 84 months",
+    "badgeBestStandard": true,
+    "homepage": true
+  },
+  {
+    "id": "aib-green-personal",
+    "lender": "AIB",
+    "product": "Green Personal Loan",
+    "icon": "AIB",
+    "iconCls": "aib",
+    "apr": 6.4,
+    "rateType": "Variable",
+    "green": true,
+    "notes": "50%+ of loan must go toward green upgrades"
+  },
+  {
+    "id": "boi-green-car",
+    "lender": "Bank of Ireland",
+    "product": "Green Car / Home Improvement",
+    "icon": "BOI",
+    "iconCls": "boi",
+    "apr": 6.5,
+    "rateType": "Variable",
+    "green": true,
+    "notes": "Electric or plug-in hybrid only / energy efficiency works"
+  },
+  {
+    "id": "boi-personal",
+    "lender": "Bank of Ireland",
+    "product": "Personal Loan",
+    "icon": "BOI",
+    "iconCls": "boi",
+    "apr": 8.3,
+    "rateType": "Variable",
+    "typeNote": "Defer 3 payments",
+    "notes": "Can defer first 3 payments. €2k–€75k, up to 84 months",
+    "homepage": true
+  },
+  {
+    "id": "anpost-personal",
+    "lender": "An Post Money",
+    "product": "Personal Loan",
+    "icon": "APM",
+    "iconCls": "apm",
+    "apr": 8.4,
+    "rateType": "Fixed",
+    "typeNote": "No early repayment fee",
+    "notes": "Rate shown for €5k–€19,999 band; 6.90% APR for €20k+. No early repayment fee. €5k–€75k, up to 120 months",
+    "homepage": true
+  },
+  {
+    "id": "revolut-personal",
+    "lender": "Revolut",
+    "product": "Personal Loan",
+    "icon": "REV",
+    "iconCls": "rev",
+    "apr": 8.41,
+    "rateType": "Variable",
+    "notes": "Average rate shown. Range 6.5–12.99% by credit score. €1k–€50k, up to 60 months"
+  },
+  {
+    "id": "avant-personal",
+    "lender": "Avant Money",
+    "product": "Personal Loan (under €30k)",
+    "icon": "AVT",
+    "iconCls": "avt",
+    "apr": 8.5,
+    "rateType": "Fixed",
+    "notes": "Max APR 19.9%. €5k–€29,999, up to 84 months"
+  },
+  {
+    "id": "aib-home-improvement",
+    "lender": "AIB",
+    "product": "Home Improvement Loan",
+    "icon": "AIB",
+    "iconCls": "aib",
+    "apr": 8.65,
+    "rateType": "Variable",
+    "notes": "€1k–€75k, up to 120 months"
+  },
+  {
+    "id": "firstchoice-cu",
+    "lender": "First Choice CU",
+    "product": "Personal Loan (€15k–€25k)",
+    "icon": "CU",
+    "iconCls": "cu",
+    "apr": 8.84,
+    "rateType": "Variable",
+    "creditUnion": true
+  },
+  {
+    "id": "aib-personal",
+    "lender": "AIB",
+    "product": "Personal Loan",
+    "icon": "AIB",
+    "iconCls": "aib",
+    "apr": 8.95,
+    "rateType": "Variable",
+    "typeNote": "3-hour decision",
+    "notes": "3-hour decision for existing customers. €1k–€75k, up to 60 months",
+    "homepage": true
+  },
+  {
+    "id": "cu-average",
+    "lender": "Credit Union average",
+    "product": "Personal Loan — ILCU affiliated",
+    "icon": "CU",
+    "iconCls": "cu",
+    "apr": 10.42,
+    "rateType": "Variable",
+    "creditUnion": true,
+    "notes": "ILCU survey avg, Jul/Aug 2025. Max legal rate 12.68% APR"
+  }
+]
