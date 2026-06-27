@@ -163,7 +163,7 @@ nav {
 /* ── TABLE ── */
 .table-wrap { overflow-x: auto; border-radius: 16px; border: 1px solid #eef0f3; box-shadow: 0 4px 24px rgba(0,0,0,0.05); }
 
-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; min-width: 780px; }
+table { width: 100%; border-collapse: collapse; font-size: 0.875rem; min-width: 920px; }
 
 thead th {
   background: #f8fafc; padding: 0.85rem 1rem; text-align: left;
@@ -238,6 +238,15 @@ tbody tr.section-row:first-child td { border-top: none; }
 
 /* notes */
 .note-text { font-size: 0.76rem; color: #718096; line-height: 1.45; max-width: 200px; }
+
+/* ── CHECK RATE CTA ── */
+.cta-link {
+  display: inline-block; background: #1a6e42; color: white !important;
+  font-size: 0.75rem; font-weight: 700; padding: 0.4rem 0.85rem;
+  border-radius: 100px; text-decoration: none; white-space: nowrap;
+  transition: background 0.15s;
+}
+.cta-link:hover { background: #155c37; }
 
 /* ── NOTES SECTION ── */
 .notes-section {
@@ -406,6 +415,7 @@ footer {
             <th>Total interest</th>
             <th>Total repayable</th>
             <th>Notes</th>
+            <th>Check rate</th>
           </tr>
         </thead>
         <tbody>
@@ -430,6 +440,10 @@ footer {
               </div>
               <div class="note-text" style="margin-top:5px;">75% of loan on qualifying energy works</div>
             </td>
+            <td>
+              <!-- affiliate-swap: change href to tracked URL and set rel="sponsored noopener noreferrer" -->
+              <a href="https://personalbanking.bankofireland.com/borrow/loans/personal-loan/" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for Bank of Ireland on their official site">Check rate</a>
+            </td>
           </tr>
 
           <tr class="row-green">
@@ -450,6 +464,10 @@ footer {
                 <span class="badge badge-seai">SEAI grant required</span>
               </div>
               <div class="note-text" style="margin-top:5px;">75% of loan on qualifying energy works</div>
+            </td>
+            <td>
+              <!-- affiliate-swap: change href to tracked URL and set rel="sponsored noopener noreferrer" -->
+              <a href="https://www.aib.ie/our-products/loans/personal-loan" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for AIB on their official site">Check rate</a>
             </td>
           </tr>
 
@@ -472,6 +490,10 @@ footer {
               </div>
               <div class="note-text" style="margin-top:5px;">Tiered rate — €5k–€15k band shown; 2.99% rate (3.00% APR) for €50k–€75k. Rates reduced Jan 2026.</div>
             </td>
+            <td>
+              <!-- affiliate-swap: change href to tracked URL and set rel="sponsored noopener noreferrer" -->
+              <a href="https://www.ptsb.ie/borrowing/loans/personal-loan/" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for PTSB on their official site">Check rate</a>
+            </td>
           </tr>
 
           <tr class="row-green">
@@ -490,6 +512,10 @@ footer {
             <td>
               <div class="badges"><span class="badge badge-green-prod">Green product</span></div>
               <div class="note-text" style="margin-top:5px;">50%+ of loan must go toward green upgrades</div>
+            </td>
+            <td>
+              <!-- affiliate-swap: change href to tracked URL and set rel="sponsored noopener noreferrer" -->
+              <a href="https://www.aib.ie/our-products/loans/personal-loan" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for AIB on their official site">Check rate</a>
             </td>
           </tr>
 
@@ -510,6 +536,10 @@ footer {
               <div class="badges"><span class="badge badge-green-prod">Green product</span></div>
               <div class="note-text" style="margin-top:5px;">Electric or plug-in hybrid only / energy efficiency works</div>
             </td>
+            <td>
+              <!-- affiliate-swap: change href to tracked URL and set rel="sponsored noopener noreferrer" -->
+              <a href="https://personalbanking.bankofireland.com/borrow/loans/personal-loan/" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for Bank of Ireland on their official site">Check rate</a>
+            </td>
           </tr>
 
           <tr>
@@ -529,6 +559,10 @@ footer {
               <div class="badges"><span class="badge badge-best">Best standard rate</span></div>
               <div class="note-text" style="margin-top:5px;">Rate shown for €10k band. Max APR 8.80%. €1k–€75k, up to 84 months</div>
             </td>
+            <td>
+              <!-- affiliate-swap: change href to tracked URL and set rel="sponsored noopener noreferrer" -->
+              <a href="https://www.ptsb.ie/borrowing/loans/personal-loan/" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for PTSB on their official site">Check rate</a>
+            </td>
           </tr>
 
           <tr>
@@ -545,6 +579,10 @@ footer {
             <td><span class="cell-sub">€2,165.85</span></td>
             <td><span class="cell-total">€12,165.85</span></td>
             <td><div class="note-text">Rate shown for €10k band. Can defer first 3 payments. €2k–€75k, up to 84 months</div></td>
+            <td>
+              <!-- affiliate-swap: change href to tracked URL and set rel="sponsored noopener noreferrer" -->
+              <a href="https://personalbanking.bankofireland.com/borrow/loans/personal-loan/" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for Bank of Ireland on their official site">Check rate</a>
+            </td>
           </tr>
 
           <tr>
@@ -561,6 +599,10 @@ footer {
             <td><span class="cell-sub">€2,218.40</span></td>
             <td><span class="cell-total">€12,218.40</span></td>
             <td><div class="note-text">Rate shown for €5k–€19,999 band; 6.90% APR for €20k+. No early repayment fee. €5k–€75k, up to 120 months</div></td>
+            <td>
+              <!-- affiliate-swap: change href to tracked URL and set rel="sponsored noopener noreferrer" -->
+              <a href="https://www.anpost.com/Money/Low-Fixed-Rate-Loans" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for An Post Money on their official site">Check rate</a>
+            </td>
           </tr>
 
           <tr>
@@ -577,6 +619,10 @@ footer {
             <td><span class="cell-sub">€2,220.20</span></td>
             <td><span class="cell-total">€12,220.20</span></td>
             <td><div class="note-text">Average rate shown. Range 6.5–12.99% by credit score. €1k–€50k, up to 60 months</div></td>
+            <td>
+              <!-- affiliate-swap: change href to tracked URL and set rel="sponsored noopener noreferrer" -->
+              <a href="https://www.revolut.com/en-IE/personal-loans/" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for Revolut on their official site">Check rate</a>
+            </td>
           </tr>
 
           <tr>
@@ -593,6 +639,10 @@ footer {
             <td><span class="cell-sub">€2,245.40</span></td>
             <td><span class="cell-total">€12,245.40</span></td>
             <td><div class="note-text">Max APR 19.9%. €5k–€29,999, up to 84 months</div></td>
+            <td>
+              <!-- affiliate-swap: change href to tracked URL and set rel="sponsored noopener noreferrer" -->
+              <a href="https://www.avantmoney.ie/personal-loans" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for Avant Money on their official site">Check rate</a>
+            </td>
           </tr>
 
           <tr>
@@ -609,6 +659,10 @@ footer {
             <td><span class="cell-sub">€2,286.80</span></td>
             <td><span class="cell-total">€12,286.80</span></td>
             <td><div class="note-text">€1k–€75k, up to 120 months</div></td>
+            <td>
+              <!-- affiliate-swap: change href to tracked URL and set rel="sponsored noopener noreferrer" -->
+              <a href="https://www.aib.ie/our-products/loans/personal-loan" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for AIB on their official site">Check rate</a>
+            </td>
           </tr>
 
           <tr class="row-cu">
@@ -625,6 +679,10 @@ footer {
             <td><span class="cell-sub">€2,346.80</span></td>
             <td><span class="cell-total">€12,346.80</span></td>
             <td><div class="badges"><span class="badge badge-cu">Credit Union</span></div></td>
+            <td>
+              <!-- affiliate-swap: change href to tracked URL and set rel="sponsored noopener noreferrer" -->
+              <a href="https://www.creditunion.ie/what-we-offer/loans/personal/" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for First Choice Credit Union on their official site">Check rate</a>
+            </td>
           </tr>
 
           <tr>
@@ -641,6 +699,10 @@ footer {
             <td><span class="cell-sub">€2,372.00</span></td>
             <td><span class="cell-total">€12,372.00</span></td>
             <td><div class="note-text">3-hour decision for existing customers. €1k–€75k, up to 60 months</div></td>
+            <td>
+              <!-- affiliate-swap: change href to tracked URL and set rel="sponsored noopener noreferrer" -->
+              <a href="https://www.aib.ie/our-products/loans/personal-loan" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for AIB on their official site">Check rate</a>
+            </td>
           </tr>
 
           <tr class="row-cu">
@@ -659,6 +721,10 @@ footer {
             <td>
               <div class="badges"><span class="badge badge-cu">Credit Union</span></div>
               <div class="note-text" style="margin-top:5px;">ILCU survey avg, Jul/Aug 2025. Max legal rate 12.68% APR</div>
+            </td>
+            <td>
+              <!-- affiliate-swap: change href to tracked URL and set rel="sponsored noopener noreferrer" -->
+              <a href="https://www.creditunion.ie/what-we-offer/loans/personal/" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for Credit Union on their official site">Check rate</a>
             </td>
           </tr>
 
