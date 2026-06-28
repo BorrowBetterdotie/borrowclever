@@ -1,0 +1,25 @@
+# wrangler.toml — borrowclever.ie click tracker
+
+name = "borrowclever-go"
+main = "worker.js"
+compatibility_date = "2026-06-01"
+
+# Only these paths hit the Worker. Every other path passes straight through
+# to your GitHub Pages site untouched.
+# NOTE: the hostname must be PROXIED (orange cloud) in Cloudflare DNS for a
+# Worker route to fire. Add the www variants too if you serve www.
+routes = [
+  { pattern = "borrowclever.ie/go/*", zone_name = "borrowclever.ie" },
+  { pattern = "borrowclever.ie/stats*", zone_name = "borrowclever.ie" },
+  # { pattern = "www.borrowclever.ie/go/*", zone_name = "borrowclever.ie" },
+  # { pattern = "www.borrowclever.ie/stats*", zone_name = "borrowclever.ie" },
+]
+
+# D1 database binding (referenced as env.DB in worker.js)
+[[d1_databases]]
+binding = "DB"
+database_name = "borrowclever-clicks"
+database_id = "5667353d-4fe4-44af-a879-841b2cf662bd"
+
+# The /stats token is NOT stored here. Set it as a secret:
+#   wrangler secret put STATS_TOKEN
