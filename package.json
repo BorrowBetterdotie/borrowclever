@@ -1,0 +1,9 @@
+{
+  "name": "borrowclever-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build-products.mjs && node build-table.mjs index.html",
+    "deploy": "npm run build && (cd worker && npx wrangler deploy)"
+  }
+}

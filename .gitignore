@@ -1,0 +1,6 @@
+worker/products.generated.js
+table-preview.html
+worker/table-preview.html
+node_modules/
+.DS_Store
+worker/.DS_Store
