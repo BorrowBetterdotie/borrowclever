@@ -991,6 +991,23 @@ footer {
   border-bottom: none !important;
 }
 
+/* ===== Mobile segmented nav (Loans | Cards) — ADDED. Mobile-only; desktop unaffected. ===== */
+.seg-nav{display:none;}
+@media (max-width:900px){
+  .seg-nav{
+    display:flex;gap:.4rem;position:sticky;top:68px;z-index:98;
+    background:rgba(255,255,255,0.97);backdrop-filter:blur(8px);
+    padding:.5rem 5%;border-bottom:1px solid #eef0f3;
+  }
+  .seg-nav a.seg-item{
+    flex:1;text-align:center;text-decoration:none;padding:.6rem 1rem;border-radius:100px;
+    font-size:.92rem;font-weight:600;color:#4a5568;background:#f8fafc;border:1.5px solid #e2e8f0;
+    transition:background .15s,color .15s,border-color .15s;
+  }
+  .seg-nav a.seg-item.active{background:#1a6e42;color:#fff;border-color:#1a6e42;}
+}
+@media (prefers-reduced-motion:reduce){.seg-nav a.seg-item{transition:none;}}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
   .hero { grid-template-columns: 1fr; min-height: auto; }
@@ -1114,6 +1131,11 @@ footer {
   <a href="#lenders">Lenders</a>
   <a href="#signup" class="mobile-cta">Join waitlist</a>
 </div>
+<!-- Mobile segmented nav (Loans | Cards) — ADDED; shown on mobile only -->
+<nav class="seg-nav" aria-label="Compare loans or cards">
+  <a href="loans.html" class="seg-item">Loans</a>
+  <a href="cards.html" class="seg-item">Cards</a>
+</nav>
 
 <!-- HERO -->
 <section class="hero">

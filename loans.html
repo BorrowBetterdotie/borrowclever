@@ -336,6 +336,59 @@ footer {
   border-bottom: none !important;
 }
 
+/* ===== Mobile segmented nav (Loans | Cards) — ADDED. Mobile-only; desktop unaffected. ===== */
+.seg-nav{display:none;}
+@media (max-width:900px){
+  .seg-nav{
+    display:flex;gap:.4rem;position:sticky;top:68px;z-index:98;
+    background:rgba(255,255,255,0.97);backdrop-filter:blur(8px);
+    padding:.5rem 5%;border-bottom:1px solid #eef0f3;
+  }
+  .seg-nav a.seg-item{
+    flex:1;text-align:center;text-decoration:none;padding:.6rem 1rem;border-radius:100px;
+    font-size:.92rem;font-weight:600;color:#4a5568;background:#f8fafc;border:1.5px solid #e2e8f0;
+    transition:background .15s,color .15s,border-color .15s;
+  }
+  .seg-nav a.seg-item.active{background:#1a6e42;color:#fff;border-color:#1a6e42;}
+}
+@media (prefers-reduced-motion:reduce){.seg-nav a.seg-item{transition:none;}}
+
+.details-toggle{display:none;} /* mobile-only; desktop hides it */
+
+/* ===== Mobile comparison cards (LOANS) — ADDED. Mobile-only (<=680px); desktop table unchanged. ===== */
+@media (max-width:680px){
+  .compare-section .table-wrap{overflow:visible;border:0;box-shadow:none;border-radius:0;}
+  .compare-section table{min-width:0;font-size:1rem;display:block;}
+  .compare-section thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);}
+  .compare-section tbody{display:block;}
+  .compare-section tbody tr{
+    display:flex;flex-wrap:wrap;align-items:center;gap:.15rem .9rem;
+    background:#fff;border:1px solid #eef0f3;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,0.05);
+    padding:1.05rem 1.1rem;margin-bottom:1rem;
+  }
+  .compare-section tbody tr.row-green{border-color:#b7e4ca;background:#f0faf4;}
+  .compare-section tbody td{display:block;padding:0;border:0;}
+  .compare-section td:nth-child(1),.compare-section td:nth-child(6){display:none;} /* rank + redundant total-interest */
+  .compare-section td:nth-child(2){order:1;flex-basis:100%;}
+  .compare-section td:nth-child(2) .l-name{font-size:1rem;font-weight:700;}
+  .compare-section td:nth-child(2) .l-product{font-size:.85rem;color:#718096;}
+  .compare-section td:nth-child(3){order:2;}
+  .compare-section td:nth-child(3)::before{content:"APR";display:block;font-size:.62rem;text-transform:uppercase;letter-spacing:.06em;color:#a0aec0;font-weight:700;}
+  .compare-section td:nth-child(3) .apr{font-size:1.5rem;font-weight:800;}
+  .compare-section td:nth-child(5){order:3;margin-left:auto;text-align:right;}
+  .compare-section td:nth-child(5)::before{content:"Monthly";display:block;font-size:.62rem;text-transform:uppercase;letter-spacing:.06em;color:#a0aec0;font-weight:700;}
+  .compare-section td:nth-child(5) .cell-mono{font-size:1.2rem;font-weight:700;}
+  .compare-section td:nth-child(7){order:4;flex-basis:100%;margin-top:.5rem;font-size:.85rem;color:#4a5568;}
+  .compare-section td:nth-child(7)::before{content:"Total repayable  ";color:#a0aec0;font-weight:600;}
+  .compare-section td:nth-child(4){order:5;flex-basis:100%;font-size:.8rem;color:#718096;}
+  .compare-section td:nth-child(4)::before{content:"Rate type  ";color:#a0aec0;}
+  .compare-section td:nth-child(8){order:6;flex-basis:100%;margin-top:.4rem;}
+  .compare-section td:nth-child(9){order:7;flex-basis:100%;margin-top:.75rem;}
+  .compare-section td:nth-child(9) .cta-link{display:block;width:100%;text-align:center;padding:.8rem;border-radius:10px;font-size:.95rem;}
+  .compare-section tbody tr.details-collapsed .note-text{display:none;}
+  .details-toggle{display:inline-block;margin-top:.5rem;background:none;border:0;color:#1a6e42;font:inherit;font-size:.82rem;font-weight:700;cursor:pointer;padding:.2rem 0;}
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
   nav .nav-links { display: none; }
@@ -372,6 +425,11 @@ footer {
   <a href="index.html#lenders">Lenders</a>
   <a href="index.html#signup" class="mobile-cta">Join waitlist</a>
 </div>
+<!-- Mobile segmented nav (Loans | Cards) — ADDED; shown on mobile only -->
+<nav class="seg-nav" aria-label="Compare loans or cards">
+  <a href="loans.html" class="seg-item active">Loans</a>
+  <a href="cards.html" class="seg-item">Cards</a>
+</nav>
 
 <!-- PAGE HEADER -->
 <div class="page-header">
@@ -733,7 +791,6 @@ footer {
     </div>
   </div>
 </div>
-
 <!-- NOTES -->
 <div class="notes-section">
   <div class="notes-inner">
@@ -790,6 +847,34 @@ mobileNav.querySelectorAll('a').forEach(a => {
     hamburger.classList.remove('open');
   });
 });
+</script>
+
+
+<script>
+/* Mobile "Details" toggle for comparison cards — ADDED. Progressive enhancement, additive.
+   Collapses the long note (and, on cards, the balance-transfer line) behind a tap on small
+   screens. Desktop is unaffected (button is display:none and collapse rules are mobile-only). */
+(function(){
+  try{
+    document.querySelectorAll('.compare-section tbody tr').forEach(function(tr){
+      var note = tr.querySelector('.note-text');
+      if(!note) return;
+      tr.classList.add('details-collapsed');
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'details-toggle';
+      btn.textContent = 'Details';
+      btn.setAttribute('aria-expanded','false');
+      btn.addEventListener('click', function(){
+        var open = tr.classList.toggle('details-open');
+        tr.classList.toggle('details-collapsed', !open);
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        btn.textContent = open ? 'Hide details' : 'Details';
+      });
+      note.parentNode.insertBefore(btn, note);
+    });
+  }catch(e){ /* no-op: cards remain fully readable without the toggle */ }
+})();
 </script>
 
 </body>
