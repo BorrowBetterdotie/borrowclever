@@ -991,6 +991,25 @@ footer {
   border-bottom: none !important;
 }
 
+/* ── Mobile segmented nav ── */
+.seg-nav { display: none; }
+@media (max-width: 900px) {
+  .seg-nav {
+    display: flex; align-items: center; justify-content: center;
+    gap: 0; margin: 0.75rem 5% 0;
+    border: 1.5px solid #e2e8f0; border-radius: 10px; overflow: hidden;
+    background: #f8fafb;
+  }
+  .seg-item {
+    flex: 1; text-align: center;
+    padding: 0.6rem 0; font-size: 0.88rem; font-weight: 600;
+    color: #4a5568; text-decoration: none; transition: background 0.15s, color 0.15s;
+  }
+  .seg-item:first-child { border-right: 1.5px solid #e2e8f0; }
+  .seg-item.active { background: #1a6e42; color: #fff; }
+  .seg-item:not(.active):hover { background: #edf2f7; }
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
   .hero { grid-template-columns: 1fr; min-height: auto; }
@@ -1114,6 +1133,10 @@ footer {
   <a href="#lenders">Lenders</a>
   <a href="#signup" class="mobile-cta">Join waitlist</a>
 </div>
+<nav class="seg-nav" aria-label="Compare">
+  <a href="loans.html" class="seg-item">Loans</a>
+  <a href="cards.html" class="seg-item">Cards</a>
+</nav>
 
 <!-- HERO -->
 <section class="hero">

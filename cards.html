@@ -355,6 +355,59 @@ footer {
   font-weight: 700 !important; border-bottom: none !important;
 }
 
+/* ── Mobile segmented nav ── */
+.seg-nav { display: none; }
+@media (max-width: 900px) {
+  .seg-nav {
+    display: flex; align-items: center; justify-content: center;
+    gap: 0; margin: 0.75rem 5% 0;
+    border: 1.5px solid #e2e8f0; border-radius: 10px; overflow: hidden;
+    background: #f8fafb;
+  }
+  .seg-item {
+    flex: 1; text-align: center;
+    padding: 0.6rem 0; font-size: 0.88rem; font-weight: 600;
+    color: #4a5568; text-decoration: none; transition: background 0.15s, color 0.15s;
+  }
+  .seg-item:first-child { border-right: 1.5px solid #e2e8f0; }
+  .seg-item.active { background: #1a6e42; color: #fff; }
+  .seg-item:not(.active):hover { background: #edf2f7; }
+}
+
+/* ── Mobile comparison cards ── */
+.details-toggle { display: none; }
+@media (max-width: 680px) {
+  .compare-table { display: none; }
+  .mobile-cards { display: flex; flex-direction: column; gap: 1rem; padding: 1.5rem 5%; }
+  .m-card {
+    border: 1.5px solid #e2e8f0; border-radius: 14px; overflow: hidden;
+    background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .m-card-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 1.1rem; background: #f8fafb; border-bottom: 1px solid #e2e8f0;
+  }
+  .m-card-lender { font-size: 0.9rem; font-weight: 700; color: #0d1b2a; }
+  .m-card-rate { font-size: 1.1rem; font-weight: 800; color: #1a6e42; }
+  .m-card-body { padding: 0.9rem 1.1rem; display: flex; flex-direction: column; gap: 0.55rem; }
+  .m-card-row { display: flex; justify-content: space-between; font-size: 0.82rem; }
+  .m-card-label { color: #718096; }
+  .m-card-value { font-weight: 600; color: #0d1b2a; }
+  .m-card-cta {
+    display: block; margin: 0.75rem 1.1rem 1rem;
+    background: #1a6e42; color: #fff; text-align: center;
+    padding: 0.65rem; border-radius: 100px; font-size: 0.85rem; font-weight: 700;
+    text-decoration: none;
+  }
+  .m-card-details { display: none; }
+  .m-card-details.open { display: flex; flex-direction: column; gap: 0.55rem; padding: 0 1.1rem 0.5rem; }
+  .details-toggle {
+    display: block; width: 100%; background: none; border: none;
+    color: #1a6e42; font-size: 0.8rem; font-weight: 600; cursor: pointer;
+    padding: 0.5rem 1.1rem; text-align: left;
+  }
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
   nav .nav-links { display: none; }
@@ -391,6 +444,10 @@ footer {
   <a href="index.html#lenders">Lenders</a>
   <a href="index.html#signup" class="mobile-cta">Join waitlist</a>
 </div>
+<nav class="seg-nav" aria-label="Compare">
+  <a href="loans.html" class="seg-item">Loans</a>
+  <a href="cards.html" class="seg-item active">Cards</a>
+</nav>
 
 <!-- PAGE HEADER -->
 <div class="page-header">
@@ -755,6 +812,177 @@ footer {
     </div>
     <p style="font-size:0.76rem;color:#a0aec0;margin-top:0.85rem;">† All Irish credit cards carry a €30 government stamp duty per year, charged by your issuer on behalf of Revenue. This is in addition to any annual card fee shown above.</p>
   </div>
+  <!-- Mobile cards — shown only at max-width:680px, table hidden -->
+  <div class="mobile-cards">
+
+    <div class="m-card">
+      <div class="m-card-head"><span class="m-card-lender">AIB · Click</span><span class="m-card-rate">13.8% APR</span></div>
+      <div class="m-card-body">
+        <div class="m-card-row"><span class="m-card-label">Network</span><span class="m-card-value">Visa</span></div>
+        <div class="m-card-row"><span class="m-card-label">Annual fee</span><span class="m-card-value">None</span></div>
+      </div>
+      <button class="details-toggle" aria-expanded="false">Show details ▾</button>
+      <div class="m-card-details">
+        <div class="m-card-row"><span class="m-card-label">Balance transfer</span><span class="m-card-value">No intro offer</span></div>
+        <div class="m-card-row"><span class="m-card-label">Notes</span><span class="m-card-value">Lowest APR in Ireland · Online-only</span></div>
+      </div>
+      <a href="/go/aib-card-click" class="m-card-cta" target="_blank" rel="noopener noreferrer">Check rate →</a>
+    </div>
+
+    <div class="m-card">
+      <div class="m-card-head"><span class="m-card-lender">AIB · Platinum</span><span class="m-card-rate">17.0% APR</span></div>
+      <div class="m-card-body">
+        <div class="m-card-row"><span class="m-card-label">Network</span><span class="m-card-value">Visa</span></div>
+        <div class="m-card-row"><span class="m-card-label">Annual fee</span><span class="m-card-value">None</span></div>
+      </div>
+      <button class="details-toggle" aria-expanded="false">Show details ▾</button>
+      <div class="m-card-details">
+        <div class="m-card-row"><span class="m-card-label">Balance transfer</span><span class="m-card-value">3.83% intro for 12 months</span></div>
+        <div class="m-card-row"><span class="m-card-label">Notes</span><span class="m-card-value">Min €40k salary · 0.5% cash back</span></div>
+      </div>
+      <a href="/go/aib-card-platinum" class="m-card-cta" target="_blank" rel="noopener noreferrer">Check rate →</a>
+    </div>
+
+    <div class="m-card">
+      <div class="m-card-head"><span class="m-card-lender">Revolut · Credit Card</span><span class="m-card-rate">17.99% APR</span></div>
+      <div class="m-card-body">
+        <div class="m-card-row"><span class="m-card-label">Network</span><span class="m-card-value">Visa / Mastercard</span></div>
+        <div class="m-card-row"><span class="m-card-label">Annual fee</span><span class="m-card-value">None</span></div>
+      </div>
+      <button class="details-toggle" aria-expanded="false">Show details ▾</button>
+      <div class="m-card-details">
+        <div class="m-card-row"><span class="m-card-label">Balance transfer</span><span class="m-card-value">0% up to 6 months</span></div>
+        <div class="m-card-row"><span class="m-card-label">Notes</span><span class="m-card-value">App-only · RevPoints rewards</span></div>
+      </div>
+    </div>
+
+    <div class="m-card">
+      <div class="m-card-head"><span class="m-card-lender">BOI · Platinum Advantage</span><span class="m-card-rate">19.6% APR</span></div>
+      <div class="m-card-body">
+        <div class="m-card-row"><span class="m-card-label">Network</span><span class="m-card-value">Mastercard</span></div>
+        <div class="m-card-row"><span class="m-card-label">Annual fee</span><span class="m-card-value">€76.18</span></div>
+      </div>
+      <button class="details-toggle" aria-expanded="false">Show details ▾</button>
+      <div class="m-card-details">
+        <div class="m-card-row"><span class="m-card-label">Balance transfer</span><span class="m-card-value">0% for 7 months (or 0% purchases 6 mths)</span></div>
+        <div class="m-card-row"><span class="m-card-label">Notes</span><span class="m-card-value">Travel insurance · Min €40k salary</span></div>
+      </div>
+      <a href="/go/boi-card-platinum" class="m-card-cta" target="_blank" rel="noopener noreferrer">Check rate →</a>
+    </div>
+
+    <div class="m-card">
+      <div class="m-card-head"><span class="m-card-lender">BOI · Affinity</span><span class="m-card-rate">20.2% APR</span></div>
+      <div class="m-card-body">
+        <div class="m-card-row"><span class="m-card-label">Network</span><span class="m-card-value">Mastercard</span></div>
+        <div class="m-card-row"><span class="m-card-label">Annual fee</span><span class="m-card-value">None</span></div>
+      </div>
+      <button class="details-toggle" aria-expanded="false">Show details ▾</button>
+      <div class="m-card-details">
+        <div class="m-card-row"><span class="m-card-label">Balance transfer</span><span class="m-card-value">2.9% fixed for 12 months</span></div>
+        <div class="m-card-row"><span class="m-card-label">Notes</span><span class="m-card-value">Charity-linked cards</span></div>
+      </div>
+      <a href="/go/boi-card-affinity" class="m-card-cta" target="_blank" rel="noopener noreferrer">Check rate →</a>
+    </div>
+
+    <div class="m-card">
+      <div class="m-card-head"><span class="m-card-lender">BOI · Classic</span><span class="m-card-rate">22.1% APR</span></div>
+      <div class="m-card-body">
+        <div class="m-card-row"><span class="m-card-label">Network</span><span class="m-card-value">Mastercard</span></div>
+        <div class="m-card-row"><span class="m-card-label">Annual fee</span><span class="m-card-value">None</span></div>
+      </div>
+      <button class="details-toggle" aria-expanded="false">Show details ▾</button>
+      <div class="m-card-details">
+        <div class="m-card-row"><span class="m-card-label">Balance transfer</span><span class="m-card-value">0% for 7 months (or 0% purchases 6 mths)</span></div>
+        <div class="m-card-row"><span class="m-card-label">Notes</span><span class="m-card-value">No annual card fee</span></div>
+      </div>
+      <a href="/go/boi-card-classic" class="m-card-cta" target="_blank" rel="noopener noreferrer">Check rate →</a>
+    </div>
+
+    <div class="m-card">
+      <div class="m-card-head"><span class="m-card-lender">PTSB · Ice</span><span class="m-card-rate">22.53% APR</span></div>
+      <div class="m-card-body">
+        <div class="m-card-row"><span class="m-card-label">Network</span><span class="m-card-value">Visa</span></div>
+        <div class="m-card-row"><span class="m-card-label">Annual fee</span><span class="m-card-value">None</span></div>
+      </div>
+      <button class="details-toggle" aria-expanded="false">Show details ▾</button>
+      <div class="m-card-details">
+        <div class="m-card-row"><span class="m-card-label">Balance transfer</span><span class="m-card-value">0% for 6 months + 0% purchases 3 mths</span></div>
+        <div class="m-card-row"><span class="m-card-label">Notes</span><span class="m-card-value">One balance transfer per card</span></div>
+      </div>
+      <a href="/go/ptsb-card-ice" class="m-card-cta" target="_blank" rel="noopener noreferrer">Check rate →</a>
+    </div>
+
+    <div class="m-card">
+      <div class="m-card-head"><span class="m-card-lender">BOI · Aer Credit Card</span><span class="m-card-rate">22.7% APR</span></div>
+      <div class="m-card-body">
+        <div class="m-card-row"><span class="m-card-label">Network</span><span class="m-card-value">Mastercard</span></div>
+        <div class="m-card-row"><span class="m-card-label">Annual fee</span><span class="m-card-value">€78</span></div>
+      </div>
+      <button class="details-toggle" aria-expanded="false">Show details ▾</button>
+      <div class="m-card-details">
+        <div class="m-card-row"><span class="m-card-label">Balance transfer</span><span class="m-card-value">0% for 7 months (or 0% purchases 6 mths)</span></div>
+        <div class="m-card-row"><span class="m-card-label">Notes</span><span class="m-card-value">Aer Lingus / AerClub rewards</span></div>
+      </div>
+      <a href="/go/boi-card-aer" class="m-card-cta" target="_blank" rel="noopener noreferrer">Check rate →</a>
+    </div>
+
+    <div class="m-card">
+      <div class="m-card-head"><span class="m-card-lender">AIB · 'be'</span><span class="m-card-rate">22.9% APR</span></div>
+      <div class="m-card-body">
+        <div class="m-card-row"><span class="m-card-label">Network</span><span class="m-card-value">Visa / Mastercard</span></div>
+        <div class="m-card-row"><span class="m-card-label">Annual fee</span><span class="m-card-value">None</span></div>
+      </div>
+      <button class="details-toggle" aria-expanded="false">Show details ▾</button>
+      <div class="m-card-details">
+        <div class="m-card-row"><span class="m-card-label">Balance transfer</span><span class="m-card-value">—</span></div>
+        <div class="m-card-row"><span class="m-card-label">Notes</span><span class="m-card-value">Two-tier purchase rate</span></div>
+      </div>
+      <a href="/go/aib-card-be" class="m-card-cta" target="_blank" rel="noopener noreferrer">Check rate →</a>
+    </div>
+
+    <div class="m-card">
+      <div class="m-card-head"><span class="m-card-lender">An Post Money · Classic</span><span class="m-card-rate">22.9% APR</span></div>
+      <div class="m-card-body">
+        <div class="m-card-row"><span class="m-card-label">Network</span><span class="m-card-value">Mastercard</span></div>
+        <div class="m-card-row"><span class="m-card-label">Annual fee</span><span class="m-card-value">None</span></div>
+      </div>
+      <button class="details-toggle" aria-expanded="false">Show details ▾</button>
+      <div class="m-card-details">
+        <div class="m-card-row"><span class="m-card-label">Balance transfer</span><span class="m-card-value">0% for 12 months (transfer within 90 days)</span></div>
+        <div class="m-card-row"><span class="m-card-label">Notes</span><span class="m-card-value">Ireland's longest 0% BT window</span></div>
+      </div>
+      <a href="/go/anpost-card-classic" class="m-card-cta" target="_blank" rel="noopener noreferrer">Check rate →</a>
+    </div>
+
+    <div class="m-card">
+      <div class="m-card-head"><span class="m-card-lender">An Post Money · Flex</span><span class="m-card-rate">22.9% APR</span></div>
+      <div class="m-card-body">
+        <div class="m-card-row"><span class="m-card-label">Network</span><span class="m-card-value">Mastercard</span></div>
+        <div class="m-card-row"><span class="m-card-label">Annual fee</span><span class="m-card-value">None</span></div>
+      </div>
+      <button class="details-toggle" aria-expanded="false">Show details ▾</button>
+      <div class="m-card-details">
+        <div class="m-card-row"><span class="m-card-label">Balance transfer</span><span class="m-card-value">No balance-transfer offer</span></div>
+        <div class="m-card-row"><span class="m-card-label">Notes</span><span class="m-card-value">0% on purchases 9 months · Ireland's longest purchase intro</span></div>
+      </div>
+      <a href="/go/anpost-card-flex" class="m-card-cta" target="_blank" rel="noopener noreferrer">Check rate →</a>
+    </div>
+
+    <div class="m-card">
+      <div class="m-card-head"><span class="m-card-lender">Avant Money · One Card</span><span class="m-card-rate">22.9% APR</span></div>
+      <div class="m-card-body">
+        <div class="m-card-row"><span class="m-card-label">Network</span><span class="m-card-value">Mastercard</span></div>
+        <div class="m-card-row"><span class="m-card-label">Annual fee</span><span class="m-card-value">None</span></div>
+      </div>
+      <button class="details-toggle" aria-expanded="false">Show details ▾</button>
+      <div class="m-card-details">
+        <div class="m-card-row"><span class="m-card-label">Balance transfer</span><span class="m-card-value">0% for 9 months (transfer within 90 days)</span></div>
+        <div class="m-card-row"><span class="m-card-label">Notes</span><span class="m-card-value">€150 cashback on €1,000+ BT · Also 0% purchases 3 mths</span></div>
+      </div>
+      <a href="/go/avant-card-one" class="m-card-cta" target="_blank" rel="noopener noreferrer">Check rate →</a>
+    </div>
+
+  </div>
 </div>
 
 <!-- NOTES -->
@@ -826,6 +1054,17 @@ footer {
   </div>
   <div class="footer-note">BorrowClever is an independent financial comparison service. Rates sourced from lender websites and CCPC.ie. Always verify with the lender before applying. This is not financial advice. © 2026 BorrowClever Ireland Limited.</div>
 </footer>
+
+<script>
+document.querySelectorAll('.details-toggle').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const details = btn.nextElementSibling;
+    const open = details.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open);
+    btn.textContent = open ? 'Hide details ▴' : 'Show details ▾';
+  });
+});
+</script>
 
 <script>
 const hamburger = document.getElementById('hamburger');
