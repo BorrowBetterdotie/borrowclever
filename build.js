@@ -205,34 +205,6 @@ function ldScript(blocks) {
   }
 
   const bestFeatured = featured[0];
-  const maxInterest  = calcInterest(featured[featured.length - 1].apr);
-
-  const rows = featured.map((loan, idx) => {
-    const interest = calcInterest(loan.apr);
-    const isFirst  = idx === 0;
-    const isLast   = idx === featured.length - 1;
-    const barPct   = Math.round(interest / maxInterest * 100);
-    const barColor = isFirst ? '#1a6e42' : isLast ? '#fca5a5' : '#93c5fd';
-    const aprCls   = isFirst ? 'green' : isLast ? 'red' : 'mid';
-    const typeStr  = loan.typeNote ? `${loan.rateType} · ${loan.typeNote}` : loan.rateType;
-
-    return [
-      `        <div class="lender-row${isFirst ? ' best-row' : ''}">`,
-      `          <div class="l-icon ${loan.iconCls}">${loan.icon}</div>`,
-      `          <div class="l-info">`,
-      `            <div class="l-name">${loan.lender}</div>`,
-      `            <div class="l-type">${typeStr}</div>`,
-      `            <div class="l-bar-wrap"><div class="l-bar" style="width:${barPct}%;background:${barColor};"></div></div>`,
-      `          </div>`,
-      `          <div class="l-right">`,
-      `            <div class="l-apr ${aprCls}">${loan.apr.toFixed(2)}%</div>`,
-      `            <div class="l-cost">€${fmtNum(interest)} total interest</div>`,
-      isFirst ? `            <div class="l-pill">Cheapest</div>` : '',
-      `          </div>`,
-      `        </div>`,
-    ].filter(Boolean).join('\n');
-  }).join('\n');
-
   const saving = calcInterest(aib.apr) - calcInterest(bestFeatured.apr);
 
   // JSON-LD for homepage
@@ -249,13 +221,11 @@ function ldScript(blocks) {
   const indexPath = path.join(__dirname, 'index.html');
   let html = fs.readFileSync(indexPath, 'utf8');
 
-  html = inject(html, 'HOMEPAGE_LOANS',
-    `\n        <!-- generated from /data/loans.json by build.js — do not edit by hand -->\n${rows}\n        `);
   html = inject(html, 'HERO_SAVING', String(saving));
   html = inject(html, 'JSONLD', jsonld);
 
   fs.writeFileSync(indexPath, html, 'utf8');
-  console.log(`[build] index.html: ${featured.length} featured loans | best ${bestFeatured.apr.toFixed(2)}% | saving €${saving}`);
+  console.log(`[build] index.html: best ${bestFeatured.apr.toFixed(2)}% | saving €${saving}`);
 })();
 
 // ── Step 3: loans.html ────────────────────────────────────────────────────────
