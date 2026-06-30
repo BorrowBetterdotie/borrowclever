@@ -111,6 +111,7 @@
 <link rel="stylesheet" href="site.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="site.css">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 .eyebrow { display: inline-block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #4ade80; margin-bottom: 1rem; }
@@ -265,6 +266,54 @@ tbody tr.section-row:first-child td { border-top: none; }
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
   .notes-inner { grid-template-columns: 1fr; }
+}
+
+/* ── DARK THEME ── */
+.section-eyebrow { color: #22c55e; }
+.section-title { color: #f0f0f0; }
+.section-sub { color: #888; }
+.table-wrap { border-color: rgba(255,255,255,0.08); box-shadow: 0 4px 24px rgba(0,0,0,0.4); }
+thead th { background: #141414; color: #555; border-bottom-color: rgba(255,255,255,0.06); }
+tbody tr { border-bottom-color: rgba(255,255,255,0.04); }
+tbody tr:hover { background: #1c1c1c !important; }
+tbody tr.row-green { background: rgba(34,197,94,0.05); }
+tbody tr.row-cu { background: #111111; }
+tbody tr.section-row td { background: #141414; color: #555; border-color: rgba(255,255,255,0.06); }
+.rank { color: #444; }
+.rank.top { color: #22c55e; }
+.l-icon.ptsb { background: rgba(219,234,254,0.07); color: #93c5fd; }
+.l-icon.apm  { background: rgba(254,243,199,0.07); color: #fcd34d; }
+.l-icon.avt  { background: rgba(237,233,254,0.07); color: #c4b5fd; }
+.l-icon.boi  { background: rgba(209,250,229,0.07); color: #6ee7b7; }
+.l-icon.aib  { background: rgba(254,226,226,0.07); color: #fca5a5; }
+.l-icon.rev  { background: rgba(224,242,254,0.07); color: #7dd3fc; }
+.l-icon.cu   { background: rgba(204,251,241,0.07); color: #5eead4; }
+.l-name { color: #f0f0f0; }
+.l-product { color: #555; }
+.apr.green { color: #22c55e; }
+.apr.mid   { color: #60a5fa; }
+.apr.red   { color: #f87171; }
+.cell-mono { color: #f0f0f0; }
+.cell-sub { color: #555; }
+.cell-total { color: #f0f0f0; }
+.note-text { color: #555; }
+.badge-cheapest { background: #22c55e; color: #0c0c0c; }
+.badge-best { background: #3b82f6; color: #ffffff; }
+.badge-seai { background: rgba(254,243,199,0.08); color: #fbbf24; border-color: rgba(253,230,138,0.2); }
+.badge-green-prod { background: rgba(220,252,231,0.07); color: #4ade80; border-color: rgba(187,247,208,0.15); }
+.badge-cu { background: rgba(204,251,241,0.07); color: #2dd4bf; border-color: rgba(153,246,228,0.15); }
+.cta-link { background: #22c55e; color: #0c0c0c !important; }
+.cta-link:hover { background: #16a34a; }
+.notes-section { background: #111111; border-color: rgba(255,255,255,0.06); }
+.note-card { background: #1a1a1a; border-color: rgba(255,255,255,0.07); }
+.note-card h4 { color: #f0f0f0; }
+.note-card p { color: #888; }
+.note-icon { background: rgba(34,197,94,0.1); }
+.disclaimer { color: #555; }
+.disclaimer strong { color: #777; }
+@media (max-width: 680px) {
+  .compare-section tbody tr { background: #1a1a1a; border-color: rgba(255,255,255,0.07); box-shadow: 0 4px 24px rgba(0,0,0,0.4); }
+  .compare-section tbody tr.row-green { border-color: rgba(34,197,94,0.25); background: rgba(34,197,94,0.05); }
 }
 </style>
 </head>
