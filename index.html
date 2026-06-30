@@ -752,6 +752,7 @@ footer {
 }
 
 .cr-apr-val.green { color: #1a6e42; }
+.cr-apr-val.mid   { color: #4a5568; }
 .cr-apr-val.red   { color: #c53030; }
 .cr-apr-label { font-size: 0.7rem; color: #718096; margin-top: 2px; }
 
@@ -1225,7 +1226,7 @@ function updateCalc() {
           <div class="cr-type">${l.type}</div>
         </div>
         <div class="cr-apr">
-          <div class="cr-apr-val ${i === 0 ? 'green' : i === results.length - 1 ? 'red' : ''}">${l.apr.toFixed(2)}%</div>
+          <div class="cr-apr-val ${i === 0 ? 'green' : i === results.length - 1 ? 'red' : 'mid'}">${l.apr.toFixed(2)}%</div>
           <div class="cr-apr-label">APR</div>
         </div>
         <div class="cr-costs">
