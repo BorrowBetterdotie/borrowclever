@@ -261,155 +261,6 @@ h1 {
   background: rgba(255,255,255,0.04);
 }
 
-/* floating card stack */
-.card-stack {
-  position: relative;
-  width: 100%;
-  max-width: 380px;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-/* MAIN comparison card */
-.main-card {
-  background: white;
-  border-radius: 16px;
-  padding: 18px 20px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-}
-
-.mc-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 14px;
-}
-
-.mc-title {
-  font-size: 12px;
-  font-weight: 700;
-  color: #0d1b2a;
-}
-
-.mc-sub {
-  font-size: 10px;
-  color: #718096;
-  font-weight: 500;
-}
-
-.mc-badge {
-  background: #f0faf4;
-  color: #1a6e42;
-  font-size: 9px;
-  font-weight: 700;
-  padding: 3px 9px;
-  border-radius: 100px;
-  border: 1px solid #b7e4ca;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-/* lender rows */
-.lender-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 9px 10px;
-  border-radius: 10px;
-  margin-bottom: 6px;
-  background: #f8fafc;
-}
-
-.lender-row.best-row {
-  background: #f0faf4;
-  border: 1.5px solid #b7e4ca;
-}
-
-.lender-row:last-child { margin-bottom: 0; }
-
-.l-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 9px;
-  font-weight: 700;
-  flex-shrink: 0;
-  letter-spacing: 0.02em;
-}
-
-.l-icon.ptsb { background: #dbeafe; color: #1e40af; }
-.l-icon.apm  { background: #fef3c7; color: #92400e; }
-.l-icon.boi  { background: #d1fae5; color: #065f46; }
-.l-icon.aib  { background: #fee2e2; color: #991b1b; }
-
-.l-info { flex: 1; min-width: 0; }
-
-.l-name {
-  font-size: 11px;
-  font-weight: 600;
-  color: #0d1b2a;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.l-type { font-size: 9px; color: #718096; margin-top: 1px; }
-
-.l-bar-wrap {
-  width: 60px;
-  height: 4px;
-  background: #e2e8f0;
-  border-radius: 4px;
-  overflow: hidden;
-  margin-top: 4px;
-}
-
-.l-bar { height: 100%; border-radius: 4px; }
-
-.l-right { text-align: right; flex-shrink: 0; }
-
-.l-apr {
-  font-size: 13px;
-  font-weight: 700;
-  line-height: 1;
-}
-
-.l-apr.green { color: #1a6e42; }
-.l-apr.mid   { color: #2d6a9f; }
-.l-apr.red   { color: #c53030; }
-
-.l-cost { font-size: 9px; color: #718096; margin-top: 2px; }
-
-.l-pill {
-  font-size: 8px;
-  font-weight: 700;
-  background: #1a6e42;
-  color: white;
-  padding: 2px 7px;
-  border-radius: 100px;
-  margin-top: 3px;
-  display: inline-block;
-}
-
-/* summary strip */
-.summary-strip {
-  background: #0f4a2a;
-  border-radius: 10px;
-  padding: 10px 14px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 8px;
-}
-
-.ss-label { font-size: 10px; color: rgba(255,255,255,0.6); font-weight: 500; }
-.ss-value { font-size: 16px; font-weight: 800; color: #4ade80; }
-
 /* floating mini card — top right */
 .mini-card {
   position: absolute;
@@ -517,7 +368,7 @@ h1 {
 
 /* ── LOGOS BAR ── */
 .logos-bar {
-  padding: 2.5rem 6%;
+  padding: 1.5rem 6%;
   border-top: 1px solid #eef0f3;
   border-bottom: 1px solid #eef0f3;
 }
@@ -901,6 +752,7 @@ footer {
 }
 
 .cr-apr-val.green { color: #1a6e42; }
+.cr-apr-val.mid   { color: #4a5568; }
 .cr-apr-val.red   { color: #c53030; }
 .cr-apr-label { font-size: 0.7rem; color: #718096; margin-top: 2px; }
 
@@ -995,27 +847,10 @@ footer {
   border-bottom: none !important;
 }
 
-/* ===== Mobile segmented nav (Loans | Cards) — ADDED. Mobile-only; desktop unaffected. ===== */
-.seg-nav{display:none;}
-@media (max-width:900px){
-  .seg-nav{
-    display:flex;gap:.4rem;position:sticky;top:68px;z-index:98;
-    background:rgba(255,255,255,0.97);backdrop-filter:blur(8px);
-    padding:.5rem 5%;border-bottom:1px solid #eef0f3;
-  }
-  .seg-nav a.seg-item{
-    flex:1;text-align:center;text-decoration:none;padding:.6rem 1rem;border-radius:100px;
-    font-size:.92rem;font-weight:600;color:#4a5568;background:#f8fafc;border:1.5px solid #e2e8f0;
-    transition:background .15s,color .15s,border-color .15s;
-  }
-  .seg-nav a.seg-item.active{background:#1a6e42;color:#fff;border-color:#1a6e42;}
-}
-@media (prefers-reduced-motion:reduce){.seg-nav a.seg-item{transition:none;}}
-
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
   .hero { grid-template-columns: 1fr; min-height: auto; }
-  .hero-right { min-height: 500px; padding: 2.5rem 1.5rem; }
+  .hero-right { display: none; }
   .mini-card { display: none; }
   .mini-card-2 { display: none; }
   .hero-left { padding: 3.5rem 5%; }
@@ -1135,12 +970,6 @@ footer {
   <a href="#lenders">Lenders</a>
   <a href="#signup" class="mobile-cta">Join waitlist</a>
 </div>
-<!-- Mobile segmented nav (Loans | Cards) — ADDED; shown on mobile only -->
-<nav class="seg-nav" aria-label="Compare loans or cards">
-  <a href="loans.html" class="seg-item">Loans</a>
-  <a href="cards.html" class="seg-item">Cards</a>
-</nav>
-
 <!-- HERO -->
 <section class="hero">
 
@@ -1179,78 +1008,6 @@ footer {
       <div class="mini-sub">banks + credit unions</div>
     </div>
 
-    <!-- MAIN comparison card -->
-    <div class="card-stack">
-      <div class="main-card">
-        <div class="mc-header">
-          <div>
-            <div class="mc-title">Personal loans — €10,000 over 5 years</div>
-            <div class="mc-sub">Ranked by total cost of credit · June 2026</div>
-          </div>
-          <div class="mc-badge">Live rates</div>
-        </div>
-
-<!-- HOMEPAGE_LOANS_START -->
-        <!-- generated from /data/loans.json by build.js — do not edit by hand -->
-        <div class="lender-row best-row">
-          <div class="l-icon ptsb">PTSB</div>
-          <div class="l-info">
-            <div class="l-name">PTSB</div>
-            <div class="l-type">Variable · No conditions</div>
-            <div class="l-bar-wrap"><div class="l-bar" style="width:80%;background:#1a6e42;"></div></div>
-          </div>
-          <div class="l-right">
-            <div class="l-apr green">7.20%</div>
-            <div class="l-cost">€1,873 total interest</div>
-            <div class="l-pill">Cheapest</div>
-          </div>
-        </div>
-        <div class="lender-row">
-          <div class="l-icon boi">BOI</div>
-          <div class="l-info">
-            <div class="l-name">Bank of Ireland</div>
-            <div class="l-type">Variable · Defer 3 payments</div>
-            <div class="l-bar-wrap"><div class="l-bar" style="width:93%;background:#93c5fd;"></div></div>
-          </div>
-          <div class="l-right">
-            <div class="l-apr mid">8.30%</div>
-            <div class="l-cost">€2,166 total interest</div>
-          </div>
-        </div>
-        <div class="lender-row">
-          <div class="l-icon apm">APM</div>
-          <div class="l-info">
-            <div class="l-name">An Post Money</div>
-            <div class="l-type">Fixed · No early repayment fee</div>
-            <div class="l-bar-wrap"><div class="l-bar" style="width:94%;background:#93c5fd;"></div></div>
-          </div>
-          <div class="l-right">
-            <div class="l-apr mid">8.40%</div>
-            <div class="l-cost">€2,193 total interest</div>
-          </div>
-        </div>
-        <div class="lender-row">
-          <div class="l-icon aib">AIB</div>
-          <div class="l-info">
-            <div class="l-name">AIB</div>
-            <div class="l-type">Variable · 3-hour decision</div>
-            <div class="l-bar-wrap"><div class="l-bar" style="width:100%;background:#fca5a5;"></div></div>
-          </div>
-          <div class="l-right">
-            <div class="l-apr red">8.95%</div>
-            <div class="l-cost">€2,340 total interest</div>
-          </div>
-        </div>
-        <!-- HOMEPAGE_LOANS_END -->
-
-        <div class="summary-strip">
-          <div>
-            <div class="ss-label">Switch AIB → PTSB and save</div>
-          </div>
-          <div class="ss-value">€<!-- HERO_SAVING_START -->467<!-- HERO_SAVING_END --></div>
-        </div>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -1446,7 +1203,7 @@ function updateCalc() {
           <div class="cr-type">${l.type}</div>
         </div>
         <div class="cr-apr">
-          <div class="cr-apr-val ${i === 0 ? 'green' : i === results.length - 1 ? 'red' : ''}">${l.apr.toFixed(2)}%</div>
+          <div class="cr-apr-val ${i === 0 ? 'green' : i === results.length - 1 ? 'red' : 'mid'}">${l.apr.toFixed(2)}%</div>
           <div class="cr-apr-label">APR</div>
         </div>
         <div class="cr-costs">
