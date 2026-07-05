@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://borrowclever.ie/</loc>
-    <lastmod>2026-06-25</lastmod>
+    <lastmod>2026-07-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -20,14 +20,32 @@
   </url>
   <url>
     <loc>https://borrowclever.ie/methodology.html</loc>
-    <lastmod>2026-06-25</lastmod>
+    <lastmod>2026-07-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://borrowclever.ie/privacy.html</loc>
-    <lastmod>2026-06-25</lastmod>
+    <lastmod>2026-07-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://borrowclever.ie/guides/credit-union-vs-bank-loan-ireland.html</loc>
+    <lastmod>2026-07-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://borrowclever.ie/guides/seai-green-loan-eligibility.html</loc>
+    <lastmod>2026-07-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://borrowclever.ie/guides/best-credit-card-balance-transfer-ireland.html</loc>
+    <lastmod>2026-07-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>
