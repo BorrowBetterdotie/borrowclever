@@ -168,6 +168,9 @@ function ldScript(blocks) {
     { loc: '/cards.html',   lastmod: cardsMeta.last_full_review,   changefreq: 'weekly',  priority: '0.9' },
     { loc: '/methodology.html', lastmod: buildDate,                changefreq: 'monthly', priority: '0.5' },
     { loc: '/privacy.html', lastmod: buildDate,                    changefreq: 'monthly', priority: '0.2' },
+    { loc: '/guides/credit-union-vs-bank-loan-ireland.html',      lastmod: buildDate,    changefreq: 'monthly', priority: '0.7' },
+    { loc: '/guides/seai-green-loan-eligibility.html',            lastmod: buildDate,    changefreq: 'monthly', priority: '0.7' },
+    { loc: '/guides/best-credit-card-balance-transfer-ireland.html', lastmod: buildDate, changefreq: 'monthly', priority: '0.7' },
   ];
 
   const xml =
