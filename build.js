@@ -179,7 +179,7 @@ function ldScript(blocks) {
   if (fs.existsSync(guidesDir)) {
     for (const file of fs.readdirSync(guidesDir).sort()) {
       if (!file.endsWith('.html')) continue;
-      pages.push({ loc: `/guides/${file}`, lastmod: buildDate, changefreq: 'monthly', priority: '0.6' });
+      pages.push({ loc: `/guides/${file}`, lastmod: buildDate, changefreq: 'monthly', priority: '0.7' });
     }
   }
 

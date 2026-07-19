@@ -163,3 +163,14 @@ footer {
 .info-box { background: rgba(34,197,94,0.06); border-color: rgba(34,197,94,0.2); }
 .info-box p { color: #22c55e; }
 .divider { border-top-color: rgba(255,255,255,0.06); }
+
+/* ── RELATED GUIDES ── */
+.related-guides { padding: 2.5rem 6% 0; }
+.related-guides-inner { max-width: 1180px; margin: 0 auto; padding-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.related-guides-heading { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 1rem; }
+.related-guides-grid { display: flex; gap: 1rem; flex-wrap: wrap; }
+.related-guide-card { display: flex; align-items: center; gap: 0.75rem; padding: 0.85rem 1.1rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; text-decoration: none; transition: border-color 0.2s, background 0.2s; flex: 1; min-width: 240px; max-width: 480px; }
+.related-guide-card:hover { border-color: rgba(34,197,94,0.35); background: rgba(34,197,94,0.04); }
+.related-guide-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #22c55e; white-space: nowrap; }
+.related-guide-title { font-size: 0.82rem; color: #ccc; line-height: 1.45; flex: 1; }
+.related-guide-arrow { font-size: 0.9rem; color: rgba(255,255,255,0.25); white-space: nowrap; }
