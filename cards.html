@@ -157,6 +157,12 @@
   margin-bottom: 1.5rem;
 }
 .verified-dot { width: 6px; height: 6px; border-radius: 50%; background: #1a6e42; flex-shrink: 0; }
+.method-box {
+  background: #f0faf4; border: 1px solid #b7e4ca; border-radius: 12px;
+  padding: 1rem 1.25rem; margin-bottom: 1.5rem;
+}
+.method-box p { font-size: 0.85rem; color: #1a6e42; line-height: 1.6; margin: 0; }
+.method-box a { color: #1a6e42; font-weight: 600; text-decoration: underline; }
 
 /* ── TABLE ── */
 .table-wrap { overflow-x: auto; border-radius: 16px; border: 1px solid #eef0f3; box-shadow: 0 4px 24px rgba(0,0,0,0.05); }
@@ -307,6 +313,9 @@ td:last-child { padding-right: 1.5rem; }
 .section-sub { color: rgba(255,255,255,0.88); }
 .verified-badge { color: #22c55e; background: rgba(34,197,94,0.08); border-color: rgba(34,197,94,0.25); }
 .verified-dot { background: #22c55e; }
+.method-box { background: rgba(34,197,94,0.08); border-color: rgba(34,197,94,0.25); }
+.method-box p { color: #22c55e; }
+.method-box a { color: #22c55e; }
 .table-wrap { border-color: rgba(255,255,255,0.08); box-shadow: 0 4px 24px rgba(0,0,0,0.4); }
 thead th { background: #141414; color: #555; border-bottom-color: rgba(255,255,255,0.06); }
 thead th.col-bt { color: #22c55e; }
@@ -406,6 +415,10 @@ tbody tr:hover { background: #1c1c1c !important; }
     <p class="section-sub">Unlike a personal loan, a credit card has no fixed term or balance — so there's no meaningful "total cost of credit" to rank by. Instead, we use the <strong>representative APR</strong>: the standardised metric every Irish lender must publish by law. It assumes a €1,500 balance repaid over 12 months including the €30 government stamp duty. It's the fairest like-for-like comparison across cards. The balance-transfer column is where the real value often hides — check it carefully. <a href="methodology.html">See how we rank these →</a></p>
 
     <div class="verified-badge"><span class="verified-dot"></span>Rates verified <!-- LAST_VERIFIED_START -->25 June 2026<!-- LAST_VERIFIED_END --></div>
+
+    <div class="method-box">
+      <p>Ranked by <strong>representative APR</strong> — the standardised, legally required metric every Irish card issuer must publish, since cards have no fixed term or balance to calculate a "total cost" from. It already includes the €30 government stamp duty. <a href="methodology.html">Read the full methodology →</a></p>
+    </div>
 
     <div class="table-wrap">
       <table>
