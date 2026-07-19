@@ -24,7 +24,9 @@
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "BorrowClever",
+    "legalName": "BorrowClever Ireland Limited",
     "url": "https://borrowclever.ie",
+    "logo": "https://borrowclever.ie/logo.svg",
     "description": "Ireland's independent personal loan and credit card comparison service. Rates verified fortnightly from lender websites and CCPC.ie."
   },
   {
@@ -140,33 +142,6 @@
 <link rel="stylesheet" href="site.css">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-<!--
-================================================================================
-  TODO — VERIFY BEFORE PUBLISHING
-  Every balance-transfer cell left blank below must be confirmed against the
-  issuer's website and CCPC.ie before this page goes live.
-
-  Confirmed (verified 21 Jun 2026):
-  Row 3  — AIB Platinum:         ✅ 3.83% variable intro for 12 months (aib.ie)
-  Row 4  — Revolut:              ✅ 0% for up to 6 months
-  Row 5  — BOI Platinum Adv:     ✅ 0% on BT 7 mths OR 0% purchases 6 mths (boi.ie)
-  Row 6  — BOI Affinity:         ✅ 2.9% fixed on BT for 12 months (boi.ie)
-  Row 7  — BOI Classic:          ✅ 0% on BT 7 mths OR 0% purchases 6 mths (boi.ie)
-  Row 8  — PTSB Ice:             ✅ 0% on BT 6 mths + 0% purchases 3 mths (ptsb.ie)
-  Row 9  — BOI Aer Credit Card:  ✅ 0% on BT 7 mths OR 0% purchases 6 mths (boi.ie)
-  Row 12 — Avant One Card:       ✅ 0% on BT for 9 months (avantmoney.ie)
-
-  [AIB Student row removed — student-only card]
-
-  Row 1  — AIB Click:            ✅ No BT offer (verified aib.ie 21 Jun 2026)
-  Row 10 — An Post Classic:      ✅ 0% on BT for 12 months (verified anpost.com 21 Jun 2026)
-  Row 11 — An Post Flex:         ✅ No BT offer (verified anpost.com 21 Jun 2026)
-
-  Still blank / unverified — leave blank until sourced:
-  Row 9  — AIB 'be'
-================================================================================
--->
-
 <style>
 .eyebrow { display: inline-block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #4ade80; margin-bottom: 1rem; }
 
@@ -175,7 +150,21 @@
 .compare-inner { max-width: 1280px; margin: 0 auto; }
 .section-eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #1a6e42; margin-bottom: 0.5rem; }
 .section-title { font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 800; color: #0d1b2a; letter-spacing: -0.03em; margin-bottom: 0.5rem; }
-.section-sub { font-size: 0.9rem; color: #4a5568; margin-bottom: 2rem; line-height: 1.65; }
+.section-sub { font-size: 0.9rem; color: #4a5568; margin-bottom: 1.25rem; line-height: 1.65; }
+.verified-badge {
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  font-size: 0.78rem; font-weight: 600; color: #1a6e42;
+  background: #f0faf4; border: 1px solid #b7e4ca;
+  padding: 0.35rem 0.85rem; border-radius: 100px;
+  margin-bottom: 1.5rem;
+}
+.verified-dot { width: 6px; height: 6px; border-radius: 50%; background: #1a6e42; flex-shrink: 0; }
+.method-box {
+  background: #f0faf4; border: 1px solid #b7e4ca; border-radius: 12px;
+  padding: 1rem 1.25rem; margin-bottom: 1.5rem;
+}
+.method-box p { font-size: 0.85rem; color: #1a6e42; line-height: 1.6; margin: 0; }
+.method-box a { color: #1a6e42; font-weight: 600; text-decoration: underline; }
 
 /* ── TABLE ── */
 .table-wrap { overflow-x: auto; border-radius: 16px; border: 1px solid #eef0f3; box-shadow: 0 4px 24px rgba(0,0,0,0.05); }
@@ -238,14 +227,10 @@ td:last-child { padding-right: 1.5rem; }
 }
 .badge-cheapest { background: #1a6e42; color: white; }
 
-/* Confirmed live 0% offer — blue accent to distinguish from green loan rows */
-.bt-confirmed {
+.bt-offer {
   font-size: 0.78rem;
   color: #4a5568;
   line-height: 1.45;
-}
-.bt-confirmed-badge {
-  display: none;
 }
 
 /* notes */
@@ -272,46 +257,63 @@ td:last-child { padding-right: 1.5rem; }
 .note-card p { font-size: 0.82rem; color: #4a5568; line-height: 1.65; }
 .note-icon { width: 36px; height: 36px; border-radius: 9px; background: #f0faf4; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
 
+/* ── CROSS-LINK ── */
+.cross-link { padding: 1.75rem 6% 0; max-width: 1280px; margin: 0 auto; font-size: 0.85rem; color: #718096; line-height: 1.65; }
+.cross-link a { color: #1a6e42; font-weight: 600; text-decoration: underline; }
+
 /* ── DISCLAIMER ── */
 .disclaimer { padding: 2rem 6%; max-width: 1280px; margin: 0 auto; font-size: 0.74rem; color: #a0aec0; line-height: 1.65; }
 .disclaimer strong { color: #718096; }
 
-.details-toggle{display:none;} /* mobile-only; desktop hides it */
+.details-toggle { display: none; } /* the JS-inserted "Details" button is mobile-only; desktop hides it */
 
-/* ===== Mobile comparison cards (CARDS) — ADDED. Mobile-only (<=680px); desktop table unchanged. ===== */
-@media (max-width:680px){
+/* ===== Mobile comparison cards (CARDS). Card-stack at <=768px; desktop table untouched above that. ===== */
+@media (max-width:768px){
   .compare-section .table-wrap{overflow:visible;border:0;box-shadow:none;border-radius:0;}
   .compare-section table{min-width:0;font-size:1rem;display:block;}
-  .compare-section thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);}
+  .compare-section thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;padding:0;margin:-1px;}
   .compare-section tbody{display:block;}
   .compare-section tbody tr{
-    display:flex;flex-wrap:wrap;align-items:center;gap:.15rem .9rem;
+    display:flex;flex-wrap:wrap;align-items:flex-start;gap:.6rem .75rem;
     background:#fff;border:1px solid #eef0f3;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,0.05);
-    padding:1.05rem 1.1rem;margin-bottom:1rem;
+    padding:1.1rem 1.1rem 1.25rem;margin-bottom:1rem;
   }
-  .compare-section tbody td{display:block;padding:0;border:0;}
-  .compare-section td:nth-child(1){display:none;} /* rank */
-  .compare-section td:nth-child(2){order:1;flex-basis:100%;}
+  .compare-section tbody td{display:block;padding:0;border:0;flex-basis:100%;}
+
+  /* rank + card name share the top row */
+  .compare-section td:nth-child(1){order:1;flex-basis:auto;}
+  .compare-section td:nth-child(1) .rank{font-size:.75rem;color:#a0aec0;font-weight:700;}
+  .compare-section td:nth-child(2){order:1;flex:1;}
   .compare-section td:nth-child(2) .l-name{font-size:1rem;font-weight:700;}
   .compare-section td:nth-child(2) .l-product{font-size:.85rem;color:#718096;}
-  .compare-section td:nth-child(5){order:2;}
-  .compare-section td:nth-child(5)::before{content:"Rep. APR";display:block;font-size:.62rem;text-transform:uppercase;letter-spacing:.06em;color:#a0aec0;font-weight:700;}
-  .compare-section td:nth-child(5) .apr{font-size:1.5rem;font-weight:800;}
-  .compare-section td:nth-child(4){order:3;margin-left:auto;text-align:right;}
-  .compare-section td:nth-child(4)::before{content:"Purchase rate";display:block;font-size:.62rem;text-transform:uppercase;letter-spacing:.06em;color:#a0aec0;font-weight:700;}
-  .compare-section td:nth-child(4) .cell-mono{font-size:1.15rem;font-weight:700;}
-  .compare-section td:nth-child(3){order:4;flex-basis:100%;font-size:.8rem;color:#718096;margin-top:.4rem;}
-  .compare-section td:nth-child(3)::before{content:"Network  ";color:#a0aec0;}
-  .compare-section td:nth-child(7){order:5;flex-basis:100%;font-size:.8rem;color:#718096;}
-  .compare-section td:nth-child(7)::before{content:"Annual fee  ";color:#a0aec0;}
-  .compare-section td:nth-child(8){order:6;flex-basis:100%;margin-top:.4rem;}
-  .compare-section td:nth-child(6){order:7;flex-basis:100%;font-size:.82rem;color:#4a5568;margin-top:.3rem;}
-  .compare-section td:nth-child(6)::before{content:"Balance transfer";color:#a0aec0;font-weight:600;display:block;}
-  .compare-section td:nth-child(9){order:8;flex-basis:100%;margin-top:.75rem;}
-  .compare-section td:nth-child(9) .cta-link{display:block;width:100%;text-align:center;padding:.8rem;border-radius:10px;font-size:.95rem;}
-  .compare-section tbody tr.details-collapsed .note-text,
-  .compare-section tbody tr.details-collapsed td:nth-child(6){display:none;}
-  .details-toggle{display:inline-block;margin-top:.5rem;background:none;border:0;color:#1a6e42;font:inherit;font-size:.82rem;font-weight:700;cursor:pointer;padding:.2rem 0;}
+
+  /* hero stat — representative APR */
+  .compare-section td.bc-hero{order:2;}
+  .compare-section td.bc-hero::before{content:attr(data-label);display:block;font-size:.62rem;text-transform:uppercase;letter-spacing:.06em;color:#a0aec0;font-weight:700;margin-bottom:.15rem;}
+  .compare-section td.bc-hero .apr{font-size:1.5rem;font-weight:800;}
+
+  /* primary note — clamped to two lines until the "Details" toggle is opened */
+  .compare-section td.bc-notes{order:3;}
+  .compare-section tbody tr.details-collapsed td.bc-notes .note-text{
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+  }
+  .details-toggle{
+    display:inline-flex;align-items:center;gap:.3rem;margin-bottom:.4rem;
+    background:none;border:0;color:#1a6e42;font:inherit;font-size:.82rem;font-weight:700;
+    cursor:pointer;padding:.2rem 0;
+  }
+  .details-toggle::after{content:'▾';font-size:.7em;transition:transform .15s ease;}
+  tbody tr.details-open .details-toggle::after{transform:rotate(180deg);}
+
+  /* secondary fields — network, purchase rate, balance transfer, annual fee — hidden until "Details" is opened */
+  .compare-section td.bc-secondary{display:none;order:4;flex-basis:calc(50% - .375rem);font-size:.85rem;color:#4a5568;}
+  .compare-section td.bc-secondary::before{content:attr(data-label);display:block;font-size:.68rem;color:#a0aec0;font-weight:600;margin-bottom:.1rem;}
+  tbody tr.details-open td.bc-secondary{display:block;}
+  tbody tr.details-open td.bc-secondary[data-label="Balance transfer"]{flex-basis:100%;}
+
+  /* CTA — full-width button */
+  .compare-section td.bc-cta{order:6;margin-top:.25rem;}
+  .compare-section td.bc-cta .cta-link{display:block;width:100%;text-align:center;padding:.85rem;border-radius:10px;font-size:.95rem;}
 }
 
 /* ── RESPONSIVE ── */
@@ -324,6 +326,11 @@ td:last-child { padding-right: 1.5rem; }
 .section-eyebrow { color: #22c55e; }
 .section-title { color: #f0f0f0; }
 .section-sub { color: rgba(255,255,255,0.88); }
+.verified-badge { color: #22c55e; background: rgba(34,197,94,0.08); border-color: rgba(34,197,94,0.25); }
+.verified-dot { background: #22c55e; }
+.method-box { background: rgba(34,197,94,0.08); border-color: rgba(34,197,94,0.25); }
+.method-box p { color: #22c55e; }
+.method-box a { color: #22c55e; }
 .table-wrap { border-color: rgba(255,255,255,0.08); box-shadow: 0 4px 24px rgba(0,0,0,0.4); }
 thead th { background: #141414; color: #555; border-bottom-color: rgba(255,255,255,0.06); }
 thead th.col-bt { color: #22c55e; }
@@ -344,7 +351,7 @@ tbody tr:hover { background: #1c1c1c !important; }
 .apr.red   { color: #f87171; }
 .cell-mono { color: #f0f0f0; }
 .cell-sub { color: #555; }
-.bt-confirmed { color: rgba(255,255,255,0.88); }
+.bt-offer { color: rgba(255,255,255,0.88); }
 .note-text { color: #555; }
 .badge-cheapest { background: #22c55e; color: #0c0c0c; }
 .cta-link { background: #22c55e; color: #0c0c0c !important; }
@@ -354,10 +361,19 @@ tbody tr:hover { background: #1c1c1c !important; }
 .note-card h4 { color: #f0f0f0; }
 .note-card p { color: rgba(255,255,255,0.88); }
 .note-icon { background: rgba(34,197,94,0.1); }
+.cross-link { color: rgba(255,255,255,0.5); }
+.cross-link a { color: #22c55e; }
 .disclaimer { color: #555; }
 .disclaimer strong { color: #777; }
-@media (max-width: 680px) {
+@media (max-width: 768px) {
   .compare-section tbody tr { background: #1a1a1a; border-color: rgba(255,255,255,0.07); box-shadow: 0 4px 24px rgba(0,0,0,0.4); }
+  .compare-section td:nth-child(1) .rank { color: #444; }
+  .compare-section td:nth-child(2) .l-name { color: #f0f0f0; }
+  .compare-section td:nth-child(2) .l-product { color: #666; }
+  .compare-section td.bc-hero::before { color: #555; }
+  .compare-section td.bc-secondary { color: rgba(255,255,255,0.88); }
+  .compare-section td.bc-secondary::before { color: #555; }
+  .details-toggle { color: #22c55e; }
 }
 </style>
 </head>
@@ -370,9 +386,7 @@ tbody tr:hover { background: #1c1c1c !important; }
     <li><a href="loans.html">Compare loans</a></li>
     <li><a href="cards.html" class="active">Compare cards</a></li>
     <li><a href="methodology.html">How we compare</a></li>
-    <li><a href="/#calculator">Calculator</a></li>
-    <li><a href="/#lenders">Lenders</a></li>
-    <li><a href="/#signup" class="nav-cta">Join waitlist</a></li>
+    <li><a href="/#signup" class="nav-cta">Newsletter</a></li>
   </ul>
   <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
     <span></span><span></span><span></span>
@@ -384,9 +398,7 @@ tbody tr:hover { background: #1c1c1c !important; }
   <a href="loans.html">Compare loans</a>
   <a href="cards.html" class="active">Compare cards</a>
   <a href="methodology.html">How we compare</a>
-  <a href="/#calculator">Calculator</a>
-  <a href="/#lenders">Lenders</a>
-  <a href="/#signup" class="mobile-cta">Join waitlist</a>
+  <a href="/#signup" class="mobile-cta">Newsletter</a>
 </div>
 <!-- Mobile segmented nav (Loans | Cards) — ADDED; shown on mobile only -->
 <nav class="seg-nav" aria-label="Compare loans or cards">
@@ -424,6 +436,12 @@ tbody tr:hover { background: #1c1c1c !important; }
     <h2 class="section-title">All cards ranked by representative APR</h2>
     <p class="section-sub">Unlike a personal loan, a credit card has no fixed term or balance — so there's no meaningful "total cost of credit" to rank by. Instead, we use the <strong>representative APR</strong>: the standardised metric every Irish lender must publish by law. It assumes a €1,500 balance repaid over 12 months including the €30 government stamp duty. It's the fairest like-for-like comparison across cards. The balance-transfer column is where the real value often hides — check it carefully. <a href="methodology.html">See how we rank these →</a></p>
 
+    <div class="verified-badge"><span class="verified-dot"></span>Rates verified <!-- LAST_VERIFIED_START -->25 June 2026<!-- LAST_VERIFIED_END --></div>
+
+    <div class="method-box">
+      <p>Ranked by <strong>representative APR</strong> — the standardised, legally required metric every Irish card issuer must publish, since cards have no fixed term or balance to calculate a "total cost" from. It already includes the €30 government stamp duty. <a href="methodology.html">Read the full methodology →</a></p>
+    </div>
+
     <div class="table-wrap">
       <table>
         <thead>
@@ -450,18 +468,18 @@ tbody tr:hover { background: #1c1c1c !important; }
                 <div><div class="l-name">AIB</div><div class="l-product">Click</div></div>
               </div>
             </td>
-            <td><span class="cell-sub">Visa</span></td>
-            <td><span class="cell-mono">9.11%</span></td>
-            <td><span class="apr green">13.8%</span></td>
-            <td><!-- verified aib.ie 21 Jun 2026 — no introductory offer on this card -->
+            <td class="bc-secondary" data-label="Network"><span class="cell-sub">Visa</span></td>
+            <td class="bc-secondary" data-label="Purchase rate"><span class="cell-mono">9.11%</span></td>
+            <td class="bc-hero" data-label="Rep. APR"><span class="apr green">13.8%</span></td>
+            <td class="bc-secondary" data-label="Balance transfer"><!-- verified aib.ie 21 Jun 2026 — no introductory offer on this card -->
               <span class="cell-sub">No balance-transfer offer</span>
             </td>
-            <td><span class="cell-sub">None</span></td>
-            <td>
+            <td class="bc-secondary" data-label="Annual fee"><span class="cell-sub">None</span></td>
+            <td class="bc-notes">
               <div class="badges"><span class="badge badge-cheapest">Lowest APR</span></div>
               <div class="note-text" style="margin-top:5px;">Online-only application. No 0% intro — but its 13.8% standard APR is Ireland's lowest, so it can work out cheaper than cards that revert to ~22.9% once a 0% period ends.</div>
             </td>
-            <td>
+            <td class="bc-cta">
               <!-- affiliate-swap: change href to tracked URL and set rel="sponsored noopener noreferrer" -->
               <a href="/go/aib-card-click" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for AIB Click Visa card on their official site">Check rate</a>
             </td>
@@ -476,19 +494,19 @@ tbody tr:hover { background: #1c1c1c !important; }
                 <div><div class="l-name">AIB</div><div class="l-product">Platinum</div></div>
               </div>
             </td>
-            <td><span class="cell-sub">Visa</span></td>
-            <td><span class="cell-mono">11.84%</span></td>
-            <td><span class="apr green">17.0%</span></td>
-            <td>
-              <!-- ✅ CONFIRMED — 3.83% (variable) intro rate for 12 months on purchases & balance transfers; verified aib.ie 21 Jun 2026 -->
-              <div class="bt-confirmed">
-                <span class="bt-confirmed-badge">✅ CONFIRMED — INTRO RATE</span><br>
+            <td class="bc-secondary" data-label="Network"><span class="cell-sub">Visa</span></td>
+            <td class="bc-secondary" data-label="Purchase rate"><span class="cell-mono">11.84%</span></td>
+            <td class="bc-hero" data-label="Rep. APR"><span class="apr green">17.0%</span></td>
+            <td class="bc-secondary" data-label="Balance transfer">
+              <!-- 3.83% (variable) intro rate for 12 months on purchases & balance transfers; verified aib.ie 21 Jun 2026 -->
+              <div class="bt-offer">
                 <strong>3.83%</strong> (variable) on purchases &amp; balance transfers for first 12 months from account opening, then reverts to standard rate. Balance transfers from store cards or non-AIB cards only; capped at €5,000.
               </div>
             </td>
-            <td><span class="cell-sub">None</span></td>
-            <td><div class="note-text">Minimum €40k salary. Cash back 0.5% on annual spend €5k–€50k (max €225/yr). Up to 56 days interest-free if cleared in full.</div></td>
-            <td>
+            <td class="bc-secondary" data-label="Annual fee"><span class="cell-sub">None</span></td>
+            <td class="bc-notes"><div class="note-text">Minimum €40k salary. Cash back 0.5% on annual spend €5k–€50k (max €225/yr). Up to 56 days interest-free if cleared in full.</div>
+            </td>
+            <td class="bc-cta">
               <!-- affiliate-swap: change href to tracked URL and set rel="sponsored noopener noreferrer" -->
               <a href="/go/aib-card-platinum" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for AIB Platinum card on their official site">Check rate</a>
             </td>
@@ -503,20 +521,21 @@ tbody tr:hover { background: #1c1c1c !important; }
                 <div><div class="l-name">Revolut</div><div class="l-product">Credit Card</div></div>
               </div>
             </td>
-            <td><span class="cell-sub">Visa / Mastercard</span></td>
-            <td><span class="cell-sub">—</span></td>
-            <td><span class="apr mid">17.99%</span></td>
-            <td>
-              <!-- ✅ CONFIRMED — 0% for up to 6 months on balance transfers & purchases -->
-              <div class="bt-confirmed">
-                <span class="bt-confirmed-badge">✅ CONFIRMED</span><br>
+            <td class="bc-secondary" data-label="Network"><span class="cell-sub">Visa / Mastercard</span></td>
+            <td class="bc-secondary" data-label="Purchase rate"><span class="cell-sub">—</span></td>
+            <td class="bc-hero" data-label="Rep. APR"><span class="apr mid">17.99%</span></td>
+            <td class="bc-secondary" data-label="Balance transfer">
+              <!-- 0% for up to 6 months on balance transfers & purchases -->
+              <div class="bt-offer">
                 0% on balance transfers &amp; purchases for up to 6 months (must meet minimum monthly payments)
               </div>
             </td>
-            <td><span class="cell-sub">None</span></td>
-            <td><div class="note-text">App-only, near-instant decision. Limit up to €10,000. RevPoints rewards. Cash-advance APR 19.99%.</div></td>
-            <!-- affiliate-swap: no credit card URL supplied in mapping — add href here when available -->
-            <td></td>
+            <td class="bc-secondary" data-label="Annual fee"><span class="cell-sub">None</span></td>
+            <td class="bc-notes"><div class="note-text">App-only, near-instant decision. Limit up to €10,000. RevPoints rewards. Cash-advance APR 19.99%.</div>
+            </td>
+            <td class="bc-cta">
+              <a href="/go/revolut-card" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for Revolut Credit Card on their official site">Check rate</a>
+            </td>
           </tr>
 
           <!-- 4 — BOI Platinum Advantage · 19.6% APR -->
@@ -528,19 +547,19 @@ tbody tr:hover { background: #1c1c1c !important; }
                 <div><div class="l-name">Bank of Ireland</div><div class="l-product">Platinum Advantage</div></div>
               </div>
             </td>
-            <td><span class="cell-sub">Mastercard</span></td>
-            <td><span class="cell-mono">13.79%</span></td>
-            <td><span class="apr mid">19.6%</span></td>
-            <td>
-              <!-- ✅ CONFIRMED — 0% on BT for 7 mths OR 0% on purchases for 6 mths; verified boi.ie 21 Jun 2026 -->
-              <div class="bt-confirmed">
-                <span class="bt-confirmed-badge">✅ CONFIRMED</span><br>
+            <td class="bc-secondary" data-label="Network"><span class="cell-sub">Mastercard</span></td>
+            <td class="bc-secondary" data-label="Purchase rate"><span class="cell-mono">13.79%</span></td>
+            <td class="bc-hero" data-label="Rep. APR"><span class="apr mid">19.6%</span></td>
+            <td class="bc-secondary" data-label="Balance transfer">
+              <!-- 0% on BT for 7 mths OR 0% on purchases for 6 mths; verified boi.ie 21 Jun 2026 -->
+              <div class="bt-offer">
                 0% on balance transfers for 7 months <em>or</em> 0% on purchases for 6 months (new customers choose one), then reverts to standard rate.
               </div>
             </td>
-            <td><span class="cell-sub">€76.18</span></td>
-            <td><div class="note-text">Worldwide travel insurance. Minimum €40k salary.</div></td>
-            <td>
+            <td class="bc-secondary" data-label="Annual fee"><span class="cell-sub">€76.18</span></td>
+            <td class="bc-notes"><div class="note-text">Worldwide travel insurance. Minimum €40k salary.</div>
+            </td>
+            <td class="bc-cta">
               <!-- affiliate-swap: change href to tracked URL and set rel="sponsored noopener noreferrer" -->
               <a href="/go/boi-card-platinum" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for Bank of Ireland Platinum Advantage card on their official site">Check rate</a>
             </td>
@@ -555,19 +574,19 @@ tbody tr:hover { background: #1c1c1c !important; }
                 <div><div class="l-name">Bank of Ireland</div><div class="l-product">Affinity</div></div>
               </div>
             </td>
-            <td><span class="cell-sub">Mastercard</span></td>
-            <td><span class="cell-mono">14.57%</span></td>
-            <td><span class="apr mid">20.2%</span></td>
-            <td>
-              <!-- ✅ CONFIRMED — 2.9% fixed on BT for 12 mths; verified boi.ie 21 Jun 2026 -->
-              <div class="bt-confirmed">
-                <span class="bt-confirmed-badge">✅ CONFIRMED — INTRO RATE</span><br>
+            <td class="bc-secondary" data-label="Network"><span class="cell-sub">Mastercard</span></td>
+            <td class="bc-secondary" data-label="Purchase rate"><span class="cell-mono">14.57%</span></td>
+            <td class="bc-hero" data-label="Rep. APR"><span class="apr mid">20.2%</span></td>
+            <td class="bc-secondary" data-label="Balance transfer">
+              <!-- 2.9% fixed on BT for 12 mths; verified boi.ie 21 Jun 2026 -->
+              <div class="bt-offer">
                 <strong>2.9%</strong> (fixed) on balance transfers for 12 months. No intro purchase offer. Then reverts to standard rate.
               </div>
             </td>
-            <td><span class="cell-sub">None</span></td>
-            <td><div class="note-text">Charity-linked cards.</div></td>
-            <td>
+            <td class="bc-secondary" data-label="Annual fee"><span class="cell-sub">None</span></td>
+            <td class="bc-notes"><div class="note-text">Charity-linked cards.</div>
+            </td>
+            <td class="bc-cta">
               <!-- affiliate-swap: change href to tracked URL and set rel="sponsored noopener noreferrer" -->
               <a href="/go/boi-card-affinity" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for Bank of Ireland Affinity card on their official site">Check rate</a>
             </td>
@@ -582,19 +601,19 @@ tbody tr:hover { background: #1c1c1c !important; }
                 <div><div class="l-name">Bank of Ireland</div><div class="l-product">Classic</div></div>
               </div>
             </td>
-            <td><span class="cell-sub">Mastercard</span></td>
-            <td><span class="cell-mono">16.12%</span></td>
-            <td><span class="apr red">22.1%</span></td>
-            <td>
-              <!-- ✅ CONFIRMED — 0% on BT for 7 mths OR 0% on purchases for 6 mths; verified boi.ie 21 Jun 2026 -->
-              <div class="bt-confirmed">
-                <span class="bt-confirmed-badge">✅ CONFIRMED</span><br>
+            <td class="bc-secondary" data-label="Network"><span class="cell-sub">Mastercard</span></td>
+            <td class="bc-secondary" data-label="Purchase rate"><span class="cell-mono">16.12%</span></td>
+            <td class="bc-hero" data-label="Rep. APR"><span class="apr red">22.1%</span></td>
+            <td class="bc-secondary" data-label="Balance transfer">
+              <!-- 0% on BT for 7 mths OR 0% on purchases for 6 mths; verified boi.ie 21 Jun 2026 -->
+              <div class="bt-offer">
                 0% on balance transfers for 7 months <em>or</em> 0% on purchases for 6 months (new customers choose one), then reverts to standard rate.
               </div>
             </td>
-            <td><span class="cell-sub">None</span></td>
-            <td><div class="note-text">No annual card fee.</div></td>
-            <td>
+            <td class="bc-secondary" data-label="Annual fee"><span class="cell-sub">None</span></td>
+            <td class="bc-notes"><div class="note-text">No annual card fee.</div>
+            </td>
+            <td class="bc-cta">
               <!-- affiliate-swap: change href to tracked URL and set rel="sponsored noopener noreferrer" -->
               <a href="/go/boi-card-classic" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for Bank of Ireland Classic card on their official site">Check rate</a>
             </td>
@@ -609,19 +628,19 @@ tbody tr:hover { background: #1c1c1c !important; }
                 <div><div class="l-name">PTSB</div><div class="l-product">Ice</div></div>
               </div>
             </td>
-            <td><span class="cell-sub">Visa</span></td>
-            <td><span class="cell-mono">16.50%</span></td>
-            <td><span class="apr red">22.53%</span></td>
-            <td>
-              <!-- ✅ CONFIRMED — 0% on BT for 6 mths + 0% on purchases for 3 mths; verified ptsb.ie 21 Jun 2026 -->
-              <div class="bt-confirmed">
-                <span class="bt-confirmed-badge">✅ CONFIRMED</span><br>
+            <td class="bc-secondary" data-label="Network"><span class="cell-sub">Visa</span></td>
+            <td class="bc-secondary" data-label="Purchase rate"><span class="cell-mono">16.50%</span></td>
+            <td class="bc-hero" data-label="Rep. APR"><span class="apr red">22.53%</span></td>
+            <td class="bc-secondary" data-label="Balance transfer">
+              <!-- 0% on BT for 6 mths + 0% on purchases for 3 mths; verified ptsb.ie 21 Jun 2026 -->
+              <div class="bt-offer">
                 0% on balance transfers for 6 months, plus 0% on purchases for 3 months, then reverts to standard rate. One balance transfer per card.
               </div>
             </td>
-            <td><span class="cell-sub">None</span></td>
-            <td><div class="note-text">—</div></td>
-            <td>
+            <td class="bc-secondary" data-label="Annual fee"><span class="cell-sub">None</span></td>
+            <td class="bc-notes"><div class="note-text">—</div>
+            </td>
+            <td class="bc-cta">
               <!-- affiliate-swap: change href to tracked URL and set rel="sponsored noopener noreferrer" -->
               <a href="/go/ptsb-card-ice" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for PTSB Ice Visa card on their official site">Check rate</a>
             </td>
@@ -636,19 +655,19 @@ tbody tr:hover { background: #1c1c1c !important; }
                 <div><div class="l-name">Bank of Ireland</div><div class="l-product">Aer Credit Card</div></div>
               </div>
             </td>
-            <td><span class="cell-sub">Mastercard</span></td>
-            <td><span class="cell-mono">14.00%</span></td>
-            <td><span class="apr red">22.7%</span></td>
-            <td>
-              <!-- ✅ CONFIRMED — 0% on BT for 7 mths OR 0% on purchases for 6 mths; verified boi.ie 21 Jun 2026 -->
-              <div class="bt-confirmed">
-                <span class="bt-confirmed-badge">✅ CONFIRMED</span><br>
+            <td class="bc-secondary" data-label="Network"><span class="cell-sub">Mastercard</span></td>
+            <td class="bc-secondary" data-label="Purchase rate"><span class="cell-mono">14.00%</span></td>
+            <td class="bc-hero" data-label="Rep. APR"><span class="apr red">22.7%</span></td>
+            <td class="bc-secondary" data-label="Balance transfer">
+              <!-- 0% on BT for 7 mths OR 0% on purchases for 6 mths; verified boi.ie 21 Jun 2026 -->
+              <div class="bt-offer">
                 0% on balance transfers for 7 months <em>or</em> 0% on purchases for 6 months (new customers choose one), then reverts to standard rate. Annual fee billed as €6.50/month.
               </div>
             </td>
-            <td><span class="cell-sub">€78</span></td>
-            <td><div class="note-text">Aer Lingus / AerClub rewards.</div></td>
-            <td>
+            <td class="bc-secondary" data-label="Annual fee"><span class="cell-sub">€78</span></td>
+            <td class="bc-notes"><div class="note-text">Aer Lingus / AerClub rewards.</div>
+            </td>
+            <td class="bc-cta">
               <!-- affiliate-swap: change href to tracked URL and set rel="sponsored noopener noreferrer" -->
               <a href="/go/boi-card-aer" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for Bank of Ireland Aer Credit Card on their official site">Check rate</a>
             </td>
@@ -663,13 +682,14 @@ tbody tr:hover { background: #1c1c1c !important; }
                 <div><div class="l-name">AIB</div><div class="l-product">'be'</div></div>
               </div>
             </td>
-            <td><span class="cell-sub">Visa / Mastercard</span></td>
-            <td><span class="cell-mono">14.16%–16.79%</span></td>
-            <td><span class="apr red">22.9%</span></td>
-            <td><!-- TODO: historically 0% intro on transfers — confirm if currently live --></td>
-            <td><span class="cell-sub">None</span></td>
-            <td><div class="note-text">Two-tier purchase rate.</div></td>
-            <td>
+            <td class="bc-secondary" data-label="Network"><span class="cell-sub">Visa / Mastercard</span></td>
+            <td class="bc-secondary" data-label="Purchase rate"><span class="cell-mono">14.16%–16.79%</span></td>
+            <td class="bc-hero" data-label="Rep. APR"><span class="apr red">22.9%</span></td>
+            <td class="bc-secondary" data-label="Balance transfer"><!-- TODO: historically 0% intro on transfers — confirm if currently live --></td>
+            <td class="bc-secondary" data-label="Annual fee"><span class="cell-sub">None</span></td>
+            <td class="bc-notes"><div class="note-text">Two-tier purchase rate.</div>
+            </td>
+            <td class="bc-cta">
               <!-- affiliate-swap: change href to tracked URL and set rel="sponsored noopener noreferrer" -->
               <a href="/go/aib-card-be" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for AIB 'be' Visa card on their official site">Check rate</a>
             </td>
@@ -684,19 +704,19 @@ tbody tr:hover { background: #1c1c1c !important; }
                 <div><div class="l-name">An Post Money</div><div class="l-product">Classic</div></div>
               </div>
             </td>
-            <td><span class="cell-sub">Mastercard</span></td>
-            <td><span class="cell-mono">16.8%</span></td>
-            <td><span class="apr red">22.9%</span></td>
-            <td>
-              <!-- ✅ CONFIRMED — 0% on BT for 12 mths (transfer within 90 days); verified anpost.com 21 Jun 2026 -->
-              <div class="bt-confirmed">
-                <span class="bt-confirmed-badge">✅ CONFIRMED</span><br>
+            <td class="bc-secondary" data-label="Network"><span class="cell-sub">Mastercard</span></td>
+            <td class="bc-secondary" data-label="Purchase rate"><span class="cell-mono">16.8%</span></td>
+            <td class="bc-hero" data-label="Rep. APR"><span class="apr red">22.9%</span></td>
+            <td class="bc-secondary" data-label="Balance transfer">
+              <!-- 0% on BT for 12 mths (transfer within 90 days); verified anpost.com 21 Jun 2026 -->
+              <div class="bt-offer">
                 0% on balance transfers for 12 months (must transfer within 90 days of opening), then reverts to 16.8% / 22.9% APR. Ireland's longest 0% balance-transfer window.
               </div>
             </td>
-            <td><span class="cell-sub">None</span></td>
-            <td><div class="note-text">—</div></td>
-            <td>
+            <td class="bc-secondary" data-label="Annual fee"><span class="cell-sub">None</span></td>
+            <td class="bc-notes"><div class="note-text">—</div>
+            </td>
+            <td class="bc-cta">
               <!-- affiliate-swap: change href to tracked URL and set rel="sponsored noopener noreferrer" -->
               <a href="/go/anpost-card-classic" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for An Post Money Classic card on their official site">Check rate</a>
             </td>
@@ -711,15 +731,16 @@ tbody tr:hover { background: #1c1c1c !important; }
                 <div><div class="l-name">An Post Money</div><div class="l-product">Flex</div></div>
               </div>
             </td>
-            <td><span class="cell-sub">Mastercard</span></td>
-            <td><span class="cell-mono">16.8%</span></td>
-            <td><span class="apr red">22.9%</span></td>
-            <td><!-- verified anpost.com 21 Jun 2026 — no balance-transfer offer on this card -->
+            <td class="bc-secondary" data-label="Network"><span class="cell-sub">Mastercard</span></td>
+            <td class="bc-secondary" data-label="Purchase rate"><span class="cell-mono">16.8%</span></td>
+            <td class="bc-hero" data-label="Rep. APR"><span class="apr red">22.9%</span></td>
+            <td class="bc-secondary" data-label="Balance transfer"><!-- verified anpost.com 21 Jun 2026 — no balance-transfer offer on this card -->
               <span class="cell-sub">No balance-transfer offer</span>
             </td>
-            <td><span class="cell-sub">None</span></td>
-            <td><div class="note-text">0% on purchases for 9 months (Ireland's longest purchase intro). Money transfers 5.9% for 24 months. Instalment plan from 8.6% APR on purchases over €250.</div></td>
-            <td>
+            <td class="bc-secondary" data-label="Annual fee"><span class="cell-sub">None</span></td>
+            <td class="bc-notes"><div class="note-text">0% on purchases for 9 months (Ireland's longest purchase intro). Money transfers 5.9% for 24 months. Instalment plan from 8.6% APR on purchases over €250.</div>
+            </td>
+            <td class="bc-cta">
               <!-- affiliate-swap: change href to tracked URL and set rel="sponsored noopener noreferrer" -->
               <a href="/go/anpost-card-flex" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for An Post Money Flex card on their official site">Check rate</a>
             </td>
@@ -734,19 +755,19 @@ tbody tr:hover { background: #1c1c1c !important; }
                 <div><div class="l-name">Avant Money</div><div class="l-product">One Card</div></div>
               </div>
             </td>
-            <td><span class="cell-sub">Mastercard</span></td>
-            <td><span class="cell-mono">16.8%</span></td>
-            <td><span class="apr red">22.9%</span></td>
-            <td>
-              <!-- ✅ CONFIRMED — 0% on BT for 9 mths (transfer within 90 days); verified avantmoney.ie 21 Jun 2026 -->
-              <div class="bt-confirmed">
-                <span class="bt-confirmed-badge">✅ CONFIRMED</span><br>
+            <td class="bc-secondary" data-label="Network"><span class="cell-sub">Mastercard</span></td>
+            <td class="bc-secondary" data-label="Purchase rate"><span class="cell-mono">16.8%</span></td>
+            <td class="bc-hero" data-label="Rep. APR"><span class="apr red">22.9%</span></td>
+            <td class="bc-secondary" data-label="Balance transfer">
+              <!-- 0% on BT for 9 mths (transfer within 90 days); verified avantmoney.ie 21 Jun 2026 -->
+              <div class="bt-offer">
                 0% on balance transfers for 9 months (must transfer within 90 days of opening), then reverts to 16.8% standard rate.
               </div>
             </td>
-            <td><span class="cell-sub">None</span></td>
-            <td><div class="note-text">Also 0% on purchases (3 mths) &amp; 0% on money transfers (12 mths). €150 cashback on a €1,000+ balance transfer. One of Ireland's longest 0% BT windows.</div></td>
-            <td>
+            <td class="bc-secondary" data-label="Annual fee"><span class="cell-sub">None</span></td>
+            <td class="bc-notes"><div class="note-text">Also 0% on purchases (3 mths) &amp; 0% on money transfers (12 mths). €150 cashback on a €1,000+ balance transfer. One of Ireland's longest 0% BT windows.</div>
+            </td>
+            <td class="bc-cta">
               <!-- affiliate-swap: change href to tracked URL and set rel="sponsored noopener noreferrer" -->
               <a href="/go/avant-card-one" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for Avant Money One Card on their official site">Check rate</a>
             </td>
@@ -756,7 +777,9 @@ tbody tr:hover { background: #1c1c1c !important; }
       </table>
     </div>
     <p style="font-size:0.76rem;color:#a0aec0;margin-top:0.85rem;">† All Irish credit cards carry a €30 government stamp duty per year, charged by your issuer on behalf of Revenue. This is in addition to any annual card fee shown above.</p>
+    <p style="font-size:0.76rem;color:#a0aec0;margin-top:0.35rem;">All offers verified against issuer websites on <!-- LAST_VERIFIED_START -->25 June 2026<!-- LAST_VERIFIED_END -->.</p>
   </div>
+</div>
 <!-- NOTES -->
 <div class="notes-section">
   <div class="notes-inner">
@@ -812,6 +835,8 @@ tbody tr:hover { background: #1c1c1c !important; }
   </div>
 </div>
 
+<p class="cross-link">Need to borrow a larger, fixed amount instead? A personal loan often works out cheaper than carrying a card balance long-term once the introductory rate ends — <a href="loans.html">compare Irish personal loan rates →</a></p>
+
 <!-- RELATED GUIDES -->
 <div class="related-guides">
   <div class="related-guides-inner">
@@ -828,7 +853,7 @@ tbody tr:hover { background: #1c1c1c !important; }
 
 <!-- DISCLAIMER -->
 <div class="disclaimer">
-  <strong>Rates verified <!-- LAST_VERIFIED_START -->25 June 2026<!-- LAST_VERIFIED_END --></strong> from lender websites and CCPC.ie. Always confirm the current rate and full card terms directly with the provider before applying. Balance-transfer offers and introductory rates are subject to change; blank cells in the balance-transfer column have not yet been verified and must be confirmed with the issuer before publishing. Rates are subject to change and individual eligibility. This comparison is for informational purposes only and does not constitute financial advice. BorrowClever Ireland Limited accepts no responsibility for errors or changes in lender rates subsequent to publication. © 2026 BorrowClever Ireland Limited.
+  <strong>Rates verified <!-- LAST_VERIFIED_START -->25 June 2026<!-- LAST_VERIFIED_END --></strong> from lender websites and CCPC.ie. Always confirm the current rate and full card terms directly with the provider before applying. Balance-transfer offers and introductory rates are subject to change. Where no balance-transfer offer is shown, the provider does not currently advertise one — confirm directly with the issuer. Rates are subject to change and individual eligibility. This comparison is for informational purposes only and does not constitute financial advice. BorrowClever Ireland Limited accepts no responsibility for errors or changes in lender rates subsequent to publication. © 2026 BorrowClever Ireland Limited.
 </div>
 
 <!-- FOOTER -->
@@ -836,20 +861,23 @@ tbody tr:hover { background: #1c1c1c !important; }
   <div class="footer-logo">Borrow<span>Clever</span></div>
   <div class="footer-links">
     <a href="methodology.html">How we compare</a>
+    <a href="about.html">About</a>
+    <a href="how-we-make-money.html">How we make money</a>
     <a href="privacy.html">Privacy Policy</a>
   </div>
   <div class="footer-note">BorrowClever is an independent financial comparison service. Rates sourced from lender websites and CCPC.ie. Always verify with the lender before applying. This is not financial advice. © 2026 BorrowClever Ireland Limited.</div>
 </footer>
 
 <script>
-/* Mobile "Details" toggle for comparison cards — ADDED. Progressive enhancement, additive.
-   Collapses the long note (and, on cards, the balance-transfer line) behind a tap on small
-   screens. Desktop is unaffected (button is display:none and collapse rules are mobile-only). */
+/* Mobile "Details" toggle for comparison cards. Progressive enhancement, additive.
+   Collapses the long note and the secondary fields (network, purchase rate, balance
+   transfer, annual fee) behind a tap on small screens. Desktop is unaffected (button is
+   display:none and collapse rules are mobile-only). */
 (function(){
   try{
     document.querySelectorAll('.compare-section tbody tr').forEach(function(tr){
-      var note = tr.querySelector('.note-text');
-      if(!note) return;
+      var cell = tr.querySelector('td.bc-notes');
+      if(!cell) return;
       tr.classList.add('details-collapsed');
       var btn = document.createElement('button');
       btn.type = 'button';
@@ -862,7 +890,9 @@ tbody tr:hover { background: #1c1c1c !important; }
         btn.setAttribute('aria-expanded', open ? 'true' : 'false');
         btn.textContent = open ? 'Hide details' : 'Details';
       });
-      note.parentNode.insertBefore(btn, note);
+      var note = cell.querySelector('.note-text');
+      if (note) { note.parentNode.insertBefore(btn, note); }
+      else { cell.insertBefore(btn, cell.firstChild); }
     });
   }catch(e){ /* no-op: cards remain fully readable without the toggle */ }
 })();

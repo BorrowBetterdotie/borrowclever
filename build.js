@@ -95,7 +95,9 @@ function org() {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'BorrowClever',
+    legalName: 'BorrowClever Ireland Limited',
     url: BASE,
+    logo: `${BASE}/logo.svg`,
     description: "Ireland's independent personal loan and credit card comparison service. Rates verified fortnightly from lender websites and CCPC.ie.",
   };
 }
@@ -167,11 +169,19 @@ function ldScript(blocks) {
     { loc: '/loans.html',   lastmod: loansMeta.last_full_review,   changefreq: 'weekly',  priority: '0.9' },
     { loc: '/cards.html',   lastmod: cardsMeta.last_full_review,   changefreq: 'weekly',  priority: '0.9' },
     { loc: '/methodology.html', lastmod: buildDate,                changefreq: 'monthly', priority: '0.5' },
+    { loc: '/about.html',   lastmod: buildDate,                    changefreq: 'monthly', priority: '0.4' },
+    { loc: '/how-we-make-money.html', lastmod: buildDate,          changefreq: 'monthly', priority: '0.4' },
     { loc: '/privacy.html', lastmod: buildDate,                    changefreq: 'monthly', priority: '0.2' },
-    { loc: '/guides/credit-union-vs-bank-loan-ireland.html',      lastmod: buildDate,    changefreq: 'monthly', priority: '0.7' },
-    { loc: '/guides/seai-green-loan-eligibility.html',            lastmod: buildDate,    changefreq: 'monthly', priority: '0.7' },
-    { loc: '/guides/best-credit-card-balance-transfer-ireland.html', lastmod: buildDate, changefreq: 'monthly', priority: '0.7' },
   ];
+
+  // Auto-pick up any guide pages, so new guides don't need a manual sitemap edit.
+  const guidesDir = path.join(__dirname, 'guides');
+  if (fs.existsSync(guidesDir)) {
+    for (const file of fs.readdirSync(guidesDir).sort()) {
+      if (!file.endsWith('.html')) continue;
+      pages.push({ loc: `/guides/${file}`, lastmod: buildDate, changefreq: 'monthly', priority: '0.7' });
+    }
+  }
 
   const xml =
     `<?xml version="1.0" encoding="UTF-8"?>\n` +
