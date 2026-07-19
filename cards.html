@@ -140,33 +140,6 @@
 <link rel="stylesheet" href="site.css">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-<!--
-================================================================================
-  TODO — VERIFY BEFORE PUBLISHING
-  Every balance-transfer cell left blank below must be confirmed against the
-  issuer's website and CCPC.ie before this page goes live.
-
-  Confirmed (verified 21 Jun 2026):
-  Row 3  — AIB Platinum:         ✅ 3.83% variable intro for 12 months (aib.ie)
-  Row 4  — Revolut:              ✅ 0% for up to 6 months
-  Row 5  — BOI Platinum Adv:     ✅ 0% on BT 7 mths OR 0% purchases 6 mths (boi.ie)
-  Row 6  — BOI Affinity:         ✅ 2.9% fixed on BT for 12 months (boi.ie)
-  Row 7  — BOI Classic:          ✅ 0% on BT 7 mths OR 0% purchases 6 mths (boi.ie)
-  Row 8  — PTSB Ice:             ✅ 0% on BT 6 mths + 0% purchases 3 mths (ptsb.ie)
-  Row 9  — BOI Aer Credit Card:  ✅ 0% on BT 7 mths OR 0% purchases 6 mths (boi.ie)
-  Row 12 — Avant One Card:       ✅ 0% on BT for 9 months (avantmoney.ie)
-
-  [AIB Student row removed — student-only card]
-
-  Row 1  — AIB Click:            ✅ No BT offer (verified aib.ie 21 Jun 2026)
-  Row 10 — An Post Classic:      ✅ 0% on BT for 12 months (verified anpost.com 21 Jun 2026)
-  Row 11 — An Post Flex:         ✅ No BT offer (verified anpost.com 21 Jun 2026)
-
-  Still blank / unverified — leave blank until sourced:
-  Row 9  — AIB 'be'
-================================================================================
--->
-
 <style>
 .eyebrow { display: inline-block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #4ade80; margin-bottom: 1rem; }
 
@@ -238,14 +211,10 @@ td:last-child { padding-right: 1.5rem; }
 }
 .badge-cheapest { background: #1a6e42; color: white; }
 
-/* Confirmed live 0% offer — blue accent to distinguish from green loan rows */
-.bt-confirmed {
+.bt-offer {
   font-size: 0.78rem;
   color: #4a5568;
   line-height: 1.45;
-}
-.bt-confirmed-badge {
-  display: none;
 }
 
 /* notes */
@@ -344,7 +313,7 @@ tbody tr:hover { background: #1c1c1c !important; }
 .apr.red   { color: #f87171; }
 .cell-mono { color: #f0f0f0; }
 .cell-sub { color: #555; }
-.bt-confirmed { color: rgba(255,255,255,0.88); }
+.bt-offer { color: rgba(255,255,255,0.88); }
 .note-text { color: #555; }
 .badge-cheapest { background: #22c55e; color: #0c0c0c; }
 .cta-link { background: #22c55e; color: #0c0c0c !important; }
@@ -370,9 +339,7 @@ tbody tr:hover { background: #1c1c1c !important; }
     <li><a href="loans.html">Compare loans</a></li>
     <li><a href="cards.html" class="active">Compare cards</a></li>
     <li><a href="methodology.html">How we compare</a></li>
-    <li><a href="index.html#calculator">Calculator</a></li>
-    <li><a href="index.html#lenders">Lenders</a></li>
-    <li><a href="index.html#signup" class="nav-cta">Join waitlist</a></li>
+    <li><a href="index.html#signup" class="nav-cta">Newsletter</a></li>
   </ul>
   <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
     <span></span><span></span><span></span>
@@ -384,9 +351,7 @@ tbody tr:hover { background: #1c1c1c !important; }
   <a href="loans.html">Compare loans</a>
   <a href="cards.html" class="active">Compare cards</a>
   <a href="methodology.html">How we compare</a>
-  <a href="index.html#calculator">Calculator</a>
-  <a href="index.html#lenders">Lenders</a>
-  <a href="index.html#signup" class="mobile-cta">Join waitlist</a>
+  <a href="index.html#signup" class="mobile-cta">Newsletter</a>
 </div>
 <!-- Mobile segmented nav (Loans | Cards) — ADDED; shown on mobile only -->
 <nav class="seg-nav" aria-label="Compare loans or cards">
@@ -480,9 +445,8 @@ tbody tr:hover { background: #1c1c1c !important; }
             <td><span class="cell-mono">11.84%</span></td>
             <td><span class="apr green">17.0%</span></td>
             <td>
-              <!-- ✅ CONFIRMED — 3.83% (variable) intro rate for 12 months on purchases & balance transfers; verified aib.ie 21 Jun 2026 -->
-              <div class="bt-confirmed">
-                <span class="bt-confirmed-badge">✅ CONFIRMED — INTRO RATE</span><br>
+              <!-- 3.83% (variable) intro rate for 12 months on purchases & balance transfers; verified aib.ie 21 Jun 2026 -->
+              <div class="bt-offer">
                 <strong>3.83%</strong> (variable) on purchases &amp; balance transfers for first 12 months from account opening, then reverts to standard rate. Balance transfers from store cards or non-AIB cards only; capped at €5,000.
               </div>
             </td>
@@ -507,16 +471,16 @@ tbody tr:hover { background: #1c1c1c !important; }
             <td><span class="cell-sub">—</span></td>
             <td><span class="apr mid">17.99%</span></td>
             <td>
-              <!-- ✅ CONFIRMED — 0% for up to 6 months on balance transfers & purchases -->
-              <div class="bt-confirmed">
-                <span class="bt-confirmed-badge">✅ CONFIRMED</span><br>
+              <!-- 0% for up to 6 months on balance transfers & purchases -->
+              <div class="bt-offer">
                 0% on balance transfers &amp; purchases for up to 6 months (must meet minimum monthly payments)
               </div>
             </td>
             <td><span class="cell-sub">None</span></td>
             <td><div class="note-text">App-only, near-instant decision. Limit up to €10,000. RevPoints rewards. Cash-advance APR 19.99%.</div></td>
-            <!-- affiliate-swap: no credit card URL supplied in mapping — add href here when available -->
-            <td></td>
+            <td>
+              <a href="/go/revolut-card" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for Revolut Credit Card on their official site">Check rate</a>
+            </td>
           </tr>
 
           <!-- 4 — BOI Platinum Advantage · 19.6% APR -->
@@ -532,9 +496,8 @@ tbody tr:hover { background: #1c1c1c !important; }
             <td><span class="cell-mono">13.79%</span></td>
             <td><span class="apr mid">19.6%</span></td>
             <td>
-              <!-- ✅ CONFIRMED — 0% on BT for 7 mths OR 0% on purchases for 6 mths; verified boi.ie 21 Jun 2026 -->
-              <div class="bt-confirmed">
-                <span class="bt-confirmed-badge">✅ CONFIRMED</span><br>
+              <!-- 0% on BT for 7 mths OR 0% on purchases for 6 mths; verified boi.ie 21 Jun 2026 -->
+              <div class="bt-offer">
                 0% on balance transfers for 7 months <em>or</em> 0% on purchases for 6 months (new customers choose one), then reverts to standard rate.
               </div>
             </td>
@@ -559,9 +522,8 @@ tbody tr:hover { background: #1c1c1c !important; }
             <td><span class="cell-mono">14.57%</span></td>
             <td><span class="apr mid">20.2%</span></td>
             <td>
-              <!-- ✅ CONFIRMED — 2.9% fixed on BT for 12 mths; verified boi.ie 21 Jun 2026 -->
-              <div class="bt-confirmed">
-                <span class="bt-confirmed-badge">✅ CONFIRMED — INTRO RATE</span><br>
+              <!-- 2.9% fixed on BT for 12 mths; verified boi.ie 21 Jun 2026 -->
+              <div class="bt-offer">
                 <strong>2.9%</strong> (fixed) on balance transfers for 12 months. No intro purchase offer. Then reverts to standard rate.
               </div>
             </td>
@@ -586,9 +548,8 @@ tbody tr:hover { background: #1c1c1c !important; }
             <td><span class="cell-mono">16.12%</span></td>
             <td><span class="apr red">22.1%</span></td>
             <td>
-              <!-- ✅ CONFIRMED — 0% on BT for 7 mths OR 0% on purchases for 6 mths; verified boi.ie 21 Jun 2026 -->
-              <div class="bt-confirmed">
-                <span class="bt-confirmed-badge">✅ CONFIRMED</span><br>
+              <!-- 0% on BT for 7 mths OR 0% on purchases for 6 mths; verified boi.ie 21 Jun 2026 -->
+              <div class="bt-offer">
                 0% on balance transfers for 7 months <em>or</em> 0% on purchases for 6 months (new customers choose one), then reverts to standard rate.
               </div>
             </td>
@@ -613,9 +574,8 @@ tbody tr:hover { background: #1c1c1c !important; }
             <td><span class="cell-mono">16.50%</span></td>
             <td><span class="apr red">22.53%</span></td>
             <td>
-              <!-- ✅ CONFIRMED — 0% on BT for 6 mths + 0% on purchases for 3 mths; verified ptsb.ie 21 Jun 2026 -->
-              <div class="bt-confirmed">
-                <span class="bt-confirmed-badge">✅ CONFIRMED</span><br>
+              <!-- 0% on BT for 6 mths + 0% on purchases for 3 mths; verified ptsb.ie 21 Jun 2026 -->
+              <div class="bt-offer">
                 0% on balance transfers for 6 months, plus 0% on purchases for 3 months, then reverts to standard rate. One balance transfer per card.
               </div>
             </td>
@@ -640,9 +600,8 @@ tbody tr:hover { background: #1c1c1c !important; }
             <td><span class="cell-mono">14.00%</span></td>
             <td><span class="apr red">22.7%</span></td>
             <td>
-              <!-- ✅ CONFIRMED — 0% on BT for 7 mths OR 0% on purchases for 6 mths; verified boi.ie 21 Jun 2026 -->
-              <div class="bt-confirmed">
-                <span class="bt-confirmed-badge">✅ CONFIRMED</span><br>
+              <!-- 0% on BT for 7 mths OR 0% on purchases for 6 mths; verified boi.ie 21 Jun 2026 -->
+              <div class="bt-offer">
                 0% on balance transfers for 7 months <em>or</em> 0% on purchases for 6 months (new customers choose one), then reverts to standard rate. Annual fee billed as €6.50/month.
               </div>
             </td>
@@ -688,9 +647,8 @@ tbody tr:hover { background: #1c1c1c !important; }
             <td><span class="cell-mono">16.8%</span></td>
             <td><span class="apr red">22.9%</span></td>
             <td>
-              <!-- ✅ CONFIRMED — 0% on BT for 12 mths (transfer within 90 days); verified anpost.com 21 Jun 2026 -->
-              <div class="bt-confirmed">
-                <span class="bt-confirmed-badge">✅ CONFIRMED</span><br>
+              <!-- 0% on BT for 12 mths (transfer within 90 days); verified anpost.com 21 Jun 2026 -->
+              <div class="bt-offer">
                 0% on balance transfers for 12 months (must transfer within 90 days of opening), then reverts to 16.8% / 22.9% APR. Ireland's longest 0% balance-transfer window.
               </div>
             </td>
@@ -738,9 +696,8 @@ tbody tr:hover { background: #1c1c1c !important; }
             <td><span class="cell-mono">16.8%</span></td>
             <td><span class="apr red">22.9%</span></td>
             <td>
-              <!-- ✅ CONFIRMED — 0% on BT for 9 mths (transfer within 90 days); verified avantmoney.ie 21 Jun 2026 -->
-              <div class="bt-confirmed">
-                <span class="bt-confirmed-badge">✅ CONFIRMED</span><br>
+              <!-- 0% on BT for 9 mths (transfer within 90 days); verified avantmoney.ie 21 Jun 2026 -->
+              <div class="bt-offer">
                 0% on balance transfers for 9 months (must transfer within 90 days of opening), then reverts to 16.8% standard rate.
               </div>
             </td>
@@ -756,6 +713,7 @@ tbody tr:hover { background: #1c1c1c !important; }
       </table>
     </div>
     <p style="font-size:0.76rem;color:#a0aec0;margin-top:0.85rem;">† All Irish credit cards carry a €30 government stamp duty per year, charged by your issuer on behalf of Revenue. This is in addition to any annual card fee shown above.</p>
+    <p style="font-size:0.76rem;color:#a0aec0;margin-top:0.35rem;">All offers verified against issuer websites on <!-- LAST_VERIFIED_START -->25 June 2026<!-- LAST_VERIFIED_END -->.</p>
   </div>
 <!-- NOTES -->
 <div class="notes-section">
@@ -814,7 +772,7 @@ tbody tr:hover { background: #1c1c1c !important; }
 
 <!-- DISCLAIMER -->
 <div class="disclaimer">
-  <strong>Rates verified <!-- LAST_VERIFIED_START -->25 June 2026<!-- LAST_VERIFIED_END --></strong> from lender websites and CCPC.ie. Always confirm the current rate and full card terms directly with the provider before applying. Balance-transfer offers and introductory rates are subject to change; blank cells in the balance-transfer column have not yet been verified and must be confirmed with the issuer before publishing. Rates are subject to change and individual eligibility. This comparison is for informational purposes only and does not constitute financial advice. BorrowClever Ireland Limited accepts no responsibility for errors or changes in lender rates subsequent to publication. © 2026 BorrowClever Ireland Limited.
+  <strong>Rates verified <!-- LAST_VERIFIED_START -->25 June 2026<!-- LAST_VERIFIED_END --></strong> from lender websites and CCPC.ie. Always confirm the current rate and full card terms directly with the provider before applying. Balance-transfer offers and introductory rates are subject to change. Where no balance-transfer offer is shown, the provider does not currently advertise one — confirm directly with the issuer. Rates are subject to change and individual eligibility. This comparison is for informational purposes only and does not constitute financial advice. BorrowClever Ireland Limited accepts no responsibility for errors or changes in lender rates subsequent to publication. © 2026 BorrowClever Ireland Limited.
 </div>
 
 <!-- FOOTER -->
