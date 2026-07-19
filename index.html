@@ -308,51 +308,6 @@ h1 {
   color: #1a6e42;
 }
 
-/* ── LOGOS BAR ── */
-.logos-bar {
-  padding: 1.5rem 6%;
-  border-top: 1px solid #eef0f3;
-  border-bottom: 1px solid #eef0f3;
-}
-
-.logos-label {
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #a0aec0;
-  text-align: center;
-  margin-bottom: 1.5rem;
-}
-
-.logos-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 2.5rem;
-  flex-wrap: wrap;
-}
-
-.lender-pill {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: #f8fafc;
-  border: 1px solid #eef0f3;
-  border-radius: 100px;
-  padding: 0.45rem 1rem;
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: #4a5568;
-}
-
-.lender-pill-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
 /* ── FEATURES ── */
 .features {
   padding: 5rem 6%;
@@ -469,6 +424,8 @@ h1 {
 .stats-left .features-eyebrow { color: #4ade80; }
 .stats-left h2 { color: white; margin-bottom: 1rem; }
 .stats-left p { color: rgba(255,255,255,0.65); font-size: 0.95rem; line-height: 1.7; }
+.stats-left p a { color: #4ade80; text-decoration: underline; }
+.stats-left p a:hover { color: #86efac; }
 
 .stats-grid {
   display: grid;
@@ -714,7 +671,6 @@ h1 {
   .stats-inner { grid-template-columns: 1fr; gap: 2.5rem; }
   .calc-controls { grid-template-columns: 1fr; }
   .cr-costs { min-width: auto; }
-  .logos-row { gap: 1rem; }
   .email-section { flex-direction: column; align-items: flex-start; }
   .brevo-form-wrapper { max-width: 100%; width: 100%; }
   .brevo-success { max-width: 100%; }
@@ -898,8 +854,7 @@ h1 { color: #ffffff; }
     <li><a href="cards.html">Compare cards</a></li>
     <li><a href="methodology.html">How we compare</a></li>
     <li><a href="#features">How it works</a></li>
-    <li><a href="#lenders">Lenders</a></li>
-    <li><a href="#signup" class="nav-cta">Join waitlist</a></li>
+    <li><a href="#signup" class="nav-cta">Newsletter</a></li>
   </ul>
   <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
     <span></span><span></span><span></span>
@@ -912,8 +867,7 @@ h1 { color: #ffffff; }
   <a href="cards.html">Compare cards</a>
   <a href="methodology.html">How we compare</a>
   <a href="#features">How it works</a>
-  <a href="#lenders">Lenders</a>
-  <a href="#signup" class="mobile-cta">Join waitlist</a>
+  <a href="#signup" class="mobile-cta">Newsletter</a>
 </div>
 <nav class="seg-nav" aria-label="Compare loans or cards">
   <a href="loans.html" class="seg-item">Loans</a>
@@ -929,8 +883,8 @@ h1 { color: #ffffff; }
     <p class="hero-sub">BorrowClever compares personal loans and credit cards from every major Irish lender — banks, fintechs, and credit unions. We rank by total cost of credit, not monthly repayment. No bias. No hidden rankings.</p>
 
     <div class="btn-group">
-      <a href="#signup" class="btn-primary">Join the waitlist</a>
-      <a href="#calculator" class="btn-secondary">See how it works</a>
+      <a href="loans.html" class="btn-primary">Compare loans now</a>
+      <a href="cards.html" class="btn-secondary">Compare cards</a>
     </div>
 
     <div class="trust-row">
@@ -964,31 +918,17 @@ h1 { color: #ffffff; }
 <!-- EMAIL SIGNUP BAR -->
 <div class="email-section" id="signup">
   <div>
-    <div class="email-label">Be first to know when we launch</div>
-    <div class="email-sublabel">We'll send you Ireland's best loan rates as a thank you.</div>
+    <div class="email-label">Subscribe to receive our newsletter</div>
+    <div class="email-sublabel">Get notified when lender rates change and new comparison guides go live.</div>
   </div>
   <div class="brevo-form-wrapper">
     <form id="brevo-email-form" class="brevo-custom-form" novalidate>
       <input type="email" name="EMAIL" placeholder="Your email address" required autocomplete="email">
       <input type="text" name="email_address_check" value="" style="display:none;" aria-hidden="true">
       <input type="hidden" name="locale" value="en">
-      <button type="submit">Notify me</button>
+      <button type="submit">Subscribe</button>
     </form>
-    <div class="brevo-success" id="brevo-success">&#10003; You're on the list — we'll be in touch!</div>
-  </div>
-</div>
-
-<!-- LENDERS BAR -->
-<div class="logos-bar" id="lenders">
-  <div class="logos-label">Lenders we compare</div>
-  <div class="logos-row">
-    <div class="lender-pill"><div class="lender-pill-dot" style="background:#1e40af;"></div>PTSB</div>
-    <div class="lender-pill"><div class="lender-pill-dot" style="background:#92400e;"></div>An Post Money</div>
-    <div class="lender-pill"><div class="lender-pill-dot" style="background:#065f46;"></div>Bank of Ireland</div>
-    <div class="lender-pill"><div class="lender-pill-dot" style="background:#991b1b;"></div>AIB</div>
-    <div class="lender-pill"><div class="lender-pill-dot" style="background:#5b21b6;"></div>Avant Money</div>
-    <div class="lender-pill"><div class="lender-pill-dot" style="background:#1d4ed8;"></div>Revolut</div>
-    <div class="lender-pill"><div class="lender-pill-dot" style="background:#1a6e42;"></div>Credit Unions</div>
+    <div class="brevo-success" id="brevo-success">&#10003; You're subscribed — we'll be in touch</div>
   </div>
 </div>
 
@@ -1069,7 +1009,7 @@ h1 { color: #ffffff; }
     <div class="stats-left">
       <div class="features-eyebrow">The problem we're solving</div>
       <h2>Irish borrowers are overpaying</h2>
-      <p>The ESRI found that Irish consumers routinely make bad loan decisions by focusing on monthly repayments. Banks design their marketing around this tendency. Meanwhile, over three million credit union members are invisible to every major comparison site.</p>
+      <p><a href="https://www.esri.ie/publications/an-experimental-investigation-of-personal-loan-choices" target="_blank" rel="noopener noreferrer">The ESRI found</a> that Irish consumers routinely make bad loan decisions by focusing on monthly repayments. Banks design their marketing around this tendency. Meanwhile, over three million credit union members are invisible to every major comparison site.</p>
     </div>
     <div class="stats-grid">
       <div class="stat-box">
