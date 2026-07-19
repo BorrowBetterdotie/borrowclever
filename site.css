@@ -106,7 +106,7 @@ nav {
 
 /* ── PAGE HEADER ── */
 .page-header {
-  background: #0f4a2a; padding: 4.5rem 6%;
+  background: #0c0c0c; padding: 4.5rem 6%;
   position: relative; overflow: hidden;
 }
 .page-header::before {

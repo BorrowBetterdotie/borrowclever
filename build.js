@@ -95,7 +95,6 @@ function org() {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'BorrowClever',
-    legalName: 'BorrowClever Ireland Limited',
     url: BASE,
     logo: `${BASE}/logo.svg`,
     description: "Ireland's independent personal loan and credit card comparison service. Rates verified fortnightly from lender websites and CCPC.ie.",
