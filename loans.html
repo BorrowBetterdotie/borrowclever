@@ -249,40 +249,57 @@ tbody tr.section-row:first-child td { border-top: none; }
 .disclaimer { padding: 2rem 6%; max-width: 1180px; margin: 0 auto; font-size: 0.74rem; color: #a0aec0; line-height: 1.65; }
 .disclaimer strong { color: #718096; }
 
-.details-toggle{display:none;} /* mobile-only; desktop hides it */
+.details-toggle { display: none; } /* the JS-inserted "Details" button is mobile-only; desktop hides it */
 
-/* ===== Mobile comparison cards (LOANS) — ADDED. Mobile-only (<=680px); desktop table unchanged. ===== */
-@media (max-width:680px){
+/* ===== Mobile comparison cards (LOANS). Card-stack at <=768px; desktop table untouched above that. ===== */
+@media (max-width:768px){
   .compare-section .table-wrap{overflow:visible;border:0;box-shadow:none;border-radius:0;}
   .compare-section table{min-width:0;font-size:1rem;display:block;}
-  .compare-section thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);}
+  .compare-section thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;padding:0;margin:-1px;}
   .compare-section tbody{display:block;}
   .compare-section tbody tr{
-    display:flex;flex-wrap:wrap;align-items:center;gap:.15rem .9rem;
+    display:flex;flex-wrap:wrap;align-items:flex-start;gap:.6rem .75rem;
     background:#fff;border:1px solid #eef0f3;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,0.05);
-    padding:1.05rem 1.1rem;margin-bottom:1rem;
+    padding:1.1rem 1.1rem 1.25rem;margin-bottom:1rem;
   }
   .compare-section tbody tr.row-green{border-color:#b7e4ca;background:#f0faf4;}
-  .compare-section tbody td{display:block;padding:0;border:0;}
-  .compare-section td:nth-child(1),.compare-section td:nth-child(6){display:none;} /* rank + redundant total-interest */
-  .compare-section td:nth-child(2){order:1;flex-basis:100%;}
+  .compare-section tbody tr.row-cu{background:#fafafa;}
+  .compare-section tbody td{display:block;padding:0;border:0;flex-basis:100%;}
+
+  /* rank + lender name share the top row */
+  .compare-section td:nth-child(1){order:1;flex-basis:auto;}
+  .compare-section td:nth-child(1) .rank{font-size:.75rem;color:#a0aec0;font-weight:700;}
+  .compare-section td:nth-child(2){order:1;flex:1;}
   .compare-section td:nth-child(2) .l-name{font-size:1rem;font-weight:700;}
   .compare-section td:nth-child(2) .l-product{font-size:.85rem;color:#718096;}
-  .compare-section td:nth-child(3){order:2;}
-  .compare-section td:nth-child(3)::before{content:"APR";display:block;font-size:.62rem;text-transform:uppercase;letter-spacing:.06em;color:#a0aec0;font-weight:700;}
-  .compare-section td:nth-child(3) .apr{font-size:1.5rem;font-weight:800;}
-  .compare-section td:nth-child(5){order:3;margin-left:auto;text-align:right;}
-  .compare-section td:nth-child(5)::before{content:"Monthly";display:block;font-size:.62rem;text-transform:uppercase;letter-spacing:.06em;color:#a0aec0;font-weight:700;}
-  .compare-section td:nth-child(5) .cell-mono{font-size:1.2rem;font-weight:700;}
-  .compare-section td:nth-child(7){order:4;flex-basis:100%;margin-top:.5rem;font-size:.85rem;color:#4a5568;}
-  .compare-section td:nth-child(7)::before{content:"Total repayable  ";color:#a0aec0;font-weight:600;}
-  .compare-section td:nth-child(4){order:5;flex-basis:100%;font-size:.8rem;color:#718096;}
-  .compare-section td:nth-child(4)::before{content:"Rate type  ";color:#a0aec0;}
-  .compare-section td:nth-child(8){order:6;flex-basis:100%;margin-top:.4rem;}
-  .compare-section td:nth-child(9){order:7;flex-basis:100%;margin-top:.75rem;}
-  .compare-section td:nth-child(9) .cta-link{display:block;width:100%;text-align:center;padding:.8rem;border-radius:10px;font-size:.95rem;}
-  .compare-section tbody tr.details-collapsed .note-text{display:none;}
-  .details-toggle{display:inline-block;margin-top:.5rem;background:none;border:0;color:#1a6e42;font:inherit;font-size:.82rem;font-weight:700;cursor:pointer;padding:.2rem 0;}
+
+  /* hero stats — APR and total interest, side by side */
+  .compare-section td.bc-hero{order:2;flex-basis:calc(50% - .375rem);}
+  .compare-section td.bc-hero::before{content:attr(data-label);display:block;font-size:.62rem;text-transform:uppercase;letter-spacing:.06em;color:#a0aec0;font-weight:700;margin-bottom:.15rem;}
+  .compare-section td.bc-hero .apr{font-size:1.4rem;font-weight:800;}
+  .compare-section td.bc-hero .cell-sub{font-size:1.15rem;font-weight:700;color:#0d1b2a;}
+
+  /* primary note — clamped to two lines until the "Details" toggle is opened */
+  .compare-section td.bc-notes{order:3;}
+  .compare-section tbody tr.details-collapsed td.bc-notes .note-text{
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+  }
+  .details-toggle{
+    display:inline-flex;align-items:center;gap:.3rem;margin-bottom:.4rem;
+    background:none;border:0;color:#1a6e42;font:inherit;font-size:.82rem;font-weight:700;
+    cursor:pointer;padding:.2rem 0;
+  }
+  .details-toggle::after{content:'▾';font-size:.7em;transition:transform .15s ease;}
+  tbody tr.details-open .details-toggle::after{transform:rotate(180deg);}
+
+  /* secondary fields — rate type, monthly, total repayable — hidden until "Details" is opened */
+  .compare-section td.bc-secondary{display:none;order:4;flex-basis:calc(50% - .375rem);font-size:.85rem;color:#4a5568;}
+  .compare-section td.bc-secondary::before{content:attr(data-label);display:block;font-size:.68rem;color:#a0aec0;font-weight:600;margin-bottom:.1rem;}
+  tbody tr.details-open td.bc-secondary{display:block;}
+
+  /* CTA — full-width button */
+  .compare-section td.bc-cta{order:6;margin-top:.25rem;}
+  .compare-section td.bc-cta .cta-link{display:block;width:100%;text-align:center;padding:.85rem;border-radius:10px;font-size:.95rem;}
 }
 
 /* ── RESPONSIVE ── */
@@ -341,9 +358,18 @@ tbody tr.section-row td { background: #141414; color: #555; border-color: rgba(2
 .cross-link a { color: #22c55e; }
 .disclaimer { color: #555; }
 .disclaimer strong { color: #777; }
-@media (max-width: 680px) {
+@media (max-width: 768px) {
   .compare-section tbody tr { background: #1a1a1a; border-color: rgba(255,255,255,0.07); box-shadow: 0 4px 24px rgba(0,0,0,0.4); }
   .compare-section tbody tr.row-green { border-color: rgba(34,197,94,0.25); background: rgba(34,197,94,0.05); }
+  .compare-section tbody tr.row-cu { background: #111111; }
+  .compare-section td:nth-child(1) .rank { color: #444; }
+  .compare-section td:nth-child(2) .l-name { color: #f0f0f0; }
+  .compare-section td:nth-child(2) .l-product { color: #666; }
+  .compare-section td.bc-hero::before { color: #555; }
+  .compare-section td.bc-hero .cell-sub { color: #f0f0f0; }
+  .compare-section td.bc-secondary { color: rgba(255,255,255,0.88); }
+  .compare-section td.bc-secondary::before { color: #555; }
+  .details-toggle { color: #22c55e; }
 }
 </style>
 </head>
@@ -437,19 +463,19 @@ tbody tr.section-row td { background: #141414; color: #555; border-color: rgba(2
                 <div><div class="l-name">Bank of Ireland</div><div class="l-product">SBCI Home Energy Upgrade</div></div>
               </div>
             </td>
-            <td><span class="apr green">3.00%</span></td>
-            <td><span class="cell-sub">Variable</span></td>
-            <td><span class="cell-mono">€179.69</span></td>
-            <td><span class="cell-sub">€781.40</span></td>
-            <td><span class="cell-total">€10,781.40</span></td>
-            <td>
+            <td class="bc-hero" data-label="APR"><span class="apr green">3.00%</span></td>
+            <td class="bc-secondary" data-label="Rate type"><span class="cell-sub">Variable</span></td>
+            <td class="bc-secondary" data-label="Monthly"><span class="cell-mono">€179.69</span></td>
+            <td class="bc-hero" data-label="Total interest"><span class="cell-sub">€781.40</span></td>
+            <td class="bc-secondary" data-label="Total repayable"><span class="cell-total">€10,781.40</span></td>
+            <td class="bc-notes">
               <div class="badges">
                 <span class="badge badge-cheapest">Cheapest overall</span>
                 <span class="badge badge-seai">SEAI grant required</span>
               </div>
               <div class="note-text" style="margin-top:5px;">75% of loan on qualifying energy works</div>
             </td>
-            <td>
+            <td class="bc-cta">
               <!-- affiliate-swap: change href to tracked URL and set rel="sponsored noopener noreferrer" -->
               <a href="/go/boi-loan-sbci-energy" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for Bank of Ireland on their official site">Check rate</a>
             </td>
@@ -463,18 +489,18 @@ tbody tr.section-row td { background: #141414; color: #555; border-color: rgba(2
                 <div><div class="l-name">AIB</div><div class="l-product">SBCI Home Energy Upgrade</div></div>
               </div>
             </td>
-            <td><span class="apr green">3.55%</span></td>
-            <td><span class="cell-sub">Variable</span></td>
-            <td><span class="cell-mono">€182.27</span></td>
-            <td><span class="cell-sub">€936.20</span></td>
-            <td><span class="cell-total">€10,936.20</span></td>
-            <td>
+            <td class="bc-hero" data-label="APR"><span class="apr green">3.55%</span></td>
+            <td class="bc-secondary" data-label="Rate type"><span class="cell-sub">Variable</span></td>
+            <td class="bc-secondary" data-label="Monthly"><span class="cell-mono">€182.27</span></td>
+            <td class="bc-hero" data-label="Total interest"><span class="cell-sub">€936.20</span></td>
+            <td class="bc-secondary" data-label="Total repayable"><span class="cell-total">€10,936.20</span></td>
+            <td class="bc-notes">
               <div class="badges">
                 <span class="badge badge-seai">SEAI grant required</span>
               </div>
               <div class="note-text" style="margin-top:5px;">75% of loan on qualifying energy works</div>
             </td>
-            <td>
+            <td class="bc-cta">
               <!-- affiliate-swap: change href to tracked URL and set rel="sponsored noopener noreferrer" -->
               <a href="/go/aib-loan-sbci-energy" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for AIB on their official site">Check rate</a>
             </td>
@@ -488,18 +514,18 @@ tbody tr.section-row td { background: #141414; color: #555; border-color: rgba(2
                 <div><div class="l-name">PTSB</div><div class="l-product">SBCI Home Energy Upgrade</div></div>
               </div>
             </td>
-            <td><span class="apr green">4.23%</span></td>
-            <td><span class="cell-sub">Variable</span></td>
-            <td><span class="cell-mono">€184.84</span></td>
-            <td><span class="cell-sub">€1,090.40</span></td>
-            <td><span class="cell-total">€11,090.40</span></td>
-            <td>
+            <td class="bc-hero" data-label="APR"><span class="apr green">4.23%</span></td>
+            <td class="bc-secondary" data-label="Rate type"><span class="cell-sub">Variable</span></td>
+            <td class="bc-secondary" data-label="Monthly"><span class="cell-mono">€184.84</span></td>
+            <td class="bc-hero" data-label="Total interest"><span class="cell-sub">€1,090.40</span></td>
+            <td class="bc-secondary" data-label="Total repayable"><span class="cell-total">€11,090.40</span></td>
+            <td class="bc-notes">
               <div class="badges">
                 <span class="badge badge-seai">SEAI grant required</span>
               </div>
               <div class="note-text" style="margin-top:5px;">Tiered rate — €5k–€15k band shown; 2.99% rate (3.00% APR) for €50k–€75k. Rates reduced Jan 2026.</div>
             </td>
-            <td>
+            <td class="bc-cta">
               <!-- affiliate-swap: change href to tracked URL and set rel="sponsored noopener noreferrer" -->
               <a href="/go/ptsb-loan-sbci-energy" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for PTSB on their official site">Check rate</a>
             </td>
@@ -513,16 +539,16 @@ tbody tr.section-row td { background: #141414; color: #555; border-color: rgba(2
                 <div><div class="l-name">AIB</div><div class="l-product">Green Personal Loan</div></div>
               </div>
             </td>
-            <td><span class="apr green">6.40%</span></td>
-            <td><span class="cell-sub">Variable</span></td>
-            <td><span class="cell-mono">€194.28</span></td>
-            <td><span class="cell-sub">€1,656.80</span></td>
-            <td><span class="cell-total">€11,656.80</span></td>
-            <td>
+            <td class="bc-hero" data-label="APR"><span class="apr green">6.40%</span></td>
+            <td class="bc-secondary" data-label="Rate type"><span class="cell-sub">Variable</span></td>
+            <td class="bc-secondary" data-label="Monthly"><span class="cell-mono">€194.28</span></td>
+            <td class="bc-hero" data-label="Total interest"><span class="cell-sub">€1,656.80</span></td>
+            <td class="bc-secondary" data-label="Total repayable"><span class="cell-total">€11,656.80</span></td>
+            <td class="bc-notes">
               <div class="badges"><span class="badge badge-green-prod">Green product</span></div>
               <div class="note-text" style="margin-top:5px;">50%+ of loan must go toward green upgrades</div>
             </td>
-            <td>
+            <td class="bc-cta">
               <!-- affiliate-swap: change href to tracked URL and set rel="sponsored noopener noreferrer" -->
               <a href="/go/aib-loan-green" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for AIB on their official site">Check rate</a>
             </td>
@@ -536,16 +562,16 @@ tbody tr.section-row td { background: #141414; color: #555; border-color: rgba(2
                 <div><div class="l-name">Bank of Ireland</div><div class="l-product">Green Car / Home Improvement</div></div>
               </div>
             </td>
-            <td><span class="apr green">6.50%</span></td>
-            <td><span class="cell-sub">Variable</span></td>
-            <td><span class="cell-mono">€194.74</span></td>
-            <td><span class="cell-sub">€1,684.40</span></td>
-            <td><span class="cell-total">€11,684.40</span></td>
-            <td>
+            <td class="bc-hero" data-label="APR"><span class="apr green">6.50%</span></td>
+            <td class="bc-secondary" data-label="Rate type"><span class="cell-sub">Variable</span></td>
+            <td class="bc-secondary" data-label="Monthly"><span class="cell-mono">€194.74</span></td>
+            <td class="bc-hero" data-label="Total interest"><span class="cell-sub">€1,684.40</span></td>
+            <td class="bc-secondary" data-label="Total repayable"><span class="cell-total">€11,684.40</span></td>
+            <td class="bc-notes">
               <div class="badges"><span class="badge badge-green-prod">Green product</span></div>
               <div class="note-text" style="margin-top:5px;">Electric or plug-in hybrid only / energy efficiency works</div>
             </td>
-            <td>
+            <td class="bc-cta">
               <!-- affiliate-swap: change href to tracked URL and set rel="sponsored noopener noreferrer" -->
               <a href="/go/boi-loan-green" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for Bank of Ireland on their official site">Check rate</a>
             </td>
@@ -559,16 +585,16 @@ tbody tr.section-row td { background: #141414; color: #555; border-color: rgba(2
                 <div><div class="l-name">PTSB</div><div class="l-product">Personal Loan</div></div>
               </div>
             </td>
-            <td><span class="apr mid">7.20%</span></td>
-            <td><span class="cell-sub">Variable</span></td>
-            <td><span class="cell-mono">€197.88</span></td>
-            <td><span class="cell-sub">€1,873.02</span></td>
-            <td><span class="cell-total">€11,873.02</span></td>
-            <td>
+            <td class="bc-hero" data-label="APR"><span class="apr mid">7.20%</span></td>
+            <td class="bc-secondary" data-label="Rate type"><span class="cell-sub">Variable</span></td>
+            <td class="bc-secondary" data-label="Monthly"><span class="cell-mono">€197.88</span></td>
+            <td class="bc-hero" data-label="Total interest"><span class="cell-sub">€1,873.02</span></td>
+            <td class="bc-secondary" data-label="Total repayable"><span class="cell-total">€11,873.02</span></td>
+            <td class="bc-notes">
               <div class="badges"><span class="badge badge-best">Best standard rate</span></div>
               <div class="note-text" style="margin-top:5px;">Rate shown for €10k band. Max APR 8.80%. €1k–€75k, up to 84 months</div>
             </td>
-            <td>
+            <td class="bc-cta">
               <!-- affiliate-swap: change href to tracked URL and set rel="sponsored noopener noreferrer" -->
               <a href="/go/ptsb-loan-personal" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for PTSB on their official site">Check rate</a>
             </td>
@@ -582,13 +608,14 @@ tbody tr.section-row td { background: #141414; color: #555; border-color: rgba(2
                 <div><div class="l-name">Bank of Ireland</div><div class="l-product">Personal Loan</div></div>
               </div>
             </td>
-            <td><span class="apr mid">8.30%</span></td>
-            <td><span class="cell-sub">Variable</span></td>
-            <td><span class="cell-mono">€202.76</span></td>
-            <td><span class="cell-sub">€2,165.85</span></td>
-            <td><span class="cell-total">€12,165.85</span></td>
-            <td><div class="note-text">Rate shown for €10k band. Can defer first 3 payments. €2k–€75k, up to 84 months</div></td>
-            <td>
+            <td class="bc-hero" data-label="APR"><span class="apr mid">8.30%</span></td>
+            <td class="bc-secondary" data-label="Rate type"><span class="cell-sub">Variable</span></td>
+            <td class="bc-secondary" data-label="Monthly"><span class="cell-mono">€202.76</span></td>
+            <td class="bc-hero" data-label="Total interest"><span class="cell-sub">€2,165.85</span></td>
+            <td class="bc-secondary" data-label="Total repayable"><span class="cell-total">€12,165.85</span></td>
+            <td class="bc-notes"><div class="note-text">Rate shown for €10k band. Can defer first 3 payments. €2k–€75k, up to 84 months</div>
+            </td>
+            <td class="bc-cta">
               <!-- affiliate-swap: change href to tracked URL and set rel="sponsored noopener noreferrer" -->
               <a href="/go/boi-loan-personal" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for Bank of Ireland on their official site">Check rate</a>
             </td>
@@ -602,13 +629,14 @@ tbody tr.section-row td { background: #141414; color: #555; border-color: rgba(2
                 <div><div class="l-name">An Post Money</div><div class="l-product">Personal Loan</div></div>
               </div>
             </td>
-            <td><span class="apr mid">8.40%</span></td>
-            <td><span class="cell-sub">Fixed</span></td>
-            <td><span class="cell-mono">€203.64</span></td>
-            <td><span class="cell-sub">€2,218.40</span></td>
-            <td><span class="cell-total">€12,218.40</span></td>
-            <td><div class="note-text">Rate shown for €5k–€19,999 band; 6.90% APR for €20k+. No early repayment fee. €5k–€75k, up to 120 months</div></td>
-            <td>
+            <td class="bc-hero" data-label="APR"><span class="apr mid">8.40%</span></td>
+            <td class="bc-secondary" data-label="Rate type"><span class="cell-sub">Fixed</span></td>
+            <td class="bc-secondary" data-label="Monthly"><span class="cell-mono">€203.64</span></td>
+            <td class="bc-hero" data-label="Total interest"><span class="cell-sub">€2,218.40</span></td>
+            <td class="bc-secondary" data-label="Total repayable"><span class="cell-total">€12,218.40</span></td>
+            <td class="bc-notes"><div class="note-text">Rate shown for €5k–€19,999 band; 6.90% APR for €20k+. No early repayment fee. €5k–€75k, up to 120 months</div>
+            </td>
+            <td class="bc-cta">
               <!-- affiliate-swap: change href to tracked URL and set rel="sponsored noopener noreferrer" -->
               <a href="/go/anpost-loan-personal" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for An Post Money on their official site">Check rate</a>
             </td>
@@ -622,13 +650,14 @@ tbody tr.section-row td { background: #141414; color: #555; border-color: rgba(2
                 <div><div class="l-name">Revolut</div><div class="l-product">Personal Loan</div></div>
               </div>
             </td>
-            <td><span class="apr mid">8.41%</span></td>
-            <td><span class="cell-sub">Variable</span></td>
-            <td><span class="cell-mono">€203.67</span></td>
-            <td><span class="cell-sub">€2,220.20</span></td>
-            <td><span class="cell-total">€12,220.20</span></td>
-            <td><div class="note-text">Average rate shown. Range 6.5–12.99% by credit score. €1k–€50k, up to 60 months</div></td>
-            <td>
+            <td class="bc-hero" data-label="APR"><span class="apr mid">8.41%</span></td>
+            <td class="bc-secondary" data-label="Rate type"><span class="cell-sub">Variable</span></td>
+            <td class="bc-secondary" data-label="Monthly"><span class="cell-mono">€203.67</span></td>
+            <td class="bc-hero" data-label="Total interest"><span class="cell-sub">€2,220.20</span></td>
+            <td class="bc-secondary" data-label="Total repayable"><span class="cell-total">€12,220.20</span></td>
+            <td class="bc-notes"><div class="note-text">Average rate shown. Range 6.5–12.99% by credit score. €1k–€50k, up to 60 months</div>
+            </td>
+            <td class="bc-cta">
               <!-- affiliate-swap: change href to tracked URL and set rel="sponsored noopener noreferrer" -->
               <a href="/go/revolut-loan-personal" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for Revolut on their official site">Check rate</a>
             </td>
@@ -642,13 +671,14 @@ tbody tr.section-row td { background: #141414; color: #555; border-color: rgba(2
                 <div><div class="l-name">Avant Money</div><div class="l-product">Personal Loan (under €30k)</div></div>
               </div>
             </td>
-            <td><span class="apr red">8.50%</span></td>
-            <td><span class="cell-sub">Fixed</span></td>
-            <td><span class="cell-mono">€204.09</span></td>
-            <td><span class="cell-sub">€2,245.40</span></td>
-            <td><span class="cell-total">€12,245.40</span></td>
-            <td><div class="note-text">Max APR 19.9%. €5k–€29,999, up to 84 months</div></td>
-            <td>
+            <td class="bc-hero" data-label="APR"><span class="apr red">8.50%</span></td>
+            <td class="bc-secondary" data-label="Rate type"><span class="cell-sub">Fixed</span></td>
+            <td class="bc-secondary" data-label="Monthly"><span class="cell-mono">€204.09</span></td>
+            <td class="bc-hero" data-label="Total interest"><span class="cell-sub">€2,245.40</span></td>
+            <td class="bc-secondary" data-label="Total repayable"><span class="cell-total">€12,245.40</span></td>
+            <td class="bc-notes"><div class="note-text">Max APR 19.9%. €5k–€29,999, up to 84 months</div>
+            </td>
+            <td class="bc-cta">
               <!-- affiliate-swap: change href to tracked URL and set rel="sponsored noopener noreferrer" -->
               <a href="/go/avant-loan-personal" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for Avant Money on their official site">Check rate</a>
             </td>
@@ -662,13 +692,14 @@ tbody tr.section-row td { background: #141414; color: #555; border-color: rgba(2
                 <div><div class="l-name">AIB</div><div class="l-product">Home Improvement Loan</div></div>
               </div>
             </td>
-            <td><span class="apr red">8.65%</span></td>
-            <td><span class="cell-sub">Variable</span></td>
-            <td><span class="cell-mono">€204.78</span></td>
-            <td><span class="cell-sub">€2,286.80</span></td>
-            <td><span class="cell-total">€12,286.80</span></td>
-            <td><div class="note-text">€1k–€75k, up to 120 months</div></td>
-            <td>
+            <td class="bc-hero" data-label="APR"><span class="apr red">8.65%</span></td>
+            <td class="bc-secondary" data-label="Rate type"><span class="cell-sub">Variable</span></td>
+            <td class="bc-secondary" data-label="Monthly"><span class="cell-mono">€204.78</span></td>
+            <td class="bc-hero" data-label="Total interest"><span class="cell-sub">€2,286.80</span></td>
+            <td class="bc-secondary" data-label="Total repayable"><span class="cell-total">€12,286.80</span></td>
+            <td class="bc-notes"><div class="note-text">€1k–€75k, up to 120 months</div>
+            </td>
+            <td class="bc-cta">
               <!-- affiliate-swap: change href to tracked URL and set rel="sponsored noopener noreferrer" -->
               <a href="/go/aib-loan-home" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for AIB on their official site">Check rate</a>
             </td>
@@ -682,13 +713,14 @@ tbody tr.section-row td { background: #141414; color: #555; border-color: rgba(2
                 <div><div class="l-name">First Choice CU</div><div class="l-product">Personal Loan (€15k–€25k)</div></div>
               </div>
             </td>
-            <td><span class="apr red">8.84%</span></td>
-            <td><span class="cell-sub">Variable</span></td>
-            <td><span class="cell-mono">€205.78</span></td>
-            <td><span class="cell-sub">€2,346.80</span></td>
-            <td><span class="cell-total">€12,346.80</span></td>
-            <td><div class="badges"><span class="badge badge-cu">Credit Union</span></div></td>
-            <td>
+            <td class="bc-hero" data-label="APR"><span class="apr red">8.84%</span></td>
+            <td class="bc-secondary" data-label="Rate type"><span class="cell-sub">Variable</span></td>
+            <td class="bc-secondary" data-label="Monthly"><span class="cell-mono">€205.78</span></td>
+            <td class="bc-hero" data-label="Total interest"><span class="cell-sub">€2,346.80</span></td>
+            <td class="bc-secondary" data-label="Total repayable"><span class="cell-total">€12,346.80</span></td>
+            <td class="bc-notes"><div class="badges"><span class="badge badge-cu">Credit Union</span></div>
+            </td>
+            <td class="bc-cta">
               <!-- affiliate-swap: change href to tracked URL and set rel="sponsored noopener noreferrer" -->
               <a href="/go/firstchoice-loan-personal" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for First Choice Credit Union on their official site">Check rate</a>
             </td>
@@ -702,13 +734,14 @@ tbody tr.section-row td { background: #141414; color: #555; border-color: rgba(2
                 <div><div class="l-name">AIB</div><div class="l-product">Personal Loan</div></div>
               </div>
             </td>
-            <td><span class="apr red">8.95%</span></td>
-            <td><span class="cell-sub">Variable</span></td>
-            <td><span class="cell-mono">€206.20</span></td>
-            <td><span class="cell-sub">€2,372.00</span></td>
-            <td><span class="cell-total">€12,372.00</span></td>
-            <td><div class="note-text">3-hour decision for existing customers. €1k–€75k, up to 60 months</div></td>
-            <td>
+            <td class="bc-hero" data-label="APR"><span class="apr red">8.95%</span></td>
+            <td class="bc-secondary" data-label="Rate type"><span class="cell-sub">Variable</span></td>
+            <td class="bc-secondary" data-label="Monthly"><span class="cell-mono">€206.20</span></td>
+            <td class="bc-hero" data-label="Total interest"><span class="cell-sub">€2,372.00</span></td>
+            <td class="bc-secondary" data-label="Total repayable"><span class="cell-total">€12,372.00</span></td>
+            <td class="bc-notes"><div class="note-text">3-hour decision for existing customers. €1k–€75k, up to 60 months</div>
+            </td>
+            <td class="bc-cta">
               <!-- affiliate-swap: change href to tracked URL and set rel="sponsored noopener noreferrer" -->
               <a href="/go/aib-loan-personal" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for AIB on their official site">Check rate</a>
             </td>
@@ -722,16 +755,16 @@ tbody tr.section-row td { background: #141414; color: #555; border-color: rgba(2
                 <div><div class="l-name">Credit Union average</div><div class="l-product">Personal Loan — ILCU affiliated</div></div>
               </div>
             </td>
-            <td><span class="apr red">10.42%</span></td>
-            <td><span class="cell-sub">Variable</span></td>
-            <td><span class="cell-mono">€212.47</span></td>
-            <td><span class="cell-sub">€2,748.20</span></td>
-            <td><span class="cell-total">€12,748.20</span></td>
-            <td>
+            <td class="bc-hero" data-label="APR"><span class="apr red">10.42%</span></td>
+            <td class="bc-secondary" data-label="Rate type"><span class="cell-sub">Variable</span></td>
+            <td class="bc-secondary" data-label="Monthly"><span class="cell-mono">€212.47</span></td>
+            <td class="bc-hero" data-label="Total interest"><span class="cell-sub">€2,748.20</span></td>
+            <td class="bc-secondary" data-label="Total repayable"><span class="cell-total">€12,748.20</span></td>
+            <td class="bc-notes">
               <div class="badges"><span class="badge badge-cu">Credit Union</span></div>
               <div class="note-text" style="margin-top:5px;">ILCU survey avg, Jul/Aug 2025. Max legal rate 12.68% APR</div>
             </td>
-            <td>
+            <td class="bc-cta">
               <!-- affiliate-swap: change href to tracked URL and set rel="sponsored noopener noreferrer" -->
               <a href="/go/cu-loan-average" class="cta-link" target="_blank" rel="noopener noreferrer" aria-label="Check rate for Credit Union on their official site">Check rate</a>
             </td>
@@ -806,14 +839,15 @@ mobileNav.querySelectorAll('a').forEach(a => {
 
 
 <script>
-/* Mobile "Details" toggle for comparison cards — ADDED. Progressive enhancement, additive.
-   Collapses the long note (and, on cards, the balance-transfer line) behind a tap on small
-   screens. Desktop is unaffected (button is display:none and collapse rules are mobile-only). */
+/* Mobile "Details" toggle for comparison cards. Progressive enhancement, additive.
+   Collapses the long note and the secondary fields (rate type, monthly, total repayable)
+   behind a tap on small screens. Desktop is unaffected (button is display:none and
+   collapse rules are mobile-only). */
 (function(){
   try{
     document.querySelectorAll('.compare-section tbody tr').forEach(function(tr){
-      var note = tr.querySelector('.note-text');
-      if(!note) return;
+      var cell = tr.querySelector('td.bc-notes');
+      if(!cell) return;
       tr.classList.add('details-collapsed');
       var btn = document.createElement('button');
       btn.type = 'button';
@@ -826,7 +860,9 @@ mobileNav.querySelectorAll('a').forEach(a => {
         btn.setAttribute('aria-expanded', open ? 'true' : 'false');
         btn.textContent = open ? 'Hide details' : 'Details';
       });
-      note.parentNode.insertBefore(btn, note);
+      var note = cell.querySelector('.note-text');
+      if (note) { note.parentNode.insertBefore(btn, note); }
+      else { cell.insertBefore(btn, cell.firstChild); }
     });
   }catch(e){ /* no-op: cards remain fully readable without the toggle */ }
 })();
