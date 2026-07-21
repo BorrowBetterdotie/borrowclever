@@ -1,6 +1,6 @@
 {
   "meta": {
-    "last_full_review": "2026-06-25"
+    "last_full_review": "2026-07-22"
   },
   "loans": [
     {
@@ -9,7 +9,7 @@
       "product": "SBCI Home Energy Upgrade",
       "icon": "BOI",
       "iconCls": "boi",
-      "apr": 3.00,
+      "apr": 2.95,
       "rateType": "Variable",
       "green": true,
       "seai": true,
@@ -34,7 +34,7 @@
       "product": "SBCI Home Energy Upgrade",
       "icon": "PTSB",
       "iconCls": "ptsb",
-      "apr": 4.23,
+      "apr": 4.20,
       "rateType": "Variable",
       "green": true,
       "seai": true,

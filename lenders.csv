@@ -1,9 +1,9 @@
 lender,product,source_url,rate_type,products_json_id
-Bank of Ireland,SBCI Home Energy Upgrade,https://personalbanking.bankofireland.com/borrow/loans/,nominal,boi-loan-sbci-energy
+Bank of Ireland,SBCI Home Energy Upgrade,https://personalbanking.bankofireland.com/borrow/loans/home-energy-upgrade-loan-scheme/,nominal,boi-loan-sbci-energy
 AIB,SBCI Home Energy Upgrade,https://www.aib.ie/our-products/loans/Personal-Lending-Interest-Rates,nominal,aib-loan-sbci-energy
 PTSB,SBCI Home Energy Upgrade,https://www.ptsb.ie/borrowing/sbci-heuls-loan/,nominal,ptsb-loan-sbci-energy
 AIB,Green Personal Loan,https://www.aib.ie/our-products/loans/Personal-Lending-Interest-Rates,nominal,aib-loan-green
-Bank of Ireland,Green Car / Home Improvement,https://personalbanking.bankofireland.com/borrow/loans/,nominal,boi-loan-green
+Bank of Ireland,Green Car / Home Improvement,https://personalbanking.bankofireland.com/borrow/loans/home-improvement-loan/,nominal,boi-loan-green
 PTSB,Personal Loan,https://www.ptsb.ie/borrowing/loans/personal-loan/,nominal,ptsb-loan-personal
 Bank of Ireland,Personal Loan,https://personalbanking.bankofireland.com/borrow/loans/personal-loan/,nominal,boi-loan-personal
 An Post Money,Personal Loan,https://www.anpost.com/Money/Low-Fixed-Rate-Loans,nominal,anpost-loan-personal
