@@ -6,14 +6,14 @@
     "category": "loan",
     "product": "sbci-energy",
     "name": "Bank of Ireland SBCI Home Energy Upgrade",
-    "url": "https://personalbanking.bankofireland.com/borrow/loans/",
+    "url": "https://personalbanking.bankofireland.com/borrow/loans/home-energy-upgrade-loan-scheme/",
     "todo": true,
-    "rate": "3.00%",
+    "rate": "2.95%",
     "rateType": "Variable",
-    "monthly": "€179.69",
-    "costOfCredit": "€781.40",
-    "totalRepayable": "€10,781.40",
-    "notes": "SEAI grant required · 75% of loan on qualifying energy works",
+    "monthly": "€179.46",
+    "costOfCredit": "€767.89",
+    "totalRepayable": "€10,767.89",
+    "notes": "SEAI grant required · 75% of loan on qualifying energy works · Rate verified 21 Jul 2026 directly on BOI's SBCI page (personalbanking.bankofireland.com/borrow/loans/home-energy-upgrade-loan-scheme/) — three worked examples all show 2.95% variable.",
     "badge": "Cheapest overall"
   },
   {
@@ -41,12 +41,12 @@
     "name": "PTSB SBCI Home Energy Upgrade",
     "url": "https://www.ptsb.ie/borrowing/sbci-heuls-loan/",
     "todo": true,
-    "rate": "4.15%",
+    "rate": "4.20%",
     "rateType": "Variable",
-    "monthly": "€184.84",
-    "costOfCredit": "€1,090.40",
-    "totalRepayable": "€11,090.40",
-    "notes": "SEAI grant required · Tiered rate — €5k–€14,999 band shown; 2.99% rate (3.00% APR) for €50k–€75k. Rates effective 15 Jan 2026. Monthly/cost/total not yet recalculated at corrected rate — needs manual check."
+    "monthly": "€185.07",
+    "costOfCredit": "€1,104.15",
+    "totalRepayable": "€11,104.15",
+    "notes": "SEAI grant required · Tiered rate — €5k–€14,999 band shown; 2.99% rate (3.00% APR) for €50k–€75k. Rate sourced from CCPC.ie (PTSB's own site blocks automated checks) — confirm directly with PTSB before publishing if in doubt."
   },
   {
     "slug": "aib-loan-green",
@@ -72,7 +72,7 @@
     "category": "loan",
     "product": "green-car-home",
     "name": "Bank of Ireland Green Car / Home Improvement",
-    "url": "https://personalbanking.bankofireland.com/borrow/loans/",
+    "url": "https://personalbanking.bankofireland.com/borrow/loans/home-improvement-loan/",
     "todo": true,
     "rate": "6.50%",
     "rateType": "Variable",
@@ -398,11 +398,11 @@
     "name": "An Post Money Flex",
     "url": "https://www.anpost.com/Money/Credit-Card",
     "todo": true,
-    "purchaseRate": "16.8%",
-    "apr": "22.9%",
+    "purchaseRate": "10.8%",
+    "apr": "15.7%",
     "balanceTransfer": "No balance-transfer offer",
     "annualFee": "None",
-    "notes": "0% on purchases for 9 months (Ireland's longest purchase intro). Money transfers 5.9% for 24 months. Instalment plan from 8.6% APR on purchases over €250.",
+    "notes": "0% on purchases for 9 months (Ireland's longest purchase intro). Money transfers 5.9% for 24 months. Instalment plan from 8.6% APR on purchases over €250. Rate corrected 21 Jul 2026 via CCPC.ie — Flex is a distinct, cheaper product from An Post Money Classic and was previously showing Classic's rate in error.",
     "network": "Mastercard"
   },
   {
@@ -414,11 +414,11 @@
     "name": "Avant Money One Card",
     "url": "https://www.avantmoney.ie/credit-cards/one-card",
     "todo": true,
-    "purchaseRate": "",
-    "apr": "",
-    "balanceTransfer": "",
+    "purchaseRate": "16.8%",
+    "apr": "22.9%",
+    "balanceTransfer": "0% on balance transfers for 9 months (transfer within 90 days of opening), then reverts to standard rate. €150 cashback on a €1,000+ balance transfer.",
     "annualFee": "None",
-    "notes": "0% on purchases for 3 months; 0% on balance transfers for 9 months (sources conflict on this window — one search result cites 12 months for a separately-named \"money transfer\" offer, needs manual confirmation); €150 cashback conditional on €1,000+ balance transfer within 90 days. purchaseRate, apr, balanceTransfer exact terms, and network not confirmed — needs manual check.",
-    "network": ""
+    "notes": "0% on purchases for 3 months; 0% on balance transfers for 9 months; €150 cashback conditional on €1,000+ balance transfer within 90 days. Confirmed 21 Jul 2026 via CCPC.ie (Avant Money's own site blocks automated checks) — the 9-month balance-transfer window is correct; the separate 12-month window mentioned on Avant's site is for their distinct \"money transfer\" feature, not balance transfer.",
+    "network": "Mastercard"
   }
 ]
