@@ -1,0 +1,27 @@
+lender,product,products_json_id,rate_type,current_rate,scraped_rate,status,detail
+Bank of Ireland,SBCI Home Energy Upgrade,boi-loan-sbci-energy,nominal,3.00,,PARSE_FAILED,parser found no matching rate — raw HTML saved to rates/debug/
+AIB,SBCI Home Energy Upgrade,aib-loan-sbci-energy,nominal,3.55,11.45,CHANGED,
+PTSB,SBCI Home Energy Upgrade,ptsb-loan-sbci-energy,nominal,4.15,,UNREACHABLE,HTTP 403
+AIB,Green Personal Loan,aib-loan-green,nominal,6.40,11.45,CHANGED,
+Bank of Ireland,Green Car / Home Improvement,boi-loan-green,nominal,6.50,6.3,CHANGED,
+PTSB,Personal Loan,ptsb-loan-personal,nominal,7.20,,UNREACHABLE,HTTP 403
+Bank of Ireland,Personal Loan,boi-loan-personal,nominal,8.30,7.1,CHANGED,
+An Post Money,Personal Loan,anpost-loan-personal,nominal,8.40,8.1,CHANGED,
+Revolut,Personal Loan,revolut-loan-personal,nominal,6.50,,UNREACHABLE,HTTP 403
+Avant Money,Personal Loan (under €30k),avant-loan-personal,nominal,8.50,6.7,CHANGED,
+AIB,Home Improvement Loan,aib-loan-home,nominal,8.95,,PARSE_FAILED,parser found no matching rate — raw HTML saved to rates/debug/
+First Choice CU,Personal Loan (€15k–€25k),firstchoice-loan-personal,nominal,8.84,,PARSE_FAILED,parser found no matching rate — raw HTML saved to rates/debug/
+AIB,Personal Loan,aib-loan-personal,nominal,8.95,8.65,CHANGED,
+Credit Union average,Personal Loan — ILCU affiliated,cu-loan-average,apr,10.42,12,CHANGED,
+AIB,Click Visa,aib-card-click,apr,13.8,9.11,CHANGED,
+AIB,Platinum Visa,aib-card-platinum,apr,17.0,17.0,OK,
+Revolut,Credit Card,revolut-card,apr,17.99,,UNREACHABLE,HTTP 403
+Bank of Ireland,Platinum Advantage,boi-card-platinum,apr,19.6,,PARSE_FAILED,parser found no matching rate — raw HTML saved to rates/debug/
+Bank of Ireland,Affinity,boi-card-affinity,apr,20.2,2.9,CHANGED,
+Bank of Ireland,Classic,boi-card-classic,apr,22.1,0,CHANGED,
+PTSB,Ice Visa,ptsb-card-ice,apr,22.53,,UNREACHABLE,HTTP 403
+Bank of Ireland,Aer Credit Card,boi-card-aer,apr,22.7,14,CHANGED,
+AIB,'be',aib-card-be,apr,22.9,14.16,CHANGED,
+An Post Money,Classic,anpost-card-classic,apr,22.9,0,CHANGED,
+An Post Money,Flex,anpost-card-flex,apr,22.9,0,CHANGED,
+Avant Money,One Card,avant-card-one,apr,,0,CHANGED,
