@@ -1,0 +1,27 @@
+lender,product,source_url,rate_type,products_json_id
+Bank of Ireland,SBCI Home Energy Upgrade,https://personalbanking.bankofireland.com/borrow/loans/,nominal,boi-loan-sbci-energy
+AIB,SBCI Home Energy Upgrade,https://www.aib.ie/our-products/loans/Personal-Lending-Interest-Rates,nominal,aib-loan-sbci-energy
+PTSB,SBCI Home Energy Upgrade,https://www.ptsb.ie/borrowing/sbci-heuls-loan/,nominal,ptsb-loan-sbci-energy
+AIB,Green Personal Loan,https://www.aib.ie/our-products/loans/Personal-Lending-Interest-Rates,nominal,aib-loan-green
+Bank of Ireland,Green Car / Home Improvement,https://personalbanking.bankofireland.com/borrow/loans/,nominal,boi-loan-green
+PTSB,Personal Loan,https://www.ptsb.ie/borrowing/loans/personal-loan/,nominal,ptsb-loan-personal
+Bank of Ireland,Personal Loan,https://personalbanking.bankofireland.com/borrow/loans/personal-loan/,nominal,boi-loan-personal
+An Post Money,Personal Loan,https://www.anpost.com/Money/Low-Fixed-Rate-Loans,nominal,anpost-loan-personal
+Revolut,Personal Loan,https://www.revolut.com/en-IE/personal-loans/,nominal,revolut-loan-personal
+Avant Money,Personal Loan (under €30k),https://www.avantmoney.ie/personal-loans,nominal,avant-loan-personal
+AIB,Home Improvement Loan,https://www.aib.ie/our-products/loans/Personal-Lending-Interest-Rates,nominal,aib-loan-home
+First Choice CU,Personal Loan (€15k–€25k),https://www.firstchoicecreditunion.ie/loans/personal-loans,nominal,firstchoice-loan-personal
+AIB,Personal Loan,https://www.aib.ie/our-products/loans/personal-loan,nominal,aib-loan-personal
+Credit Union average,Personal Loan — ILCU affiliated,https://www.creditunion.ie/what-we-offer/loans/cu-loan-rates/,apr,cu-loan-average
+AIB,Click Visa,https://www.aib.ie/our-products/credit-cards/click-visa-card,apr,aib-card-click
+AIB,Platinum Visa,https://www.aib.ie/our-products/credit-cards/platinum-visa-card,apr,aib-card-platinum
+Revolut,Credit Card,https://www.revolut.com/en-IE/,apr,revolut-card
+Bank of Ireland,Platinum Advantage,https://personalbanking.bankofireland.com/borrow/credit-cards/platinum-advantage-card/features-benefits/,apr,boi-card-platinum
+Bank of Ireland,Affinity,https://personalbanking.bankofireland.com/borrow/credit-cards/affinity-cards/features-benefits/,apr,boi-card-affinity
+Bank of Ireland,Classic,https://personalbanking.bankofireland.com/borrow/credit-cards/classic-credit-card/,apr,boi-card-classic
+PTSB,Ice Visa,https://www.ptsb.ie/everyday-banking/credit-cards/ice-visa-credit-card/,apr,ptsb-card-ice
+Bank of Ireland,Aer Credit Card,https://personalbanking.bankofireland.com/borrow/credit-cards/aer-credit-card/travel-rewards/,apr,boi-card-aer
+AIB,'be',https://www.aib.ie/our-products/credit-cards/be-visa-card,apr,aib-card-be
+An Post Money,Classic,https://www.anpost.com/Money/Credit-Card,apr,anpost-card-classic
+An Post Money,Flex,https://www.anpost.com/Money/Credit-Card,apr,anpost-card-flex
+Avant Money,One Card,https://www.avantmoney.ie/credit-cards/one-card,apr,avant-card-one
