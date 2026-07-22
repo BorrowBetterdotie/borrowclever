@@ -23,6 +23,11 @@ jobs:
         run: node scripts/check-rates.mjs
         continue-on-error: true
 
+      - name: Run CCPC cross-check
+        id: check_ccpc
+        run: node scripts/check-rates-ccpc.mjs
+        continue-on-error: true
+
       - name: Commit results
         run: |
           git config user.name "borrowclever-bot"
@@ -32,5 +37,5 @@ jobs:
           git push
 
       - name: Fail workflow if issues detected
-        if: steps.check.outcome == 'failure'
+        if: steps.check.outcome == 'failure' || steps.check_ccpc.outcome == 'failure'
         run: exit 1
