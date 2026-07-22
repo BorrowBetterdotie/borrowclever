@@ -180,17 +180,9 @@ tbody tr.section-row:first-child td { border-top: none; }
 /* lender cell */
 .lender-cell { display: flex; align-items: center; gap: 0.75rem; min-width: 180px; }
 .l-icon {
-  width: 36px; height: 36px; border-radius: 50%; display: flex;
-  align-items: center; justify-content: center; font-size: 8px;
-  font-weight: 800; flex-shrink: 0; letter-spacing: 0.02em;
+  width: 36px; height: 36px; border-radius: 9px; background: #fff;
+  object-fit: contain; padding: 4px; box-sizing: border-box; flex-shrink: 0;
 }
-.l-icon.ptsb { background: #dbeafe; color: #1e40af; }
-.l-icon.apm  { background: #fef3c7; color: #92400e; }
-.l-icon.avt  { background: #ede9fe; color: #5b21b6; }
-.l-icon.boi  { background: #d1fae5; color: #065f46; }
-.l-icon.aib  { background: #fee2e2; color: #991b1b; }
-.l-icon.rev  { background: #e0f2fe; color: #0369a1; }
-.l-icon.cu   { background: #ccfbf1; color: #0f766e; }
 .l-name { font-size: 0.88rem; font-weight: 600; color: #0d1b2a; }
 .l-product { font-size: 0.75rem; color: #718096; margin-top: 1px; }
 
@@ -326,13 +318,6 @@ tbody tr.row-cu { background: #111111; }
 tbody tr.section-row td { background: #141414; color: #555; border-color: rgba(255,255,255,0.06); }
 .rank { color: #444; }
 .rank.top { color: #22c55e; }
-.l-icon.ptsb { background: rgba(219,234,254,0.07); color: #93c5fd; }
-.l-icon.apm  { background: rgba(254,243,199,0.07); color: #fcd34d; }
-.l-icon.avt  { background: rgba(237,233,254,0.07); color: #c4b5fd; }
-.l-icon.boi  { background: rgba(209,250,229,0.07); color: #6ee7b7; }
-.l-icon.aib  { background: rgba(254,226,226,0.07); color: #fca5a5; }
-.l-icon.rev  { background: rgba(224,242,254,0.07); color: #7dd3fc; }
-.l-icon.cu   { background: rgba(204,251,241,0.07); color: #5eead4; }
 .l-name { color: #f0f0f0; }
 .l-product { color: #555; }
 .apr.green { color: #22c55e; }
@@ -457,7 +442,7 @@ tbody tr.section-row td { background: #141414; color: #555; border-color: rgba(2
             <td><span class="rank top">1</span></td>
             <td>
               <div class="lender-cell">
-                <div class="l-icon boi">BOI</div>
+                <img class="l-icon" src="https://img.logo.dev/bankofireland.com?token=pk_GiuUJsL9Sn23WtzWlVAnbA&size=72&format=webp" width="36" height="36" alt="Bank of Ireland logo" loading="lazy">
                 <div><div class="l-name">Bank of Ireland</div><div class="l-product">SBCI Home Energy Upgrade</div></div>
               </div>
             </td>
@@ -483,7 +468,7 @@ tbody tr.section-row td { background: #141414; color: #555; border-color: rgba(2
             <td><span class="rank">2</span></td>
             <td>
               <div class="lender-cell">
-                <div class="l-icon aib">AIB</div>
+                <img class="l-icon" src="https://img.logo.dev/aib.ie?token=pk_GiuUJsL9Sn23WtzWlVAnbA&size=72&format=webp" width="36" height="36" alt="AIB logo" loading="lazy">
                 <div><div class="l-name">AIB</div><div class="l-product">SBCI Home Energy Upgrade</div></div>
               </div>
             </td>
@@ -508,7 +493,7 @@ tbody tr.section-row td { background: #141414; color: #555; border-color: rgba(2
             <td><span class="rank">3</span></td>
             <td>
               <div class="lender-cell">
-                <div class="l-icon ptsb">PTSB</div>
+                <img class="l-icon" src="https://img.logo.dev/ptsb.ie?token=pk_GiuUJsL9Sn23WtzWlVAnbA&size=72&format=webp" width="36" height="36" alt="PTSB logo" loading="lazy">
                 <div><div class="l-name">PTSB</div><div class="l-product">SBCI Home Energy Upgrade</div></div>
               </div>
             </td>
@@ -533,7 +518,7 @@ tbody tr.section-row td { background: #141414; color: #555; border-color: rgba(2
             <td><span class="rank">4</span></td>
             <td>
               <div class="lender-cell">
-                <div class="l-icon aib">AIB</div>
+                <img class="l-icon" src="https://img.logo.dev/aib.ie?token=pk_GiuUJsL9Sn23WtzWlVAnbA&size=72&format=webp" width="36" height="36" alt="AIB logo" loading="lazy">
                 <div><div class="l-name">AIB</div><div class="l-product">Green Personal Loan</div></div>
               </div>
             </td>
@@ -556,7 +541,7 @@ tbody tr.section-row td { background: #141414; color: #555; border-color: rgba(2
             <td><span class="rank">5</span></td>
             <td>
               <div class="lender-cell">
-                <div class="l-icon boi">BOI</div>
+                <img class="l-icon" src="https://img.logo.dev/bankofireland.com?token=pk_GiuUJsL9Sn23WtzWlVAnbA&size=72&format=webp" width="36" height="36" alt="Bank of Ireland logo" loading="lazy">
                 <div><div class="l-name">Bank of Ireland</div><div class="l-product">Green Car / Home Improvement</div></div>
               </div>
             </td>
@@ -579,7 +564,7 @@ tbody tr.section-row td { background: #141414; color: #555; border-color: rgba(2
             <td><span class="rank">6</span></td>
             <td>
               <div class="lender-cell">
-                <div class="l-icon ptsb">PTSB</div>
+                <img class="l-icon" src="https://img.logo.dev/ptsb.ie?token=pk_GiuUJsL9Sn23WtzWlVAnbA&size=72&format=webp" width="36" height="36" alt="PTSB logo" loading="lazy">
                 <div><div class="l-name">PTSB</div><div class="l-product">Personal Loan</div></div>
               </div>
             </td>
@@ -602,7 +587,7 @@ tbody tr.section-row td { background: #141414; color: #555; border-color: rgba(2
             <td><span class="rank">7</span></td>
             <td>
               <div class="lender-cell">
-                <div class="l-icon boi">BOI</div>
+                <img class="l-icon" src="https://img.logo.dev/bankofireland.com?token=pk_GiuUJsL9Sn23WtzWlVAnbA&size=72&format=webp" width="36" height="36" alt="Bank of Ireland logo" loading="lazy">
                 <div><div class="l-name">Bank of Ireland</div><div class="l-product">Personal Loan</div></div>
               </div>
             </td>
@@ -623,7 +608,7 @@ tbody tr.section-row td { background: #141414; color: #555; border-color: rgba(2
             <td><span class="rank">8</span></td>
             <td>
               <div class="lender-cell">
-                <div class="l-icon apm">APM</div>
+                <img class="l-icon" src="https://img.logo.dev/anpost.com?token=pk_GiuUJsL9Sn23WtzWlVAnbA&size=72&format=webp" width="36" height="36" alt="An Post Money logo" loading="lazy">
                 <div><div class="l-name">An Post Money</div><div class="l-product">Personal Loan</div></div>
               </div>
             </td>
@@ -644,7 +629,7 @@ tbody tr.section-row td { background: #141414; color: #555; border-color: rgba(2
             <td><span class="rank">9</span></td>
             <td>
               <div class="lender-cell">
-                <div class="l-icon rev">REV</div>
+                <img class="l-icon" src="https://img.logo.dev/revolut.com?token=pk_GiuUJsL9Sn23WtzWlVAnbA&size=72&format=webp" width="36" height="36" alt="Revolut logo" loading="lazy">
                 <div><div class="l-name">Revolut</div><div class="l-product">Personal Loan</div></div>
               </div>
             </td>
@@ -665,7 +650,7 @@ tbody tr.section-row td { background: #141414; color: #555; border-color: rgba(2
             <td><span class="rank">10</span></td>
             <td>
               <div class="lender-cell">
-                <div class="l-icon avt">AVT</div>
+                <img class="l-icon" src="https://img.logo.dev/avantmoney.ie?token=pk_GiuUJsL9Sn23WtzWlVAnbA&size=72&format=webp" width="36" height="36" alt="Avant Money logo" loading="lazy">
                 <div><div class="l-name">Avant Money</div><div class="l-product">Personal Loan (under €30k)</div></div>
               </div>
             </td>
@@ -686,7 +671,7 @@ tbody tr.section-row td { background: #141414; color: #555; border-color: rgba(2
             <td><span class="rank">11</span></td>
             <td>
               <div class="lender-cell">
-                <div class="l-icon aib">AIB</div>
+                <img class="l-icon" src="https://img.logo.dev/aib.ie?token=pk_GiuUJsL9Sn23WtzWlVAnbA&size=72&format=webp" width="36" height="36" alt="AIB logo" loading="lazy">
                 <div><div class="l-name">AIB</div><div class="l-product">Home Improvement Loan</div></div>
               </div>
             </td>
@@ -707,7 +692,7 @@ tbody tr.section-row td { background: #141414; color: #555; border-color: rgba(2
             <td><span class="rank">12</span></td>
             <td>
               <div class="lender-cell">
-                <div class="l-icon cu">CU</div>
+                <img class="l-icon" src="https://img.logo.dev/firstchoicecreditunion.ie?token=pk_GiuUJsL9Sn23WtzWlVAnbA&size=72&format=webp" width="36" height="36" alt="First Choice Credit Union logo" loading="lazy">
                 <div><div class="l-name">First Choice CU</div><div class="l-product">Personal Loan (€15k–€25k)</div></div>
               </div>
             </td>
@@ -728,7 +713,7 @@ tbody tr.section-row td { background: #141414; color: #555; border-color: rgba(2
             <td><span class="rank">13</span></td>
             <td>
               <div class="lender-cell">
-                <div class="l-icon aib">AIB</div>
+                <img class="l-icon" src="https://img.logo.dev/aib.ie?token=pk_GiuUJsL9Sn23WtzWlVAnbA&size=72&format=webp" width="36" height="36" alt="AIB logo" loading="lazy">
                 <div><div class="l-name">AIB</div><div class="l-product">Personal Loan</div></div>
               </div>
             </td>
@@ -749,7 +734,7 @@ tbody tr.section-row td { background: #141414; color: #555; border-color: rgba(2
             <td><span class="rank">14</span></td>
             <td>
               <div class="lender-cell">
-                <div class="l-icon cu">CU</div>
+                <img class="l-icon" src="https://img.logo.dev/creditunion.ie?token=pk_GiuUJsL9Sn23WtzWlVAnbA&size=72&format=webp" width="36" height="36" alt="Credit Union logo" loading="lazy">
                 <div><div class="l-name">Credit Union average</div><div class="l-product">Personal Loan — ILCU affiliated</div></div>
               </div>
             </td>
@@ -834,7 +819,7 @@ tbody tr.section-row td { background: #141414; color: #555; border-color: rgba(2
     <a href="how-we-make-money.html">How we make money</a>
     <a href="privacy.html">Privacy Policy</a>
   </div>
-  <div class="footer-note">BorrowClever is an independent financial comparison service. Rates sourced from lender websites and CCPC.ie. Always verify with the lender before applying. This is not financial advice. © 2026 BorrowClever Ireland Limited.</div>
+  <div class="footer-note">BorrowClever is an independent financial comparison service. Rates sourced from lender websites and CCPC.ie. Always verify with the lender before applying. This is not financial advice. © 2026 BorrowClever Ireland Limited. Lender logos provided by <a href="https://logo.dev" target="_blank" rel="noopener noreferrer">Logo.dev</a>.</div>
 </footer>
 
 <script>

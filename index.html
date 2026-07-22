@@ -588,22 +588,13 @@ h1 {
 .cr-icon {
   width: 40px;
   height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 9px;
-  font-weight: 700;
+  border-radius: 10px;
+  background: #fff;
+  object-fit: contain;
+  padding: 4px;
+  box-sizing: border-box;
   flex-shrink: 0;
-  letter-spacing: 0.02em;
 }
-
-.cr-icon.ptsb { background: #dbeafe; color: #1e40af; }
-.cr-icon.avt  { background: #ede9fe; color: #5b21b6; }
-.cr-icon.apm  { background: #fef3c7; color: #92400e; }
-.cr-icon.rev  { background: #e0f2fe; color: #0369a1; }
-.cr-icon.boi  { background: #d1fae5; color: #065f46; }
-.cr-icon.aib  { background: #fee2e2; color: #991b1b; }
 
 .cr-info { flex: 1; min-width: 0; }
 
@@ -702,7 +693,6 @@ h1 {
   .cr-icon {
     width: 34px;
     height: 34px;
-    font-size: 8px;
     flex-shrink: 0;
   }
 
@@ -810,14 +800,6 @@ h1 { color: #ffffff; }
 .calc-savings-banner { background: #141414; }
 .csb-label { color: #666; }
 .csb-value { color: #22c55e; }
-
-/* Lender icon circles in calculator */
-.cr-icon.ptsb { background: rgba(219,234,254,0.07); color: #93c5fd; }
-.cr-icon.apm  { background: rgba(254,243,199,0.07); color: #fcd34d; }
-.cr-icon.boi  { background: rgba(209,250,229,0.07); color: #6ee7b7; }
-.cr-icon.aib  { background: rgba(254,226,226,0.07); color: #fca5a5; }
-.cr-icon.avt  { background: rgba(237,233,254,0.07); color: #c4b5fd; }
-.cr-icon.rev  { background: rgba(224,242,254,0.07); color: #7dd3fc; }
 
 /* Features section */
 .features { background: #0c0c0c; }
@@ -1035,19 +1017,20 @@ h1 { color: #ffffff; }
     <a href="how-we-make-money.html">How we make money</a>
     <a href="privacy.html">Privacy Policy</a>
   </div>
-  <div class="footer-note">BorrowClever is an independent financial comparison service. Rates sourced from lender websites and CCPC.ie. Always verify with the lender before applying. This is not financial advice. © 2026 BorrowClever Ireland Limited.</div>
+  <div class="footer-note">BorrowClever is an independent financial comparison service. Rates sourced from lender websites and CCPC.ie. Always verify with the lender before applying. This is not financial advice. © 2026 BorrowClever Ireland Limited. Lender logos provided by <a href="https://logo.dev" target="_blank" rel="noopener noreferrer">Logo.dev</a>.</div>
 </footer>
 
 <script>
 
 // ── LOAN CALCULATOR ──
+const LOGO_TOKEN = 'pk_GiuUJsL9Sn23WtzWlVAnbA';
 const LENDERS = [
-  { name: 'PTSB Personal Loan',  type: 'Variable · No conditions',       apr: 7.20, icon: 'PTSB', cls: 'ptsb' },
-  { name: 'Bank of Ireland',     type: 'Variable · Defer 3 payments',    apr: 8.30, icon: 'BOI',  cls: 'boi'  },
-  { name: 'An Post Money',       type: 'Fixed · No early repayment fee', apr: 8.40, icon: 'APM',  cls: 'apm'  },
-  { name: 'Avant Money',         type: 'Fixed · Under €30k',             apr: 8.50, icon: 'AVT',  cls: 'avt'  },
-  { name: 'Revolut',             type: 'Variable · Avg rate',            apr: 8.41, icon: 'REV',  cls: 'rev'  },
-  { name: 'AIB Personal Loan',   type: 'Variable · 3-hour decision',     apr: 8.95, icon: 'AIB',  cls: 'aib'  },
+  { name: 'PTSB Personal Loan',  type: 'Variable · No conditions',       apr: 7.20, domain: 'ptsb.ie' },
+  { name: 'Bank of Ireland',     type: 'Variable · Defer 3 payments',    apr: 8.30, domain: 'bankofireland.com' },
+  { name: 'An Post Money',       type: 'Fixed · No early repayment fee', apr: 8.40, domain: 'anpost.com' },
+  { name: 'Avant Money',         type: 'Fixed · Under €30k',             apr: 8.50, domain: 'avantmoney.ie' },
+  { name: 'Revolut',             type: 'Variable · Avg rate',            apr: 8.41, domain: 'revolut.com' },
+  { name: 'AIB Personal Loan',   type: 'Variable · 3-hour decision',     apr: 8.95, domain: 'aib.ie' },
 ];
 
 function calcLoan(principal, years, apr) {
@@ -1082,7 +1065,7 @@ function updateCalc() {
   document.getElementById('calc-results').innerHTML =
     results.map((l, i) => `
       <div class="calc-row${i === 0 ? ' best' : ''}">
-        <div class="cr-icon ${l.cls}">${l.icon}</div>
+        <img class="cr-icon" src="https://img.logo.dev/${l.domain}?token=${LOGO_TOKEN}&size=80&format=webp" width="40" height="40" alt="${l.name} logo" loading="lazy">
         <div class="cr-info">
           <div class="cr-name">${l.name}</div>
           <div class="cr-type">${l.type}</div>
