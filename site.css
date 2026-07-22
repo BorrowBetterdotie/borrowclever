@@ -142,6 +142,8 @@ footer {
 .footer-links a { font-size: 0.72rem; color: rgba(255,255,255,0.3); text-decoration: none; transition: color 0.2s; }
 .footer-links a:hover { color: rgba(255,255,255,0.7); }
 .footer-note { font-size: 0.72rem; color: rgba(255,255,255,0.2); max-width: 520px; line-height: 1.5; }
+.footer-note a { color: rgba(255,255,255,0.35); text-decoration: underline; transition: color 0.2s; }
+.footer-note a:hover { color: rgba(255,255,255,0.7); }
 
 /* ── RESPONSIVE NAV ── */
 @media (max-width: 900px) {
