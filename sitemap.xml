@@ -37,20 +37,56 @@
     <priority>0.2</priority>
   </url>
   <url>
+    <loc>https://borrowclever.ie/guides/</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://borrowclever.ie/guides/balance-transfer-credit-cards-explained.html</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://borrowclever.ie/guides/best-credit-card-balance-transfer-ireland.html</loc>
-    <lastmod>2026-07-21</lastmod>
+    <lastmod>2026-07-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://borrowclever.ie/guides/credit-union-vs-bank-loan-ireland.html</loc>
-    <lastmod>2026-07-21</lastmod>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://borrowclever.ie/guides/credit-union-vs-bank-loans-ireland.html</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://borrowclever.ie/guides/debt-consolidation-loans-ireland.html</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://borrowclever.ie/guides/representative-apr-explained-ireland.html</loc>
+    <lastmod>2026-07-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://borrowclever.ie/guides/seai-green-loan-eligibility.html</loc>
     <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://borrowclever.ie/guides/total-cost-of-credit-explained.html</loc>
+    <lastmod>2026-07-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
