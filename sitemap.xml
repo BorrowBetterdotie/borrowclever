@@ -43,6 +43,12 @@
     <priority>0.2</priority>
   </url>
   <url>
+    <loc>https://borrowclever.ie/calculator/</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://borrowclever.ie/examples/10000-loan-5-years-bank-vs-credit-union-vs-avant.html</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>

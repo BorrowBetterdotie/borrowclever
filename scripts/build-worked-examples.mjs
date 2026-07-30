@@ -161,6 +161,7 @@ details.schedule .table-wrap { border: none; border-top: 1px solid rgba(255,255,
     <li><a href="/loans.html">Compare loans</a></li>
     <li><a href="/cards.html">Compare cards</a></li>
     <li><a href="/rate-tracker/">Rate tracker</a></li>
+    <li><a href="/calculator/">Calculator</a></li>
     <li><a href="/#signup" class="nav-cta">Newsletter</a></li>
   </ul>
   <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
@@ -173,6 +174,7 @@ details.schedule .table-wrap { border: none; border-top: 1px solid rgba(255,255,
   <a href="/loans.html">Compare loans</a>
   <a href="/cards.html">Compare cards</a>
   <a href="/rate-tracker/">Rate tracker</a>
+  <a href="/calculator/">Calculator</a>
   <a href="/#signup" class="mobile-cta">Newsletter</a>
 </div>
 

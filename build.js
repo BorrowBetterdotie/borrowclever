@@ -169,6 +169,7 @@ function ldScript(blocks) {
     { loc: '/loans.html',   lastmod: loansMeta.last_full_review,   changefreq: 'weekly',  priority: '0.9' },
     { loc: '/cards.html',   lastmod: cardsMeta.last_full_review,   changefreq: 'weekly',  priority: '0.9' },
     { loc: '/rate-tracker/', lastmod: buildDate,                   changefreq: 'weekly',  priority: '0.8' },
+    { loc: '/calculator/',   lastmod: buildDate,                   changefreq: 'monthly', priority: '0.8' },
     { loc: '/about.html',   lastmod: buildDate,                    changefreq: 'monthly', priority: '0.4' },
     { loc: '/how-we-make-money.html', lastmod: buildDate,          changefreq: 'monthly', priority: '0.4' },
     { loc: '/privacy.html', lastmod: buildDate,                    changefreq: 'monthly', priority: '0.2' },

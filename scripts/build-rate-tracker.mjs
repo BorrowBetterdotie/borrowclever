@@ -362,6 +362,7 @@ ${JSON.stringify(jsonld, null, 2)}
     <li><a href="/loans.html">Compare loans</a></li>
     <li><a href="/cards.html">Compare cards</a></li>
     <li><a href="/rate-tracker/" class="active">Rate tracker</a></li>
+    <li><a href="/calculator/">Calculator</a></li>
     <li><a href="/#signup" class="nav-cta">Newsletter</a></li>
   </ul>
   <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
@@ -374,6 +375,7 @@ ${JSON.stringify(jsonld, null, 2)}
   <a href="/loans.html">Compare loans</a>
   <a href="/cards.html">Compare cards</a>
   <a href="/rate-tracker/" class="active">Rate tracker</a>
+  <a href="/calculator/">Calculator</a>
   <a href="/#signup" class="mobile-cta">Newsletter</a>
 </div>
 

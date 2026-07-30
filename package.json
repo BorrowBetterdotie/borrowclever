@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "node build-products.mjs && node build-table.mjs index.html && node scripts/build-rate-tracker.mjs && node scripts/build-worked-examples.mjs",
+    "build": "node build-products.mjs && node build-table.mjs index.html && node scripts/build-rate-tracker.mjs && node scripts/build-worked-examples.mjs && node scripts/build-calculator.mjs",
     "deploy": "npm run build && (cd worker && npx wrangler deploy)"
   }
 }
