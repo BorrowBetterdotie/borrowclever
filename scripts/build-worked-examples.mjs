@@ -101,7 +101,7 @@ ${JSON.stringify(jsonld, null, 2)}
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* ── PAGE HEADER OVERRIDES (narrower layout) ── */
-.page-header { padding: 4rem 6%; }
+.page-header { padding: 4rem 6%; background: #0c0c0c; }
 .page-header-inner { max-width: 860px; }
 .page-header h1 { font-size: clamp(1.8rem, 3vw, 2.6rem); margin-bottom: 0.75rem; }
 .page-header-sub { font-size: 0.95rem; color: rgba(255,255,255,0.6); line-height: 1.65; margin-bottom: 0; }
