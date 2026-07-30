@@ -421,6 +421,7 @@ ${groupSections}
     <div class="guide-links">
       <a href="/loans.html" class="guide-link">Compare all current personal loan rates →</a>
       <a href="/cards.html" class="guide-link">Compare all current credit card APRs →</a>
+      <a href="/examples/10000-loan-5-years-bank-vs-credit-union-vs-avant.html" class="guide-link">Worked example: €10,000 over 5 years, lender by lender →</a>
       <a href="/guides/credit-union-vs-bank-loan-ireland.html" class="guide-link">Credit Union vs Bank Loan in Ireland: Which Is Cheaper? →</a>
     </div>
   </div>
