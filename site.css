@@ -163,7 +163,7 @@ footer {
 .content ul li { color: rgba(255,255,255,0.88); }
 .content a { color: #22c55e; }
 .info-box { background: rgba(34,197,94,0.06); border-color: rgba(34,197,94,0.2); }
-.info-box p { color: #22c55e; }
+.info-box p { color: #f0f0f0; }
 .divider { border-top-color: rgba(255,255,255,0.06); }
 
 /* ── RELATED GUIDES ── */

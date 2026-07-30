@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loan Repayment & Debt Consolidation Calculator Ireland | BorrowClever</title>
+<meta name="description" content="Free Irish loan calculator: monthly repayment, total interest and cost of credit at real current lender rates — plus a debt consolidation mode that shows whether combining your debts actually saves money. Runs entirely in your browser.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://borrowclever.ie/calculator/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BorrowClever">
+<meta property="og:url" content="https://borrowclever.ie/calculator/">
+<meta property="og:title" content="Loan Repayment & Debt Consolidation Calculator Ireland">
+<meta property="og:description" content="Monthly repayment, total interest and cost of credit at real current Irish lender rates — plus a debt consolidation comparison. Runs entirely in your browser.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Loan Repayment & Debt Consolidation Calculator Ireland">
+<meta name="twitter:description" content="Monthly repayment, total interest and cost of credit at real current Irish lender rates — plus a debt consolidation comparison.">
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "BorrowClever",
+    "url": "https://borrowclever.ie",
+    "description": "Ireland's independent personal loan and credit card comparison service. Rates verified fortnightly from lender websites and CCPC.ie."
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "url": "https://borrowclever.ie/calculator/",
+    "name": "Loan Repayment & Debt Consolidation Calculator Ireland | BorrowClever",
+    "description": "Free Irish loan calculator: monthly repayment, total interest and cost of credit at real current lender rates — plus a debt consolidation comparison mode.",
+    "inLanguage": "en-IE",
+    "isPartOf": { "@type": "WebSite", "url": "https://borrowclever.ie", "name": "BorrowClever" }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://borrowclever.ie/" },
+      { "@type": "ListItem", "position": 2, "name": "Calculator", "item": "https://borrowclever.ie/calculator/" }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is the monthly repayment calculated?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The calculator uses the effective monthly rate formula: the balance accrues interest each month at (1 + APR/100)^(1/12) − 1, and a level monthly payment clears it over the chosen term. This is the same method used across BorrowClever's comparison tables. Lenders' own examples can differ slightly due to rounding and fee treatment."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my data sent anywhere?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Everything you type stays in your browser — the calculator is plain client-side JavaScript with no forms, no tracking of inputs, and no server involved."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where do the lender rates in the dropdown come from?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "They are the same published rates shown on BorrowClever's loan comparison table, verified fortnightly against lender websites and CCPC.ie, and baked into this page when it was last built. Always confirm the current rate with the lender before applying."
+        }
+      }
+    ]
+  }
+]
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="/site.css">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ── PAGE HEADER OVERRIDES (narrower layout) ── */
+.page-header { padding: 4rem 6%; background: #0c0c0c; }
+.page-header-inner { max-width: 860px; }
+.page-header h1 { font-size: clamp(1.8rem, 3vw, 2.6rem); margin-bottom: 0.75rem; }
+.page-header-sub { font-size: 0.95rem; color: rgba(255,255,255,0.6); line-height: 1.65; margin-bottom: 0; }
+.eyebrow { display: inline-block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #4ade80; margin-bottom: 1rem; }
+
+/* ── CONTENT ── */
+.content { max-width: 860px; margin: 0 auto; padding: 3rem 6% 4rem; }
+.content h2 { font-size: 1.15rem; font-weight: 700; color: #f0f0f0; letter-spacing: -0.02em; margin-top: 2.5rem; margin-bottom: 0.75rem; }
+.content p { font-size: 0.92rem; color: #888; line-height: 1.75; margin-bottom: 1rem; }
+.content p strong { color: #f0f0f0; }
+.content a { color: #22c55e; }
+.info-box { background: rgba(34,197,94,0.06); border: 1px solid rgba(34,197,94,0.2); border-radius: 12px; padding: 1.25rem 1.5rem; margin: 2rem 0; }
+.info-box p { font-size: 0.88rem; color: #f0f0f0; margin: 0; font-weight: 500; }
+.divider { border: none; border-top: 1px solid rgba(255,255,255,0.06); margin: 2rem 0; }
+
+/* ── MODE TABS ── */
+.mode-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; }
+.mode-tab {
+  flex: 1; text-align: center; padding: 0.75rem 1rem; border-radius: 100px; cursor: pointer;
+  font-family: inherit; font-size: 0.92rem; font-weight: 600; color: rgba(255,255,255,0.85);
+  background: #1c1c1c; border: 1.5px solid rgba(255,255,255,0.1); transition: background .15s, color .15s, border-color .15s;
+}
+.mode-tab[aria-selected="true"] { background: #22c55e; color: #0c0c0c; border-color: #22c55e; }
+@media (prefers-reduced-motion: reduce) { .mode-tab { transition: none; } }
+
+/* ── CALC FORM ── */
+.calc-panel { background: #141414; border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 1.5rem; }
+.calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 1.25rem; }
+.calc-grid .full { grid-column: 1 / -1; }
+.calc-field label { display: block; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: #777; margin-bottom: 0.4rem; }
+.calc-field input, .calc-field select {
+  width: 100%; padding: 0.7rem 0.85rem; font-family: inherit; font-size: 1rem; color: #f0f0f0;
+  background: #1c1c1c; border: 1.5px solid rgba(255,255,255,0.12); border-radius: 10px; outline: none;
+}
+.calc-field input:focus, .calc-field select:focus { border-color: #22c55e; }
+.calc-field .hint { font-size: 0.75rem; color: #666; margin-top: 0.35rem; }
+.calc-field input:invalid { border-color: #f87171; }
+fieldset.debt { border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1rem 1.25rem 1.25rem; margin: 0; }
+fieldset.debt legend { font-size: 0.8rem; font-weight: 700; color: #f0f0f0; padding: 0 0.4rem; }
+.toggle-second { background: none; border: none; color: #22c55e; font-family: inherit; font-size: 0.85rem; font-weight: 600; cursor: pointer; padding: 0.25rem 0; }
+
+/* ── RESULTS ── */
+.results { margin-top: 1.5rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.result-card { background: #111; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1.1rem 1.25rem; }
+.result-card .lbl { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #666; margin-bottom: 0.4rem; }
+.result-card .val { font-size: 1.5rem; font-weight: 800; color: #22c55e; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.result-card .sub { font-size: 0.75rem; color: #666; margin-top: 0.3rem; }
+.verdict { margin-top: 1.5rem; border-radius: 12px; padding: 1.25rem 1.5rem; font-size: 0.95rem; line-height: 1.65; }
+.verdict.good { background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.3); color: #4ade80; }
+.verdict.bad { background: rgba(248,113,113,0.07); border: 1px solid rgba(248,113,113,0.3); color: #f87171; }
+.verdict.warn { background: rgba(251,191,36,0.07); border: 1px solid rgba(251,191,36,0.3); color: #fbbf24; }
+.compare-cols { margin-top: 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.compare-col { background: #111; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1.1rem 1.25rem; }
+.compare-col h3 { font-size: 0.85rem; font-weight: 700; color: #f0f0f0; margin-bottom: 0.75rem; }
+.compare-col dl { display: grid; grid-template-columns: auto auto; gap: 0.45rem 1rem; font-size: 0.85rem; }
+.compare-col dt { color: #777; }
+.compare-col dd { color: #f0f0f0; text-align: right; font-variant-numeric: tabular-nums; margin: 0; }
+
+/* ── SCHEDULE ── */
+details.schedule { margin-top: 1.5rem; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; background: #111; }
+details.schedule summary { cursor: pointer; padding: 1rem 1.25rem; font-size: 0.9rem; font-weight: 600; color: #22c55e; }
+.table-wrap { overflow-x: auto; border-top: 1px solid rgba(255,255,255,0.08); }
+.rate-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+.rate-table thead th { background: #141414; padding: 0.6rem 1rem; text-align: right; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: #555; border-bottom: 1px solid rgba(255,255,255,0.06); white-space: nowrap; }
+.rate-table td { padding: 0.5rem 1rem; color: #888; text-align: right; font-variant-numeric: tabular-nums; border-bottom: 1px solid rgba(255,255,255,0.04); white-space: nowrap; }
+.rate-table tbody tr:last-child td { border-bottom: none; }
+
+@media (max-width: 720px) {
+  .calc-grid { grid-template-columns: 1fr; }
+  .results { grid-template-columns: 1fr; }
+  .compare-cols { grid-template-columns: 1fr; }
+  .content { padding: 2.5rem 5% 3rem; }
+}
+
+/* ── RELATED GUIDES ── */
+.related-guides { background: #111111; border-top: 1px solid rgba(255,255,255,0.06); padding: 2.5rem 6%; }
+.related-guides-inner { max-width: 860px; margin: 0 auto; }
+.related-guides h3 { font-size: 0.9rem; font-weight: 700; color: #f0f0f0; margin-bottom: 1rem; }
+.guide-links { display: flex; flex-direction: column; gap: 0.6rem; }
+.guide-link { font-size: 0.88rem; color: #22c55e; text-decoration: none; }
+.guide-link:hover { text-decoration: underline; }
+@media (max-width: 900px) { .related-guides { padding: 2rem 5%; } }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">Borrow<span>Clever</span></a>
+  <ul class="nav-links">
+    <li><a href="/loans.html">Compare loans</a></li>
+    <li><a href="/cards.html">Compare cards</a></li>
+    <li><a href="/rate-tracker/">Rate tracker</a></li>
+    <li><a href="/calculator/" class="active">Calculator</a></li>
+    <li><a href="/#signup" class="nav-cta">Newsletter</a></li>
+  </ul>
+  <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobile-nav">
+  <a href="/loans.html">Compare loans</a>
+  <a href="/cards.html">Compare cards</a>
+  <a href="/rate-tracker/">Rate tracker</a>
+  <a href="/calculator/" class="active">Calculator</a>
+  <a href="/#signup" class="mobile-cta">Newsletter</a>
+</div>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="eyebrow">Calculator</div>
+    <h1>Loan repayment &amp; debt consolidation calculator</h1>
+    <p class="page-header-sub">Real current Irish lender rates, or your own — monthly repayment, total interest, and whether consolidating actually saves you money. Everything runs in your browser; nothing you type leaves this page.</p>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <div class="mode-tabs" role="tablist" aria-label="Calculator mode">
+    <button class="mode-tab" id="tab-loan" role="tab" aria-selected="true" aria-controls="panel-loan">Loan repayment</button>
+    <button class="mode-tab" id="tab-consol" role="tab" aria-selected="false" aria-controls="panel-consol">Debt consolidation</button>
+  </div>
+
+  <!-- ── MODE 1: LOAN REPAYMENT ── -->
+  <section class="calc-panel" id="panel-loan" role="tabpanel" aria-labelledby="tab-loan">
+    <div class="calc-grid">
+      <div class="calc-field">
+        <label for="loan-amount">Amount borrowed (€)</label>
+        <input type="number" id="loan-amount" value="10000" min="500" max="100000" step="100" inputmode="numeric">
+      </div>
+      <div class="calc-field">
+        <label for="loan-term">Term (months)</label>
+        <input type="number" id="loan-term" value="60" min="6" max="120" step="1" inputmode="numeric">
+        <div class="hint" id="loan-term-hint"></div>
+      </div>
+      <div class="calc-field">
+        <label for="loan-product">Rate from a current product</label>
+        <select id="loan-product"></select>
+      </div>
+      <div class="calc-field">
+        <label for="loan-rate">Rate (% APR)</label>
+        <input type="number" id="loan-rate" min="0" max="30" step="0.01" inputmode="decimal">
+        <div class="hint">Editing this switches the dropdown to “Custom rate”.</div>
+      </div>
+    </div>
+
+    <div class="results" aria-live="polite">
+      <div class="result-card"><div class="lbl">Monthly repayment</div><div class="val" id="loan-monthly">—</div></div>
+      <div class="result-card"><div class="lbl">Total interest</div><div class="val" id="loan-interest">—</div><div class="sub">Cost of credit</div></div>
+      <div class="result-card"><div class="lbl">Total repayable</div><div class="val" id="loan-total">—</div></div>
+    </div>
+
+    <details class="schedule">
+      <summary>Show the month-by-month schedule</summary>
+      <div class="table-wrap">
+        <table class="rate-table" id="loan-schedule">
+          <thead><tr><th>Month</th><th>Payment</th><th>Interest</th><th>Principal</th><th>Balance left</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </details>
+  </section>
+
+  <!-- ── MODE 2: DEBT CONSOLIDATION ── -->
+  <section class="calc-panel" id="panel-consol" role="tabpanel" aria-labelledby="tab-consol" hidden>
+    <div class="calc-grid">
+      <fieldset class="debt full">
+        <legend>Existing debt 1</legend>
+        <div class="calc-grid">
+          <div class="calc-field"><label for="d1-bal">Balance left (€)</label><input type="number" id="d1-bal" value="7000" min="100" max="100000" step="100" inputmode="numeric"></div>
+          <div class="calc-field"><label for="d1-rate">Rate (% APR)</label><input type="number" id="d1-rate" value="12" min="0" max="30" step="0.01" inputmode="decimal"></div>
+          <div class="calc-field"><label for="d1-term">Months left</label><input type="number" id="d1-term" value="36" min="1" max="120" step="1" inputmode="numeric"></div>
+        </div>
+      </fieldset>
+
+      <fieldset class="debt full" id="debt2" hidden>
+        <legend>Existing debt 2</legend>
+        <div class="calc-grid">
+          <div class="calc-field"><label for="d2-bal">Balance left (€)</label><input type="number" id="d2-bal" value="3000" min="100" max="100000" step="100" inputmode="numeric"></div>
+          <div class="calc-field"><label for="d2-rate">Rate (% APR)</label><input type="number" id="d2-rate" value="22.9" min="0" max="30" step="0.01" inputmode="decimal"></div>
+          <div class="calc-field"><label for="d2-term">Months left</label><input type="number" id="d2-term" value="24" min="1" max="120" step="1" inputmode="numeric"></div>
+        </div>
+      </fieldset>
+      <div class="full"><button type="button" class="toggle-second" id="toggle-debt2">+ Add a second debt</button></div>
+
+      <fieldset class="debt full">
+        <legend>Proposed consolidation loan</legend>
+        <div class="calc-grid">
+          <div class="calc-field">
+            <label for="c-product">Rate from a current product</label>
+            <select id="c-product"></select>
+          </div>
+          <div class="calc-field">
+            <label for="c-rate">Rate (% APR)</label>
+            <input type="number" id="c-rate" min="0" max="30" step="0.01" inputmode="decimal">
+          </div>
+          <div class="calc-field">
+            <label for="c-term">New term (months)</label>
+            <input type="number" id="c-term" value="36" min="6" max="120" step="1" inputmode="numeric">
+          </div>
+          <div class="calc-field">
+            <label>Amount (sum of balances)</label>
+            <input type="text" id="c-amount" readonly value="—">
+            <div class="hint">The new loan clears both balances in full.</div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="compare-cols" aria-live="polite">
+      <div class="compare-col">
+        <h3>Keep the debts as they are</h3>
+        <dl>
+          <dt>Combined monthly</dt><dd id="k-monthly">—</dd>
+          <dt>Months until clear</dt><dd id="k-months">—</dd>
+          <dt>Interest still to pay</dt><dd id="k-interest">—</dd>
+          <dt>Total still to pay</dt><dd id="k-total">—</dd>
+        </dl>
+      </div>
+      <div class="compare-col">
+        <h3>Consolidate into one loan</h3>
+        <dl>
+          <dt>New monthly</dt><dd id="c-monthly">—</dd>
+          <dt>Months until clear</dt><dd id="c-months">—</dd>
+          <dt>Total interest</dt><dd id="c-interest">—</dd>
+          <dt>Total to pay</dt><dd id="c-total">—</dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="verdict" id="verdict" aria-live="polite" hidden></div>
+  </section>
+
+  <hr class="divider">
+
+  <h2>How the numbers are worked out</h2>
+  <p>Repayments use the effective monthly rate formula — the balance accrues interest each month at (1 + APR/100)<sup>1/12</sup> − 1 and a level payment clears it over the term — the same method behind our <a href="/loans.html">loan comparison table</a> and <a href="/examples/10000-loan-5-years-bank-vs-credit-union-vs-avant.html">worked examples</a>. Lender rates in the dropdowns are the published rates we verify fortnightly (see the <a href="/rate-tracker/">rate tracker</a>), baked in when this page was last built<span id="rates-asof"></span>.</p>
+  <p><strong>Privacy:</strong> this calculator is plain client-side JavaScript. Nothing you enter is sent, stored, or tracked — close the tab and it's gone.</p>
+
+  <div class="info-box">
+    <p>Results are illustrative and assume a fixed rate and no fees or early-repayment charges. Your offered rate may differ from any advertised rate, particularly with risk-priced lenders. Always confirm current rates and terms directly with the lender. BorrowClever is an independent information service — this is not financial advice.</p>
+  </div>
+
+</div>
+
+<!-- RELATED GUIDES -->
+<div class="related-guides">
+  <div class="related-guides-inner">
+    <h3>Keep exploring</h3>
+    <div class="guide-links">
+      <a href="/loans.html" class="guide-link">Compare all current personal loan rates →</a>
+      <a href="/examples/debt-consolidation-worked-example.html" class="guide-link">Worked example: consolidating two debts into one loan →</a>
+      <a href="/examples/representative-apr-vs-what-you-pay.html" class="guide-link">Worked example: representative APR vs what you'll actually pay →</a>
+      <a href="/rate-tracker/" class="guide-link">Rate tracker: how Irish loan rates have moved →</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <a href="/" class="footer-logo">Borrow<span>Clever</span></a>
+  <div class="footer-links">
+    <a href="/about.html">About</a>
+    <a href="/how-we-make-money.html">How we make money</a>
+    <a href="/privacy.html">Privacy Policy</a>
+  </div>
+  <div class="footer-note">BorrowClever is an independent financial comparison service. Rates sourced from lender websites and CCPC.ie. Always verify with the lender before applying. This is not financial advice. © 2026 BorrowClever Ireland Limited.</div>
+</footer>
+
+<script>
+// ── injected by scripts/build-calculator.mjs from products.json ──
+<!-- bc:calc-products:start -->
+const BC_PRODUCTS = [
+  {
+    "slug": "boi-loan-sbci-energy",
+    "label": "Bank of Ireland SBCI Home Energy Upgrade",
+    "rate": 2.95
+  },
+  {
+    "slug": "aib-loan-sbci-energy",
+    "label": "AIB SBCI Home Energy Upgrade",
+    "rate": 3.55
+  },
+  {
+    "slug": "ptsb-loan-sbci-energy",
+    "label": "PTSB SBCI Home Energy Upgrade",
+    "rate": 4.2
+  },
+  {
+    "slug": "aib-loan-green",
+    "label": "AIB Green Personal Loan",
+    "rate": 6.4
+  },
+  {
+    "slug": "boi-loan-green",
+    "label": "Bank of Ireland Green Car / Home Improvement",
+    "rate": 6.5
+  },
+  {
+    "slug": "revolut-loan-personal",
+    "label": "Revolut Personal Loan",
+    "rate": 6.5
+  },
+  {
+    "slug": "ptsb-loan-personal",
+    "label": "PTSB Personal Loan",
+    "rate": 7.2
+  },
+  {
+    "slug": "boi-loan-personal",
+    "label": "Bank of Ireland Personal Loan",
+    "rate": 8.3
+  },
+  {
+    "slug": "anpost-loan-personal",
+    "label": "An Post Money Personal Loan",
+    "rate": 8.4
+  },
+  {
+    "slug": "avant-loan-personal",
+    "label": "Avant Money Personal Loan (under €30k)",
+    "rate": 8.5
+  },
+  {
+    "slug": "firstchoice-loan-personal",
+    "label": "First Choice CU Personal Loan (€15k–€25k)",
+    "rate": 8.84
+  },
+  {
+    "slug": "aib-loan-home",
+    "label": "AIB Home Improvement Loan",
+    "rate": 8.95
+  },
+  {
+    "slug": "aib-loan-personal",
+    "label": "AIB Personal Loan",
+    "rate": 8.95
+  },
+  {
+    "slug": "cu-loan-average",
+    "label": "Credit Union average Personal Loan — ILCU affiliated",
+    "rate": 10.42
+  }
+];
+const BC_RATES_ASOF = "rates as of 30 July 2026";
+<!-- bc:calc-products:end -->
+
+// ── injected by scripts/build-calculator.mjs from lib/amortization.mjs ──
+<!-- bc:calc-lib:start -->
+// lib/amortization.mjs
+// Shared loan-repayment maths for the worked-example pages and the /calculator/.
+//
+// Uses the effective monthly rate i = (1 + APR/100)^(1/12) − 1 — the same
+// formula build.js uses for the homepage saving figure and the loans-page FAQ
+// describes, so every number on the site is computed the same way.
+//
+// Deliberately dependency-free and browser-safe: build-calculator.mjs inlines
+// this file's source into the calculator page, so keep it free of node imports.
+
+function monthlyRate(aprPct) {
+  return Math.pow(1 + aprPct / 100, 1 / 12) - 1;
+}
+
+// Level monthly payment for a principal repaid over `months` at `aprPct`.
+function monthlyPayment(principal, aprPct, months) {
+  const i = monthlyRate(aprPct);
+  if (i === 0) return principal / months;
+  const pow = Math.pow(1 + i, months);
+  return (principal * i * pow) / (pow - 1);
+}
+
+// Full amortization: payment, totals, and a month-by-month schedule.
+// Figures are kept at full precision; round at display time.
+function amortize(principal, aprPct, months) {
+  const i = monthlyRate(aprPct);
+  const payment = monthlyPayment(principal, aprPct, months);
+  const schedule = [];
+  let balance = principal;
+  for (let m = 1; m <= months; m++) {
+    const interest = balance * i;
+    // Final payment clears the remaining balance exactly.
+    const principalPaid = m === months ? balance : payment - interest;
+    balance = Math.max(0, balance - principalPaid);
+    schedule.push({ month: m, payment: principalPaid + interest, interest, principalPaid, balance });
+  }
+  const totalRepayable = schedule.reduce((sum, r) => sum + r.payment, 0);
+  return {
+    monthly: payment,
+    totalInterest: totalRepayable - principal,
+    totalRepayable,
+    schedule,
+  };
+}
+
+// How long a fixed monthly payment takes to clear a revolving balance (e.g. a
+// credit card) at `aprPct`, and what it costs. Returns null if the payment
+// doesn't cover the first month's interest (the balance would never fall).
+function payoff(balance, aprPct, payment) {
+  const i = monthlyRate(aprPct);
+  if (payment <= balance * i) return null;
+  let remaining = balance;
+  let months = 0;
+  let totalPaid = 0;
+  while (remaining > 0 && months < 1200) {
+    const interest = remaining * i;
+    const pay = Math.min(payment, remaining + interest);
+    remaining = remaining + interest - pay;
+    totalPaid += pay;
+    months++;
+  }
+  return { months, totalPaid, totalInterest: totalPaid - balance };
+}
+
+<!-- bc:calc-lib:end -->
+
+// ── UI glue (hand-written; nothing below is generated) ──
+const $ = (id) => document.getElementById(id);
+const eur = (n) => n.toLocaleString('en-IE', { style: 'currency', currency: 'EUR' });
+
+if (BC_RATES_ASOF) $('rates-asof').textContent = ' (' + BC_RATES_ASOF + ')';
+
+// Populate both product dropdowns: cheapest first, custom option last.
+for (const sel of [$('loan-product'), $('c-product')]) {
+  for (const p of BC_PRODUCTS) {
+    const o = document.createElement('option');
+    o.value = p.rate;
+    o.textContent = p.label + ' — ' + p.rate.toFixed(2) + '%';
+    sel.appendChild(o);
+  }
+  const custom = document.createElement('option');
+  custom.value = 'custom';
+  custom.textContent = 'Custom rate…';
+  sel.appendChild(custom);
+}
+
+function wireProductPair(sel, rateInput, onChange) {
+  sel.addEventListener('change', () => {
+    if (sel.value !== 'custom') rateInput.value = Number(sel.value).toFixed(2);
+    onChange();
+  });
+  rateInput.addEventListener('input', () => {
+    const match = [...sel.options].find((o) => o.value !== 'custom' && Number(o.value).toFixed(2) === Number(rateInput.value).toFixed(2));
+    sel.value = match ? match.value : 'custom';
+    onChange();
+  });
+  if (sel.options.length > 1) { sel.selectedIndex = 0; rateInput.value = Number(sel.value).toFixed(2); }
+}
+
+function num(id, lo, hi) {
+  const v = Number($(id).value);
+  return Number.isFinite(v) && v >= lo && v <= hi ? v : null;
+}
+
+// ── mode 1 ──
+function calcLoan() {
+  const amount = num('loan-amount', 1, 1e6);
+  const term = num('loan-term', 1, 360);
+  const rate = num('loan-rate', 0, 100);
+  const hint = $('loan-term-hint');
+  if (term) hint.textContent = term % 12 === 0 ? (term / 12) + ' year' + (term === 12 ? '' : 's') : (term / 12).toFixed(1) + ' years';
+  if (amount === null || term === null || rate === null) {
+    for (const id of ['loan-monthly', 'loan-interest', 'loan-total']) $(id).textContent = '—';
+    return;
+  }
+  const a = amortize(amount, rate, term);
+  $('loan-monthly').textContent = eur(a.monthly);
+  $('loan-interest').textContent = eur(a.totalInterest);
+  $('loan-total').textContent = eur(a.totalRepayable);
+  const tbody = $('loan-schedule').querySelector('tbody');
+  tbody.innerHTML = a.schedule.map((r) =>
+    '<tr><td>' + r.month + '</td><td>' + eur(r.payment) + '</td><td>' + eur(r.interest) + '</td><td>' + eur(r.principalPaid) + '</td><td>' + eur(r.balance) + '</td></tr>'
+  ).join('');
+}
+
+// ── mode 2 ──
+let debt2On = false;
+$('toggle-debt2').addEventListener('click', () => {
+  debt2On = !debt2On;
+  $('debt2').hidden = !debt2On;
+  $('toggle-debt2').textContent = debt2On ? '− Remove the second debt' : '+ Add a second debt';
+  calcConsol();
+});
+
+function calcConsol() {
+  const debts = [];
+  const d1 = { bal: num('d1-bal', 1, 1e6), rate: num('d1-rate', 0, 100), term: num('d1-term', 1, 360) };
+  if (d1.bal !== null && d1.rate !== null && d1.term !== null) debts.push(d1);
+  if (debt2On) {
+    const d2 = { bal: num('d2-bal', 1, 1e6), rate: num('d2-rate', 0, 100), term: num('d2-term', 1, 360) };
+    if (d2.bal !== null && d2.rate !== null && d2.term !== null) debts.push(d2);
+  }
+  const cRate = num('c-rate', 0, 100);
+  const cTerm = num('c-term', 1, 360);
+  const expected = debt2On ? 2 : 1;
+  const ok = debts.length === expected && cRate !== null && cTerm !== null;
+  const verdict = $('verdict');
+  if (!ok) {
+    for (const id of ['k-monthly', 'k-months', 'k-interest', 'k-total', 'c-monthly', 'c-months', 'c-interest', 'c-total']) $(id).textContent = '—';
+    $('c-amount').value = '—';
+    verdict.hidden = true;
+    return;
+  }
+
+  const calcs = debts.map((d) => amortize(d.bal, d.rate, d.term));
+  const keepMonthly = calcs.reduce((s, c) => s + c.monthly, 0);
+  const keepInterest = calcs.reduce((s, c) => s + c.totalInterest, 0);
+  const keepTotal = calcs.reduce((s, c) => s + c.totalRepayable, 0);
+  const keepMonths = Math.max(...debts.map((d) => d.term));
+  const principal = debts.reduce((s, d) => s + d.bal, 0);
+  const c = amortize(principal, cRate, cTerm);
+
+  $('c-amount').value = eur(principal);
+  $('k-monthly').textContent = eur(keepMonthly);
+  $('k-months').textContent = keepMonths;
+  $('k-interest').textContent = eur(keepInterest);
+  $('k-total').textContent = eur(keepTotal);
+  $('c-monthly').textContent = eur(c.monthly);
+  $('c-months').textContent = cTerm;
+  $('c-interest').textContent = eur(c.totalInterest);
+  $('c-total').textContent = eur(c.totalRepayable);
+
+  const diff = keepTotal - c.totalRepayable;
+  verdict.hidden = false;
+  verdict.classList.remove('good', 'bad', 'warn');
+  if (diff > 0.005) {
+    const longer = cTerm > keepMonths;
+    verdict.classList.add(longer ? 'warn' : 'good');
+    verdict.textContent = 'Consolidating is cheaper by ' + eur(diff) + ' over the life of the debts, and the monthly outlay changes from ' + eur(keepMonthly) + ' to ' + eur(c.monthly) + '.' +
+      (longer ? ' But note the new term runs ' + (cTerm - keepMonths) + ' months longer than your current debts — you are in debt for longer, and a shorter term would save more.' : '');
+  } else if (diff < -0.005) {
+    verdict.classList.add('bad');
+    verdict.textContent = 'Consolidating is MORE expensive by ' + eur(-diff) + ' over the life of the debts, even though the monthly payment changes from ' + eur(keepMonthly) + ' to ' + eur(c.monthly) + '. A lower payment that costs more overall usually means the term is doing the work, not the rate.';
+  } else {
+    verdict.classList.add('warn');
+    verdict.textContent = 'The two options cost about the same overall. Decide on flexibility: one payment is simpler, but check for early-repayment conditions.';
+  }
+}
+
+// ── tabs ──
+function selectTab(which) {
+  const loan = which === 'loan';
+  $('tab-loan').setAttribute('aria-selected', String(loan));
+  $('tab-consol').setAttribute('aria-selected', String(!loan));
+  $('panel-loan').hidden = !loan;
+  $('panel-consol').hidden = loan;
+}
+$('tab-loan').addEventListener('click', () => selectTab('loan'));
+$('tab-consol').addEventListener('click', () => selectTab('consol'));
+
+// ── wire up ──
+wireProductPair($('loan-product'), $('loan-rate'), calcLoan);
+wireProductPair($('c-product'), $('c-rate'), calcConsol);
+for (const id of ['loan-amount', 'loan-term']) $(id).addEventListener('input', calcLoan);
+for (const id of ['d1-bal', 'd1-rate', 'd1-term', 'd2-bal', 'd2-rate', 'd2-term', 'c-term']) $(id).addEventListener('input', calcConsol);
+calcLoan();
+calcConsol();
+
+// ── mobile nav ──
+const hamburger = document.getElementById('hamburger');
+const mobileNav = document.getElementById('mobile-nav');
+hamburger.addEventListener('click', () => {
+  const open = mobileNav.classList.toggle('open');
+  hamburger.classList.toggle('open', open);
+  hamburger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+});
+mobileNav.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    mobileNav.classList.remove('open');
+    hamburger.classList.remove('open');
+  });
+});
+</script>
+
+</body>
+</html>

@@ -28,11 +28,20 @@ jobs:
         run: node scripts/check-rates-ccpc.mjs
         continue-on-error: true
 
+      # Snapshot the published rates into the append-only history log and
+      # regenerate the public /rate-tracker/ page from it. This records what
+      # products.json publishes on each check date — scraped values still go
+      # through manual review before products.json changes.
+      - name: Append rate history and rebuild tracker page
+        run: |
+          node scripts/append-rate-history.mjs
+          node scripts/build-rate-tracker.mjs
+
       - name: Commit results
         run: |
           git config user.name "borrowclever-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add rates/
+          git add rates/ rate-tracker/
           git diff --staged --quiet || git commit -m "Rate check: $(date +%Y-%m-%d)"
           git push
 
