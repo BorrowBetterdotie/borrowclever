@@ -316,7 +316,7 @@ ${JSON.stringify(jsonld, null, 2)}
 .content p strong { color: #f0f0f0; }
 .content a { color: #22c55e; }
 .info-box { background: rgba(34,197,94,0.06); border: 1px solid rgba(34,197,94,0.2); border-radius: 12px; padding: 1.25rem 1.5rem; margin: 2rem 0; }
-.info-box p { font-size: 0.88rem; color: #22c55e; margin: 0; font-weight: 500; }
+.info-box p { font-size: 0.88rem; color: #f0f0f0; margin: 0; font-weight: 500; }
 .divider { border: none; border-top: 1px solid rgba(255,255,255,0.06); margin: 2rem 0; }
 .summary-box { background: #141414; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1.25rem 1.5rem; margin: 0 0 2rem; }
 .summary-box p { margin: 0; color: #ccc; font-size: 0.95rem; line-height: 1.7; }
