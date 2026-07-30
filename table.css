@@ -1,38 +1,66 @@
-/* table.css — generated style for the borrowclever comparison tables.
-   Neutral on purpose: restyle freely to match your site, or map these classes
-   onto your existing styles. Figures use tabular numerals; APR/Rate is the
-   most prominent number per CCPC advertising rules. */
+/* table.css — BorrowClever comparison tables
+   Palette: deep ledger navy + bottle green, grounded in official
+   financial paperwork rather than neobank teal. Numerals set in
+   monospace for a receipt/ledger feel; headings in a serif for
+   contrast with the sans body. The verification stamp is the one
+   signature element — used once, kept quiet everywhere else. */
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@600;700&family=IBM+Plex+Mono:wght@500;600&family=Inter:wght@400;500;600&display=swap');
+
 :root{
-  --bc-ink:#14233b; --bc-muted:#5d6b7e; --bc-line:#e6e9ee; --bc-surface:#ffffff;
-  --bc-accent:#0f766e; --bc-accent-ink:#0b5b54; --bc-featured:#f3faf8; --bc-badge:#eef2f7;
+  --bc-ink:#16233f; --bc-muted:#5b6577; --bc-line:#e2e5ea; --bc-surface:#ffffff;
+  --bc-accent:#1f5c45; --bc-accent-ink:#153f30; --bc-featured:#f2f7f4; --bc-badge:#eef0f3;
+  --bc-stamp-ink:#16233f;
+  --font-body: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-head: "Source Serif 4", Georgia, serif;
+  --font-num: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
-.bc-body{background:#f7f8fa;color:var(--bc-ink);font:16px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;margin:0}
+
+.bc-body{background:#f7f8fa;color:var(--bc-ink);font:16px/1.55 var(--font-body);margin:0}
 .bc-wrap{max-width:1080px;margin:0 auto;padding:2.5rem 1rem}
-.bc-h{font-size:1.4rem;letter-spacing:-.01em;margin:2rem 0 .25rem}
+
+.bc-h{font-family:var(--font-head);font-weight:600;font-size:1.55rem;letter-spacing:-.01em;margin:2rem 0 .25rem}
+
 .bc-scroll{overflow-x:auto;border:1px solid var(--bc-line);border-radius:14px;background:var(--bc-surface)}
 .bc-table{width:100%;border-collapse:collapse;min-width:780px}
 .bc-caption{caption-side:top;text-align:left;color:var(--bc-muted);font-size:.85rem;padding:.9rem 1rem .2rem}
-.bc-table thead th{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--bc-muted);font-weight:600;text-align:left;padding:.7rem 1rem;border-bottom:1px solid var(--bc-line)}
+
+.bc-table thead th{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--bc-muted);font-weight:600;text-align:left;padding:.7rem 1rem;border-bottom:1px solid var(--bc-line)}
 .bc-table tbody th,.bc-table td{padding:.85rem 1rem;border-bottom:1px solid var(--bc-line);vertical-align:top;text-align:left}
 .bc-table tbody tr:last-child th,.bc-table tbody tr:last-child td{border-bottom:0}
 .bc-table tbody th{font-weight:700}
-.bc-num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
-.bc-rate{font-size:1.05rem;font-weight:700;color:var(--bc-ink)}
+
+.bc-num{text-align:right;font-family:var(--font-num);font-variant-numeric:tabular-nums;white-space:nowrap}
+.bc-rate{font-family:var(--font-num);font-size:1.05rem;font-weight:600;color:var(--bc-ink)}
 .bc-product{font-weight:600}
 .bc-meta{margin-top:.35rem;display:flex;flex-direction:column;gap:.3rem}
+
 .bc-badge{align-self:flex-start;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--bc-muted);background:var(--bc-badge);border-radius:999px;padding:.15rem .55rem}
 .bc-badge--best{color:#fff;background:var(--bc-accent)}
+
 .bc-note{font-size:.82rem;color:var(--bc-muted);line-height:1.4}
 .bc-row--featured{background:var(--bc-featured);box-shadow:inset 3px 0 0 var(--bc-accent)}
+
 .bc-act{text-align:right;white-space:nowrap}
 .bc-cta{display:inline-block;font-weight:600;font-size:.9rem;color:#fff;background:var(--bc-accent);border-radius:9px;padding:.5rem .9rem;text-decoration:none;transition:background .15s ease,transform 100ms ease-out}
 .bc-cta:hover{background:var(--bc-accent-ink)}
 .bc-cta:active{transform:scale(0.97)}
-.bc-cta:focus-visible{outline:3px solid #99f6e4;outline-offset:2px}
+.bc-cta:focus-visible{outline:3px solid #a7d9c4;outline-offset:2px}
+
+.bc-stamp{
+  display:inline-flex;align-items:center;justify-content:center;flex-direction:column;
+  width:76px;height:76px;border-radius:50%;border:2px solid var(--bc-stamp-ink);
+  color:var(--bc-stamp-ink);transform:rotate(-8deg);
+  font-family:var(--font-head);text-transform:uppercase;letter-spacing:.05em;
+  font-size:.6rem;line-height:1.2;text-align:center;opacity:.85;
+}
+.bc-stamp strong{display:block;font-size:.85rem;letter-spacing:.02em}
+
 .bc-vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .bc-disclaimer{margin-top:1.5rem;font-size:.8rem;color:var(--bc-muted)}
+
 @media (prefers-reduced-motion:reduce){.bc-cta{transition:none}}
-/* Stacked card layout on small screens */
+
 @media (max-width:680px){
   .bc-scroll{overflow:visible;border:0;background:transparent}
   .bc-table{min-width:0}
@@ -44,4 +72,5 @@
   .bc-table td.bc-act::before,.bc-table td[data-label=""]::before{content:none}
   .bc-meta{align-items:flex-end}
   .bc-act{justify-content:flex-end}
+  .bc-num{font-family:var(--font-num)}
 }
