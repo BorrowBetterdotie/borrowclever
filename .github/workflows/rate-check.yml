@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   check-rates:
@@ -37,14 +38,36 @@ jobs:
           node scripts/append-rate-history.mjs
           node scripts/build-rate-tracker.mjs
 
-      - name: Commit results
+      # main is protected (PRs only), so results are pushed to a fresh
+      # branch and opened as a PR rather than committed directly.
+      - name: Commit results to a branch
+        id: commit
         run: |
           git config user.name "borrowclever-bot"
           git config user.email "actions@users.noreply.github.com"
           git add rates/ rate-tracker/
-          git diff --staged --quiet || git commit -m "Rate check: $(date +%Y-%m-%d)"
-          git push
+          if git diff --staged --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            branch="automated/rate-check-$(date +%Y%m%d%H%M%S)"
+            git checkout -b "$branch"
+            git commit -m "Rate check: $(date +%Y-%m-%d)"
+            git push -u origin "$branch"
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "branch=$branch" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Open pull request with results
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr create \
+            --base main \
+            --head "${{ steps.commit.outputs.branch }}" \
+            --title "Rate check: $(date +%Y-%m-%d)" \
+            --body "Automated fortnightly rate check results. Check outcome: ${{ steps.check.outcome }}. CCPC cross-check outcome: ${{ steps.check_ccpc.outcome }}."
 
       - name: Fail workflow if issues detected
-        if: steps.check.outcome == 'failure' || steps.check_ccpc.outcome == 'failure'
+        if: always() && (steps.check.outcome == 'failure' || steps.check_ccpc.outcome == 'failure')
         run: exit 1
