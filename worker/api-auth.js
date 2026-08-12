@@ -44,6 +44,10 @@ export async function authenticateApiKey(request, env) {
     };
   }
 
+  if (!/^bc_live_[A-Za-z0-9]{20,40}$/.test(match[1])) {
+    return { ok: false, status: 401, body: { error: { code: "unauthorized", message: "Unknown API key." } } };
+  }
+
   const keyHash = await hashApiKey(match[1]);
   const row = await env.DB.prepare(
     "SELECT key_hash, daily_limit, status FROM api_keys WHERE key_hash = ?"

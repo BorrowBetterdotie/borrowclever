@@ -83,8 +83,8 @@
   <hr class="divider">
 
   <h2>Endpoints</h2>
+
   <p><code>GET https://borrowclever.ie/api/v1/loans</code> — every personal loan currently on the <a href="loans.html">loans comparison page</a>.</p>
-  <p><code>GET https://borrowclever.ie/api/v1/cards</code> — every credit card currently on the <a href="cards.html">cards comparison page</a>.</p>
   <p>Example response:</p>
   <pre><code>{
   "meta": {
@@ -93,9 +93,68 @@
     "source": "https://borrowclever.ie/loans.html"
   },
   "data": [
-    { "id": "boi-sbci-green", "lender": "Bank of Ireland", "apr": 2.95, "...": "..." }
+    {
+      "id": "boi-sbci-green",
+      "lender": "Bank of Ireland",
+      "product": "SBCI Home Energy Upgrade",
+      "apr": 2.95,
+      "rateType": "Variable",
+      "green": true,
+      "seai": true,
+      "notes": "Requires a valid SEAI grant approval.",
+      "badgeCheapestOverall": true
+    }
   ]
 }</code></pre>
+  <p>Each object in <code>data</code> has:</p>
+  <ul>
+    <li><code>id</code> (string) — stable identifier for this loan product</li>
+    <li><code>lender</code> (string) — e.g. "Bank of Ireland"</li>
+    <li><code>product</code> (string) — product name, e.g. "SBCI Home Energy Upgrade"</li>
+    <li><code>apr</code> (number) — representative/nominal APR, e.g. <code>2.95</code></li>
+    <li><code>rateType</code> (string) — <code>"Variable"</code> or <code>"Fixed"</code></li>
+    <li><code>green</code> (boolean) — true if this is a green/energy-upgrade loan</li>
+    <li><code>seai</code> (boolean) — true if it requires an SEAI grant</li>
+    <li><code>notes</code> (string) — free-text notes/caveats</li>
+    <li><code>badgeCheapestOverall</code> (boolean, optional) — present and <code>true</code> only on the single cheapest loan overall</li>
+  </ul>
+
+  <p><code>GET https://borrowclever.ie/api/v1/cards</code> — every credit card currently on the <a href="cards.html">cards comparison page</a>.</p>
+  <p>Example response:</p>
+  <pre><code>{
+  "meta": {
+    "generated": "2026-08-12T10:00:00.000Z",
+    "last_full_review": "2026-07-22",
+    "source": "https://borrowclever.ie/cards.html"
+  },
+  "data": [
+    {
+      "id": "aib-click",
+      "lender": "AIB",
+      "product": "Click",
+      "network": "Visa",
+      "purchaseRate": "9.11%",
+      "apr": 13.8,
+      "balanceTransferOffer": null,
+      "annualFee": 0,
+      "notes": null,
+      "badgeCheapestOverall": true
+    }
+  ]
+}</code></pre>
+  <p>Each object in <code>data</code> has:</p>
+  <ul>
+    <li><code>id</code> (string) — stable identifier for this card product</li>
+    <li><code>lender</code> (string) — e.g. "AIB"</li>
+    <li><code>product</code> (string) — product name, e.g. "Click"</li>
+    <li><code>network</code> (string) — e.g. "Visa", "Mastercard"</li>
+    <li><code>purchaseRate</code> (string or null) — nominal purchase rate as displayed, e.g. "9.11%"</li>
+    <li><code>apr</code> (number) — representative APR, e.g. <code>13.8</code></li>
+    <li><code>balanceTransferOffer</code> (string or null) — free-text description of any balance-transfer intro offer</li>
+    <li><code>annualFee</code> (number) — annual card fee in euro, <code>0</code> if none (excludes the €30 government stamp duty, which applies to all cards)</li>
+    <li><code>notes</code> (string or null) — free-text notes</li>
+    <li><code>badgeCheapestOverall</code> (boolean, optional) — present and <code>true</code> only on the single lowest-APR card</li>
+  </ul>
 
   <hr class="divider">
 

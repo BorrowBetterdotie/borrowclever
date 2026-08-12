@@ -9,9 +9,14 @@ import { readFileSync, writeFileSync } from "node:fs";
 const loans = JSON.parse(readFileSync(new URL("./data/loans.json", import.meta.url)));
 const cards = JSON.parse(readFileSync(new URL("./data/cards.json", import.meta.url)));
 
+function stripPresentationFields(items) {
+  return items.map(({ icon, iconCls, ...rest }) => rest);
+}
+
 const map = {
-  loans: { last_full_review: loans.meta.last_full_review, items: loans.loans },
-  cards: { last_full_review: cards.meta.last_full_review, items: cards.cards },
+  generated_at: new Date().toISOString(),
+  loans: { last_full_review: loans.meta.last_full_review, items: stripPresentationFields(loans.loans) },
+  cards: { last_full_review: cards.meta.last_full_review, items: stripPresentationFields(cards.cards) },
 };
 
 const out =

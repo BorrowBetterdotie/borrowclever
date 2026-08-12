@@ -139,8 +139,7 @@ async function handleIssueKey(request, env) {
 }
 
 async function handleKeyUsage(request, env) {
-  const url = new URL(request.url);
-  const token = url.searchParams.get("token") || request.headers.get("x-admin-token") || "";
+  const token = request.headers.get("x-admin-token") || "";
   if (!env.ADMIN_TOKEN || token !== env.ADMIN_TOKEN) {
     return new Response("Unauthorized", { status: 401 });
   }
@@ -185,7 +184,7 @@ async function handleApi(request, env, ctx, resource) {
   const source = API_DATA[resource];
   const body = {
     meta: {
-      generated: new Date().toISOString(),
+      generated: API_DATA.generated_at,
       last_full_review: source.last_full_review,
       source: `https://borrowclever.ie/${resource}.html`,
     },
@@ -217,6 +216,14 @@ export default {
 
     if (url.pathname === "/api/v1/cards") {
       return handleApi(request, env, ctx, "cards");
+    }
+
+    if (url.pathname.startsWith("/api/")) {
+      return Response.json({ error: { code: "not_found", message: "Unknown API route." } }, { status: 404 });
+    }
+
+    if (url.pathname.startsWith("/admin/")) {
+      return Response.json({ error: { code: "not_found", message: "Unknown admin route." } }, { status: 404 });
     }
 
     const match = url.pathname.match(/^\/go\/([a-z0-9-]+)\/?$/i);
