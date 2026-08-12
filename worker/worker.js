@@ -16,6 +16,7 @@
 
 import { PRODUCTS } from "./products.generated.js";
 import { generateApiKey, hashApiKey, authenticateApiKey, getUsageToday, usageIncrementStatement, secondsUntilNextUTCMidnight } from "./api-auth.js";
+import { API_DATA } from "./api-data.generated.js";
 
 const BOT_RE = /bot|crawl|spider|slurp|bingpreview|facebookexternalhit|embedly|pinterest|whatsapp|telegram|discord|slackbot|twitterbot|linkedinbot|headless|lighthouse|gtmetrix|pingdom|uptimerobot|monitor|curl|wget|python-requests|node-fetch|go-http-client|okhttp|axios/i;
 
@@ -155,6 +156,45 @@ async function handleKeyUsage(request, env) {
   return Response.json({ generated: new Date().toISOString(), keys: rows.results });
 }
 
+async function handleApi(request, env, ctx, resource) {
+  const auth = await authenticateApiKey(request, env);
+  if (!auth.ok) {
+    return Response.json(auth.body, { status: auth.status });
+  }
+
+  const usedToday = await getUsageToday(env, auth.keyHash);
+  if (usedToday >= auth.dailyLimit) {
+    const retryAfter = secondsUntilNextUTCMidnight();
+    return Response.json(
+      {
+        error: {
+          code: "rate_limited",
+          message: `Daily limit of ${auth.dailyLimit} requests reached.`,
+          reset: new Date(Date.now() + retryAfter * 1000).toISOString(),
+        },
+      },
+      { status: 429, headers: { "Retry-After": String(retryAfter) } }
+    );
+  }
+
+  ctx.waitUntil(
+    usageIncrementStatement(env, auth.keyHash).run()
+      .catch((e) => console.error("api usage count failed:", e))
+  );
+
+  const source = API_DATA[resource];
+  const body = {
+    meta: {
+      generated: new Date().toISOString(),
+      last_full_review: source.last_full_review,
+      source: `https://borrowclever.ie/${resource}.html`,
+    },
+    data: source.items,
+  };
+
+  return Response.json(body, { headers: { "Cache-Control": "private, no-store" } });
+}
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
@@ -169,6 +209,14 @@ export default {
 
     if (url.pathname === "/admin/keys/usage") {
       return handleKeyUsage(request, env);
+    }
+
+    if (url.pathname === "/api/v1/loans") {
+      return handleApi(request, env, ctx, "loans");
+    }
+
+    if (url.pathname === "/api/v1/cards") {
+      return handleApi(request, env, ctx, "cards");
     }
 
     const match = url.pathname.match(/^\/go\/([a-z0-9-]+)\/?$/i);
