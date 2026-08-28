@@ -10,7 +10,7 @@ const loans = JSON.parse(readFileSync(new URL("./data/loans.json", import.meta.u
 const cards = JSON.parse(readFileSync(new URL("./data/cards.json", import.meta.url)));
 
 function stripPresentationFields(items) {
-  return items.map(({ icon, iconCls, ...rest }) => rest);
+  return items.map(({ icon, iconCls, homepage, ...rest }) => rest);
 }
 
 const map = {

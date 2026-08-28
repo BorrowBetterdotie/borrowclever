@@ -84,6 +84,8 @@
 
   <h2>Endpoints</h2>
 
+  <p><code>meta.generated</code> in every response reflects when this dataset was last built and deployed — not the current request time.</p>
+
   <p><code>GET https://borrowclever.ie/api/v1/loans</code> — every personal loan currently on the <a href="loans.html">loans comparison page</a>.</p>
   <p>Example response:</p>
   <pre><code>{
@@ -101,7 +103,7 @@
       "rateType": "Variable",
       "green": true,
       "seai": true,
-      "notes": "Requires a valid SEAI grant approval.",
+      "notes": "75% of loan on qualifying energy works",
       "badgeCheapestOverall": true
     }
   ]
@@ -113,10 +115,13 @@
     <li><code>product</code> (string) — product name, e.g. "SBCI Home Energy Upgrade"</li>
     <li><code>apr</code> (number) — representative/nominal APR, e.g. <code>2.95</code></li>
     <li><code>rateType</code> (string) — <code>"Variable"</code> or <code>"Fixed"</code></li>
-    <li><code>green</code> (boolean) — true if this is a green/energy-upgrade loan</li>
-    <li><code>seai</code> (boolean) — true if it requires an SEAI grant</li>
-    <li><code>notes</code> (string) — free-text notes/caveats</li>
+    <li><code>green</code> (boolean, optional) — present and <code>true</code> only on green/energy-upgrade loans</li>
+    <li><code>seai</code> (boolean, optional) — present and <code>true</code> only on loans that require an SEAI grant</li>
+    <li><code>creditUnion</code> (boolean, optional) — present and <code>true</code> only on credit union loans</li>
+    <li><code>typeNote</code> (string, optional) — a short qualifier shown alongside some loans, e.g. "3-hour decision", "No early repayment fee"</li>
+    <li><code>notes</code> (string, optional) — free-text notes/caveats (not present on every loan)</li>
     <li><code>badgeCheapestOverall</code> (boolean, optional) — present and <code>true</code> only on the single cheapest loan overall</li>
+    <li><code>badgeBestStandard</code> (boolean, optional) — present and <code>true</code> only on the single best non-green, non-credit-union loan</li>
   </ul>
 
   <p><code>GET https://borrowclever.ie/api/v1/cards</code> — every credit card currently on the <a href="cards.html">cards comparison page</a>.</p>
@@ -137,7 +142,7 @@
       "apr": 13.8,
       "balanceTransferOffer": null,
       "annualFee": 0,
-      "notes": null,
+      "notes": "Online-only application. No 0% intro — but its 13.8% standard APR is Ireland's lowest, so it can work out cheaper than cards that revert to ~22.9% once a 0% period ends.",
       "badgeCheapestOverall": true
     }
   ]
