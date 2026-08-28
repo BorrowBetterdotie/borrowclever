@@ -127,7 +127,7 @@
       }
     },
     {
-      "date": "2026-08-04",
+      "date": "2026-08-11",
       "source": "products.json (published rates at fortnightly check)",
       "rates": {
         "boi-loan-sbci-energy": 2.95,
