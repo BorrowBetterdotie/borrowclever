@@ -11,9 +11,16 @@ compatibility_date = "2026-06-01"
 routes = [
   { pattern = "borrowclever.ie/go/*", zone_name = "borrowclever.ie" },
   { pattern = "borrowclever.ie/stats*", zone_name = "borrowclever.ie" },
+  { pattern = "borrowclever.ie/api/*", zone_name = "borrowclever.ie" },
+  { pattern = "borrowclever.ie/admin/*", zone_name = "borrowclever.ie" },
   # { pattern = "www.borrowclever.ie/go/*", zone_name = "borrowclever.ie" },
   # { pattern = "www.borrowclever.ie/stats*", zone_name = "borrowclever.ie" },
 ]
+
+# workers.dev must stay disabled — otherwise /admin/* (mints API keys, exposes
+# customer emails) would also be reachable at borrowclever-go.<subdomain>.workers.dev,
+# bypassing any zone-level WAF/rate-limiting rule scoped to borrowclever.ie/admin/*.
+workers_dev = false
 
 # D1 database binding (referenced as env.DB in worker.js)
 [[d1_databases]]

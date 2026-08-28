@@ -1,4 +1,7 @@
 worker/products.generated.js
+worker/api-data.generated.js
+worker/.dev.vars
+worker/.wrangler/
 table-preview.html
 worker/table-preview.html
 node_modules/

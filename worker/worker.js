@@ -15,6 +15,8 @@
  */
 
 import { PRODUCTS } from "./products.generated.js";
+import { generateApiKey, hashApiKey, authenticateApiKey, getUsageToday, usageIncrementStatement, secondsUntilNextUTCMidnight } from "./api-auth.js";
+import { API_DATA } from "./api-data.generated.js";
 
 const BOT_RE = /bot|crawl|spider|slurp|bingpreview|facebookexternalhit|embedly|pinterest|whatsapp|telegram|discord|slackbot|twitterbot|linkedinbot|headless|lighthouse|gtmetrix|pingdom|uptimerobot|monitor|curl|wget|python-requests|node-fetch|go-http-client|okhttp|axios/i;
 
@@ -106,12 +108,122 @@ async function handleStats(request, env) {
   return new Response(html, { headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" } });
 }
 
+async function handleIssueKey(request, env) {
+  const token = request.headers.get("x-admin-token") || "";
+  if (!env.ADMIN_TOKEN || token !== env.ADMIN_TOKEN) {
+    return new Response("Unauthorized", { status: 401 });
+  }
+
+  let payload;
+  try {
+    payload = await request.json();
+  } catch {
+    return Response.json({ error: { code: "bad_request", message: "Body must be JSON." } }, { status: 400 });
+  }
+
+  const email = String(payload.email || "").trim();
+  const tier = payload.tier === "paid" ? "paid" : "free";
+  if (!email) {
+    return Response.json({ error: { code: "bad_request", message: "email is required." } }, { status: 400 });
+  }
+
+  const dailyLimit = tier === "paid" ? 10000 : 100;
+  const { plaintext, keyPrefix } = generateApiKey();
+  const keyHash = await hashApiKey(plaintext);
+
+  await env.DB.prepare(
+    "INSERT INTO api_keys (key_hash, key_prefix, email, tier, daily_limit, status, created_at) VALUES (?, ?, ?, ?, ?, 'active', ?)"
+  ).bind(keyHash, keyPrefix, email, tier, dailyLimit, new Date().toISOString()).run();
+
+  return Response.json({ key: plaintext, key_prefix: keyPrefix, tier, daily_limit: dailyLimit });
+}
+
+async function handleKeyUsage(request, env) {
+  const token = request.headers.get("x-admin-token") || "";
+  if (!env.ADMIN_TOKEN || token !== env.ADMIN_TOKEN) {
+    return new Response("Unauthorized", { status: 401 });
+  }
+
+  const rows = await env.DB.prepare(
+    "SELECT k.key_prefix, k.email, k.tier, k.daily_limit, k.status, " +
+    "SUM(CASE WHEN u.day >= date('now','start of month') THEN u.count ELSE 0 END) AS this_month, " +
+    "SUM(u.count) AS all_time " +
+    "FROM api_keys k LEFT JOIN api_usage u ON u.key_hash = k.key_hash " +
+    "GROUP BY k.key_hash ORDER BY k.created_at DESC"
+  ).all();
+
+  return Response.json({ generated: new Date().toISOString(), keys: rows.results });
+}
+
+async function handleApi(request, env, ctx, resource) {
+  const auth = await authenticateApiKey(request, env);
+  if (!auth.ok) {
+    return Response.json(auth.body, { status: auth.status });
+  }
+
+  const usedToday = await getUsageToday(env, auth.keyHash);
+  if (usedToday >= auth.dailyLimit) {
+    const retryAfter = secondsUntilNextUTCMidnight();
+    return Response.json(
+      {
+        error: {
+          code: "rate_limited",
+          message: `Daily limit of ${auth.dailyLimit} requests reached.`,
+          reset: new Date(Date.now() + retryAfter * 1000).toISOString(),
+        },
+      },
+      { status: 429, headers: { "Retry-After": String(retryAfter) } }
+    );
+  }
+
+  ctx.waitUntil(
+    usageIncrementStatement(env, auth.keyHash).run()
+      .catch((e) => console.error("api usage count failed:", e))
+  );
+
+  const source = API_DATA[resource];
+  const body = {
+    meta: {
+      generated: API_DATA.generated_at,
+      last_full_review: source.last_full_review,
+      source: `https://borrowclever.ie/${resource}.html`,
+    },
+    data: source.items,
+  };
+
+  return Response.json(body, { headers: { "Cache-Control": "private, no-store" } });
+}
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
 
     if (url.pathname === "/stats" || url.pathname === "/stats/") {
       return handleStats(request, env);
+    }
+
+    if (url.pathname === "/admin/keys" && request.method === "POST") {
+      return handleIssueKey(request, env);
+    }
+
+    if (url.pathname === "/admin/keys/usage") {
+      return handleKeyUsage(request, env);
+    }
+
+    if (url.pathname === "/api/v1/loans") {
+      return handleApi(request, env, ctx, "loans");
+    }
+
+    if (url.pathname === "/api/v1/cards") {
+      return handleApi(request, env, ctx, "cards");
+    }
+
+    if (url.pathname.startsWith("/api/")) {
+      return Response.json({ error: { code: "not_found", message: "Unknown API route." } }, { status: 404 });
+    }
+
+    if (url.pathname.startsWith("/admin/")) {
+      return Response.json({ error: { code: "not_found", message: "Unknown admin route." } }, { status: 404 });
     }
 
     const match = url.pathname.match(/^\/go\/([a-z0-9-]+)\/?$/i);
