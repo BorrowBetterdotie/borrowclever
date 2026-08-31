@@ -8,12 +8,12 @@
     "name": "Bank of Ireland SBCI Home Energy Upgrade",
     "url": "https://personalbanking.bankofireland.com/borrow/loans/home-energy-upgrade-loan-scheme/",
     "todo": true,
-    "rate": "2.95%",
+    "rate": "3%",
     "rateType": "Variable",
     "monthly": "€179.46",
     "costOfCredit": "€767.89",
     "totalRepayable": "€10,767.89",
-    "notes": "SEAI grant required · 75% of loan on qualifying energy works · Rate verified 21 Jul 2026 directly on BOI's SBCI page (personalbanking.bankofireland.com/borrow/loans/home-energy-upgrade-loan-scheme/) — three worked examples all show 2.95% variable.",
+    "notes": "SEAI grant required · 75% of loan on qualifying energy works · Rate updated to 3% on 2026-08-31 per the fortnightly rate check (confirmed independently by both the lender scraper and the CCPC cross-check — see rates/CHANGES-2026-08-31.md and rates/ccpc-check-2026-08-31.md). Monthly/cost-of-credit/total-repayable below are carried over from the 2.95% figures verified 21 Jul 2026 directly on BOI's SBCI page and have NOT been re-verified against the new rate — needs a fresh check of BOI's worked examples.",
     "badge": "Cheapest overall"
   },
   {
