@@ -9,3 +9,6 @@ node_modules/
 worker/.DS_Store
 rates/debug/
 research/
+
+# content-agent stage 1 output — intermediate handoff file, not final content
+scripts/content-agent/data/
