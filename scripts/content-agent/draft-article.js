@@ -82,6 +82,10 @@ async function draftFromClaude(items) {
     messages: [{ role: 'user', content: JSON.stringify(items, null, 2) }],
   });
 
+  if (message.stop_reason === 'max_tokens') {
+    throw new Error('Claude response hit max_tokens — draft is truncated.');
+  }
+
   const toolUse = message.content.find((block) => block.type === 'tool_use');
   if (!toolUse) {
     throw new Error('Claude response did not include a submit_draft tool call.');

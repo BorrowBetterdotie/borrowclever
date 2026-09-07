@@ -17,13 +17,35 @@ function escapeHtml(str) {
     .replace(/'/g, '&#39;');
 }
 
+/**
+ * JSON.stringify does not escape "<", ">", or "&" — safe inside a JSON
+ * value, but not safe verbatim inside an HTML <script> element, where an
+ * LLM-supplied string containing "</script>" could terminate the block
+ * early and inject markup. \uXXXX escapes are valid JSON and decode back
+ * to the original characters, so this doesn't change the parsed value.
+ */
+function escapeForInlineScript(json) {
+  return json
+    .replace(/</g, '\\u003c')
+    .replace(/>/g, '\\u003e')
+    .replace(/&/g, '\\u0026');
+}
+
+const SLUG_PATTERN = /^[a-z0-9]+(-[a-z0-9]+)*$/;
+
 /** Repo-root-relative output path for a given article date and slug. */
 export function articleFilePath(dateIso, slug) {
+  if (!SLUG_PATTERN.test(slug)) {
+    throw new Error(`Invalid slug: "${slug}" (must be kebab-case)`);
+  }
   return `news/${dateIso}-${slug}.html`;
 }
 
 /** Renders a complete HTML document for one news/ article. */
 export function renderArticle({ title, metaDescription, bodyHtml, dateIso, slug }) {
+  if (!SLUG_PATTERN.test(slug)) {
+    throw new Error(`Invalid slug: "${slug}" (must be kebab-case)`);
+  }
   const url = `https://borrowclever.ie/news/${dateIso}-${slug}.html`;
   const safeTitle = escapeHtml(title);
   const safeDescription = escapeHtml(metaDescription);
@@ -77,7 +99,7 @@ export function renderArticle({ title, metaDescription, bodyHtml, dateIso, slug 
 <meta name="twitter:title" content="${safeTitle}">
 <meta name="twitter:description" content="${safeDescription}">
 <script type="application/ld+json">
-${JSON.stringify(jsonLd, null, 2)}
+${escapeForInlineScript(JSON.stringify(jsonLd, null, 2))}
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

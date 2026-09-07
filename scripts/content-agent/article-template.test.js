@@ -50,3 +50,54 @@ test('renderArticle includes valid JSON-LD', () => {
   assert.equal(jsonLd[1]['@type'], 'Article');
   assert.equal(jsonLd[1].headline, 'Test Article');
 });
+
+test('renderArticle rejects a non-kebab-case slug', () => {
+  assert.throws(() => {
+    renderArticle({
+      title: 'Test',
+      metaDescription: 'desc',
+      bodyHtml: '<p>body</p>',
+      dateIso: '2026-09-08',
+      slug: '../evil',
+    });
+  }, /Invalid slug/);
+
+  assert.throws(() => {
+    renderArticle({
+      title: 'Test',
+      metaDescription: 'desc',
+      bodyHtml: '<p>body</p>',
+      dateIso: '2026-09-08',
+      slug: 'Bad_Slug!',
+    });
+  }, /Invalid slug/);
+});
+
+test('articleFilePath rejects a non-kebab-case slug', () => {
+  assert.throws(() => {
+    articleFilePath('2026-09-08', '../evil');
+  }, /Invalid slug/);
+
+  assert.throws(() => {
+    articleFilePath('2026-09-08', 'Bad_Slug!');
+  }, /Invalid slug/);
+});
+
+test('renderArticle neutralizes </script> inside JSON-LD without breaking the JSON value', () => {
+  const maliciousTitle = 'Rates</script><img src=x onerror=alert(1)>';
+  const html = renderArticle({
+    title: maliciousTitle,
+    metaDescription: 'desc',
+    bodyHtml: '<p>body</p>',
+    dateIso: '2026-09-08',
+    slug: 'test-article',
+  });
+
+  // The raw HTML must never contain the literal breakout sequence.
+  assert.doesNotMatch(html, /<\/script><img/);
+
+  const match = html.match(/<script type="application\/ld\+json">\n([\s\S]*?)\n<\/script>/);
+  assert.ok(match, 'expected a JSON-LD script block');
+  const jsonLd = JSON.parse(match[1]);
+  assert.equal(jsonLd[1].headline, maliciousTitle);
+});
