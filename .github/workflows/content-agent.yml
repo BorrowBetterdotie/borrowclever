@@ -5,6 +5,10 @@ on:
     - cron: '0 7 * * *'
   workflow_dispatch: {}
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   fetch-news:
     runs-on: ubuntu-latest
@@ -21,17 +25,38 @@ jobs:
       - name: Fetch news (stage 1)
         run: node scripts/content-agent/fetch-news.js --since 24
 
-      - name: Show fetched items (sanity check while stage 2 doesn't exist yet)
+      - name: Show fetched items
         run: cat scripts/content-agent/data/news-items.json
 
-      # TODO(stage 2): draft articles via the Claude API and open a PR for
-      # review. This must be a step in *this same job*, right here — not a
-      # separate job or workflow — because scripts/content-agent/data/ is
-      # gitignored and only exists on this runner's local disk for the
-      # lifetime of this job. A separate job (even in the same workflow run)
-      # gets a fresh runner with no access to files written here unless
-      # explicitly passed via actions/upload-artifact + download-artifact.
-      # Stage 2 will also need an ANTHROPIC_API_KEY secret (Settings →
-      # Secrets and variables → Actions) and, per rate-check.yml's pattern,
-      # `permissions: contents: write / pull-requests: write` plus a
-      # git-commit-to-branch + `gh pr create` step to open the draft for review.
+      - name: Draft article (stage 2)
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: node scripts/content-agent/draft-article.js
+
+      - name: Commit draft and open PR
+        id: commit
+        run: |
+          git config user.name "borrowclever-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add news/
+          if git diff --staged --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            branch="automated/content-$(date +%Y%m%d%H%M%S)"
+            git checkout -b "$branch"
+            git commit -m "Content agent: draft $(date +%Y-%m-%d)"
+            git push -u origin "$branch"
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "branch=$branch" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Open pull request with draft
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr create \
+            --base main \
+            --head "${{ steps.commit.outputs.branch }}" \
+            --title "Content agent draft: $(date +%Y-%m-%d)" \
+            --body "Automated draft from the content-agent pipeline. Review for accuracy, tone, and whether it should be linked from the site before merging."
