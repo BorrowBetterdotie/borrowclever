@@ -104,6 +104,11 @@ async function main() {
     }
   }
 
+  const SLUG_PATTERN = /^[a-z0-9]+(-[a-z0-9]+)*$/;
+  if (!SLUG_PATTERN.test(draft.slug)) {
+    throw new Error(`Draft slug is not valid kebab-case: "${draft.slug}"`);
+  }
+
   const guardrailResult = checkGuardrails(draft.bodyHtml);
   if (!guardrailResult.ok) {
     console.error(`Draft rejected: ${guardrailResult.reason}`);
