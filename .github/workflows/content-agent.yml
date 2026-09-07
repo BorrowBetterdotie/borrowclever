@@ -1,0 +1,37 @@
+name: Content agent
+
+on:
+  schedule:
+    - cron: '0 7 * * *'
+  workflow_dispatch: {}
+
+jobs:
+  fetch-news:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Fetch news (stage 1)
+        run: node scripts/content-agent/fetch-news.js --since 24
+
+      - name: Show fetched items (sanity check while stage 2 doesn't exist yet)
+        run: cat scripts/content-agent/data/news-items.json
+
+      # TODO(stage 2): draft articles via the Claude API and open a PR for
+      # review. This must be a step in *this same job*, right here — not a
+      # separate job or workflow — because scripts/content-agent/data/ is
+      # gitignored and only exists on this runner's local disk for the
+      # lifetime of this job. A separate job (even in the same workflow run)
+      # gets a fresh runner with no access to files written here unless
+      # explicitly passed via actions/upload-artifact + download-artifact.
+      # Stage 2 will also need an ANTHROPIC_API_KEY secret (Settings →
+      # Secrets and variables → Actions) and, per rate-check.yml's pattern,
+      # `permissions: contents: write / pull-requests: write` plus a
+      # git-commit-to-branch + `gh pr create` step to open the draft for review.
