@@ -39,9 +39,11 @@ function today() {
 // ── load data ──────────────────────────────────────────────────────────────────
 const loansData = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/loans.json'), 'utf8'));
 const cardsData = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/cards.json'), 'utf8'));
+const savingsData = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/savings.json'), 'utf8'));
 const loans = loansData.loans;
 const loansMeta = loansData.meta;
 const cardsMeta = cardsData.meta;
+const savingsMeta = savingsData.meta;
 
 // ── FAQ content (mirrors on-page footnote text exactly) ───────────────────────
 const LOANS_FAQ = [
@@ -56,6 +58,21 @@ const LOANS_FAQ = [
   {
     q: 'How are the loan cost figures calculated?',
     a: 'All figures are calculated on €10,000 borrowed over 60 months (5 years) using the standard compound interest formula. Monthly repayments and total interest are rounded to the nearest cent. Results are for comparison purposes only — your actual rate may differ. Monthly repayments are derived from each lender\'s nominal interest rate; the APR column is the all-in comparison figure, so monthly cost may not track APR exactly.',
+  },
+];
+
+const SAVINGS_FAQ = [
+  {
+    q: 'What is AER and why do you use it to rank savings accounts?',
+    a: 'AER (Annual Equivalent Rate) shows what a variable or compounding rate would return over a full year, so accounts that pay interest monthly, quarterly or on maturity can be compared on a like-for-like basis. It is the standard comparison figure used across the Irish and EU savings market.',
+  },
+  {
+    q: 'Do I have to pay tax on savings interest in Ireland?',
+    a: 'Most savings interest earned in Ireland is subject to DIRT (Deposit Interest Retention Tax) at 33%. Irish banks and some EU providers deduct it automatically before paying you interest. Many EU-based platforms pay interest gross, meaning you must declare it yourself and pay the DIRT due via Revenue. State Savings products from An Post/NTMA are the main exception — all returns are entirely tax-free. People aged 65+ on a low income may qualify for a DIRT exemption or refund.',
+  },
+  {
+    q: 'Is my money protected if I save with an EU bank instead of an Irish one?',
+    a: "Yes, in principle. Every EU-licensed bank — Irish or otherwise — is covered by a national Deposit Guarantee Scheme protecting up to €100,000 per person, per institution. An EU provider's protection comes from its home country's scheme rather than Ireland's, but the coverage level is the same. Always confirm which scheme applies and that the provider is properly licensed before depositing money.",
   },
 ];
 
@@ -98,7 +115,7 @@ function org() {
     legalName: 'BorrowClever Ireland Limited',
     url: BASE,
     logo: `${BASE}/logo.svg`,
-    description: "Ireland's independent personal loan and credit card comparison service. Rates verified fortnightly from lender websites and CCPC.ie.",
+    description: "Ireland's independent personal loan, credit card and savings comparison service. Rates verified periodically from provider websites and CCPC.ie.",
   };
 }
 
@@ -168,6 +185,7 @@ function ldScript(blocks) {
     { loc: '/',             lastmod: buildDate,                    changefreq: 'weekly',  priority: '1.0' },
     { loc: '/loans.html',   lastmod: loansMeta.last_full_review,   changefreq: 'weekly',  priority: '0.9' },
     { loc: '/cards.html',   lastmod: cardsMeta.last_full_review,   changefreq: 'weekly',  priority: '0.9' },
+    { loc: '/savings.html', lastmod: savingsMeta.last_full_review, changefreq: 'weekly',  priority: '0.9' },
     { loc: '/rate-tracker/', lastmod: buildDate,                   changefreq: 'weekly',  priority: '0.8' },
     { loc: '/calculator/',   lastmod: buildDate,                   changefreq: 'monthly', priority: '0.8' },
     { loc: '/about.html',   lastmod: buildDate,                    changefreq: 'monthly', priority: '0.4' },
@@ -319,7 +337,41 @@ function ldScript(blocks) {
   console.log(`[build] cards.html: dateModified ${dateIso} | last verified "${dateLong}"`);
 })();
 
-// ── Step 5: privacy.html ──────────────────────────────────────────────────────
+// ── Step 5: savings.html ──────────────────────────────────────────────────────
+(function buildSavings() {
+  const dateIso  = savingsMeta.last_full_review;
+  const dateLong = fmtDateLong(dateIso);
+
+  const jsonld = ldScript([
+    org(),
+    webpage(`${BASE}/savings.html`,
+      'Savings & Deposit Account Comparison Ireland 2026 | BorrowClever',
+      'Compare every deposit and savings account available to Irish savers — banks, An Post State Savings, credit unions, and EU digital banks — ranked by AER. Independently verified.',
+      dateIso),
+    breadcrumb([
+      { name: 'Home', url: `${BASE}/` },
+      { name: 'Savings & Deposit Accounts', url: `${BASE}/savings.html` },
+    ]),
+    faqPage(SAVINGS_FAQ),
+    dataset(
+      'Irish Savings & Deposit Account Rates 2026',
+      'Deposit and savings account AERs from Irish banks, An Post State Savings, credit unions, and EU digital banks and marketplaces available to Irish savers. Verified periodically.',
+      `${BASE}/savings.html`,
+      dateIso
+    ),
+  ]);
+
+  const savingsPath = path.join(__dirname, 'savings.html');
+  let html = fs.readFileSync(savingsPath, 'utf8');
+
+  html = inject(html, 'JSONLD', jsonld);
+  html = inject(html, 'LAST_VERIFIED', dateLong);
+
+  fs.writeFileSync(savingsPath, html, 'utf8');
+  console.log(`[build] savings.html: dateModified ${dateIso} | last verified "${dateLong}"`);
+})();
+
+// ── Step 6: privacy.html ──────────────────────────────────────────────────────
 (function buildPrivacy() {
   const buildDate = today();
 
