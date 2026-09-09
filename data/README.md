@@ -69,3 +69,17 @@ Source-of-truth JSON for all rate data. Edit here, run `node build.cjs`, then di
 3. Run `node build.cjs` from the repo root (note: `.cjs`, not `.js` — the repo's `package.json` sets `"type": "module"`, so a plain `.js` file using `require()` won't run).
 4. Review the diff — JSON-LD blocks and "last verified" dates will update; `sitemap.xml` and (for loans) the `index.html` hero numbers regenerate too.
 5. Commit and open a PR.
+
+## Automated rate checking
+
+A GitHub Actions workflow (`.github/workflows/rate-check.yml`, fortnightly cron) runs three independent, read-only checkers that scrape published provider pages and diff them against the JSON files — **none of them write to the JSON files**; a human still reviews and edits `loans.json` / `cards.json` / `savings.json` by hand per the workflow above.
+
+| Script | Covers | Source list |
+|---|---|---|
+| `scripts/check-rates.mjs` | Loans | `lenders.csv` |
+| `scripts/check-rates-ccpc.mjs` | Loans (cross-check against CCPC's compare tool) | n/a — queries `compare.ccpc.ie` directly |
+| `scripts/check-rates-savings.mjs` | Savings & deposit accounts | `data/savings-lenders.csv` |
+
+Each run writes a dated snapshot and changes report to `rates/` (e.g. `rates/savings-rates-2026-09-09.csv`, `rates/SAVINGS-CHANGES-2026-09-09.md`) and, on parse failures, the raw HTML it couldn't extract a rate from to `rates/debug/` for manual inspection.
+
+`data/savings-lenders.csv` only lists products with a **confirmed, real** source URL — of the 29 products in `savings.json`, 3 (Trading212, Bunq, FCM Bank) don't have one yet and are intentionally left out of automated checking rather than guessed. Add a row (and the matching `source` field in `savings.json`) once a real product-page URL is confirmed for one of them.

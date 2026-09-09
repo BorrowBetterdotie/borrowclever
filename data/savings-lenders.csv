@@ -1,0 +1,27 @@
+lender,product,source_url,rate_type,savings_json_id
+Trade Republic,Interest on Cash,https://traderepublic.com/en-ie/interest,aer,traderepublic-interest
+Raisin (marketplace),Raisin Starter Account,https://www.raisin.com/en-ie/savings-accounts/deposit-accounts,aer,raisin-starter
+Revolut,Instant Access Savings,https://www.revolut.com/en-IE/instant-access-savings/,aer,revolut-instant-access
+MoCo,High Interest Savings Account,https://www.moco.ie/moco/savings,aer,moco-savings
+N26,Instant Savings,https://n26.com/en-eu/savings-account,aer,n26-instant-savings
+AIB,Personal Demand Deposit,https://www.aib.ie/our-products/savings-and-deposits/personal-demand-deposit,aer,aib-demand-deposit
+PTSB,Instant Access Account,https://www.ptsb.ie/saving-and-investing/savings-accounts/online-instant-access/,aer,ptsb-instant-access
+AIB,Online Saver (Regular Saver),https://www.aib.ie/our-products/savings-and-deposits/online-saver,aer,aib-online-saver
+Bank of Ireland,Super Saver,https://personalbanking.bankofireland.com/save-and-invest/savings/bank-of-ireland-deposit-rates/,aer,boi-super-saver
+EBS,Family Savings Account,https://www.ebs.ie/save-and-invest/family-savings-account,aer,ebs-family-savings
+PTSB,Online Regular Saver,https://www.ptsb.ie/saving-and-investing/savings-accounts/online-regular-saver/,aer,ptsb-online-regular-saver
+PTSB,32-Day Notice Account,https://www.ptsb.ie/saving-and-investing/deposit-accounts/online-32-day-notice-savings-account/,aer,ptsb-32-day-notice
+Bank of Ireland,31 Day Notice Account,https://personalbanking.bankofireland.com/save-and-invest/savings/online-deposits/365-31-day-notice-account/features-and-benefits/,aer,boi-31-day-notice
+AIB,Online Notice 7,https://www.aib.ie/our-products/savings-and-deposits/online-notice-deposit-account,aer,aib-online-notice-7
+Raisin (marketplace),1-Year Fixed Term Deposit (best available),https://www.raisin.com/en-ie/savings-accounts/deposit-accounts,aer,raisin-fixed-1yr
+Raisin (marketplace),10-Year Fixed Term Deposit,https://www.raisin.com/en-ie/savings-accounts/deposit-accounts,aer,raisin-fixed-10yr
+Bank of Ireland,Advantage Fixed Term Deposit,https://personalbanking.bankofireland.com/save-and-invest/savings/fixed-term-savings-accounts/,aer,boi-advantage-fixed-term
+AIB,Personal Fixed Term Deposit — 1 Year,https://www.aib.ie/our-products/savings-and-deposits/personal-fixed-term-deposit-rates,aer,aib-fixed-term-1yr
+PTSB,Fixed Term Deposit — 1 Year,https://www.ptsb.ie/saving-and-investing/deposit-accounts/fixed-term-deposit-account/,aer,ptsb-fixed-term-1yr
+An Post / State Savings (NTMA),POSB Deposit Account,https://www.statesavings.ie/,aer,state-savings-posb-deposit
+An Post / State Savings (NTMA),10-Year National Solidarity Bond,https://www.statesavings.ie/,aer,state-savings-solidarity-bond-10yr
+An Post / State Savings (NTMA),5-Year Savings Certificate,https://www.statesavings.ie/,aer,state-savings-certificate-5yr
+An Post / State Savings (NTMA),6-Year Instalment Savings,https://www.statesavings.ie/,aer,state-savings-instalment-6yr
+An Post / State Savings (NTMA),3-Year Savings Bond,https://www.statesavings.ie/,aer,state-savings-bond-3yr
+An Post / State Savings (NTMA),Prize Bonds,https://www.statesavings.ie/,aer,state-savings-prize-bonds
+"Credit unions (ILCU-affiliated, average)",Share / Deposit / Notice Savings Accounts,https://www.creditunion.ie/what-we-offer/savings/return-of-savings/,aer,credit-union-savings-average

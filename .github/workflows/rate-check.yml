@@ -29,6 +29,11 @@ jobs:
         run: node scripts/check-rates-ccpc.mjs
         continue-on-error: true
 
+      - name: Run savings & deposit account rate check
+        id: check_savings
+        run: node scripts/check-rates-savings.mjs
+        continue-on-error: true
+
       # Snapshot the published rates into the append-only history log and
       # regenerate the public /rate-tracker/ page from it. This records what
       # products.json publishes on each check date — scraped values still go
@@ -66,8 +71,8 @@ jobs:
             --base main \
             --head "${{ steps.commit.outputs.branch }}" \
             --title "Rate check: $(date +%Y-%m-%d)" \
-            --body "Automated fortnightly rate check results. Check outcome: ${{ steps.check.outcome }}. CCPC cross-check outcome: ${{ steps.check_ccpc.outcome }}."
+            --body "Automated fortnightly rate check results. Loans/cards check outcome: ${{ steps.check.outcome }}. CCPC cross-check outcome: ${{ steps.check_ccpc.outcome }}. Savings & deposits check outcome: ${{ steps.check_savings.outcome }}."
 
       - name: Fail workflow if issues detected
-        if: always() && (steps.check.outcome == 'failure' || steps.check_ccpc.outcome == 'failure')
+        if: always() && (steps.check.outcome == 'failure' || steps.check_ccpc.outcome == 'failure' || steps.check_savings.outcome == 'failure')
         run: exit 1

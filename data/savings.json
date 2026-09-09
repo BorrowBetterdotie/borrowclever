@@ -72,8 +72,7 @@
       "taxAtSource": false,
       "protection": "Dutch DNB deposit guarantee (€100,000)",
       "crossBorder": true,
-      "notes": "Base rate 1.51% AER; bonus rate up to 3.01% AER applies only to new deposits above your own 6-month balance high. Irish IBAN available. Gross interest — self-declare DIRT.",
-      "source": "https://www.raisin.com/en-ie/savings-accounts/deposit-accounts"
+      "notes": "Base rate 1.51% AER; bonus rate up to 3.01% AER applies only to new deposits above your own 6-month balance high. Irish IBAN available. Gross interest — self-declare DIRT."
     },
     {
       "id": "fcm-bank",
@@ -179,7 +178,8 @@
       "taxAtSource": true,
       "protection": "Irish DGS (€100,000)",
       "crossBorder": false,
-      "notes": "Lowest instant-access rate among the pillar banks — PTSB's regular saver and notice accounts pay considerably more."
+      "notes": "Lowest instant-access rate among the pillar banks — PTSB's regular saver and notice accounts pay considerably more.",
+      "source": "https://www.ptsb.ie/saving-and-investing/savings-accounts/online-instant-access/"
     },
 
     {
@@ -198,7 +198,8 @@
       "protection": "Irish DGS (€100,000)",
       "crossBorder": false,
       "notes": "Top regular-saver rate shared with Bank of Ireland and EBS. Rate applies for the first 12 months only — check the follow-on rate before committing long term.",
-      "badgeBestRegularSaver": true
+      "badgeBestRegularSaver": true,
+      "source": "https://www.aib.ie/our-products/savings-and-deposits/online-saver"
     },
     {
       "id": "boi-super-saver",
@@ -252,7 +253,8 @@
       "protection": "Irish DGS (€100,000)",
       "crossBorder": false,
       "notes": "No fees and no current-account requirement, unlike most bank regular savers. Rate applies on the full balance up to €75,000.",
-      "badgeNoConditions": true
+      "badgeNoConditions": true,
+      "source": "https://www.ptsb.ie/saving-and-investing/savings-accounts/online-regular-saver/"
     },
 
     {
@@ -270,7 +272,8 @@
       "taxAtSource": true,
       "protection": "Irish DGS (€100,000)",
       "crossBorder": false,
-      "notes": "Best notice-account rate among the three pillar banks."
+      "notes": "Best notice-account rate among the three pillar banks.",
+      "source": "https://www.ptsb.ie/saving-and-investing/deposit-accounts/online-32-day-notice-savings-account/"
     },
     {
       "id": "boi-31-day-notice",
@@ -287,7 +290,8 @@
       "taxAtSource": true,
       "protection": "Irish DGS (€100,000)",
       "crossBorder": false,
-      "notes": "Early withdrawal without giving notice typically forfeits some interest."
+      "notes": "Early withdrawal without giving notice typically forfeits some interest.",
+      "source": "https://personalbanking.bankofireland.com/save-and-invest/savings/online-deposits/365-31-day-notice-account/features-and-benefits/"
     },
     {
       "id": "aib-online-notice-7",
@@ -304,7 +308,8 @@
       "taxAtSource": true,
       "protection": "Irish DGS (€100,000)",
       "crossBorder": false,
-      "notes": "Shortest notice period of the three, but the lowest rate."
+      "notes": "Shortest notice period of the three, but the lowest rate.",
+      "source": "https://www.aib.ie/our-products/savings-and-deposits/online-notice-deposit-account"
     },
 
     {
@@ -322,7 +327,8 @@
       "taxAtSource": false,
       "protection": "Partner bank's home-country DGS (€100,000)",
       "crossBorder": true,
-      "notes": "Best 1-year fixed rate on the Raisin marketplace. Ladder available: ~2.56% (1yr), ~2.72% (2yr), ~2.81% (3yr), ~3.25% (5yr), up to ~3.40% (10yr). Gross interest — self-declare DIRT."
+      "notes": "Best 1-year fixed rate on the Raisin marketplace. Ladder available: ~2.56% (1yr), ~2.72% (2yr), ~2.81% (3yr), ~3.25% (5yr), up to ~3.40% (10yr). Gross interest — self-declare DIRT.",
+      "source": "https://www.raisin.com/en-ie/savings-accounts/deposit-accounts"
     },
     {
       "id": "raisin-fixed-10yr",
@@ -340,7 +346,8 @@
       "protection": "Latvian DGS (€100,000)",
       "crossBorder": true,
       "notes": "Highest fixed rate found on the Irish market at time of review, via Latvia-based BluOr Bank on the Raisin platform. Locking money away for 10 years carries significant opportunity-cost and rate risk.",
-      "badgeHighestRate": true
+      "badgeHighestRate": true,
+      "source": "https://www.raisin.com/en-ie/savings-accounts/deposit-accounts"
     },
     {
       "id": "boi-advantage-fixed-term",
@@ -393,7 +400,8 @@
       "taxAtSource": true,
       "protection": "Irish DGS (€100,000)",
       "crossBorder": false,
-      "notes": "DIRT deducted automatically at source."
+      "notes": "DIRT deducted automatically at source.",
+      "source": "https://www.ptsb.ie/saving-and-investing/deposit-accounts/fixed-term-deposit-account/"
     },
 
     {
@@ -413,7 +421,8 @@
       "crossBorder": false,
       "notes": "Rate increased from 0.75% to 1.25% on 30 August 2026. Returns are entirely tax-free — no DIRT, no need to self-declare.",
       "badgeStateBacked": true,
-      "badgeTaxFree": true
+      "badgeTaxFree": true,
+      "source": "https://www.statesavings.ie/"
     },
     {
       "id": "state-savings-solidarity-bond-10yr",
@@ -432,7 +441,8 @@
       "crossBorder": false,
       "notes": "Highest guaranteed AER across the State Savings range. Rates increased by up to 0.65 points from 30 August 2026. No fees, no charges, fully tax-free.",
       "badgeStateBacked": true,
-      "badgeTaxFree": true
+      "badgeTaxFree": true,
+      "source": "https://www.statesavings.ie/"
     },
     {
       "id": "state-savings-certificate-5yr",
@@ -451,7 +461,8 @@
       "crossBorder": false,
       "notes": "Encashable early, but the full return is only earned if held to maturity. Tax-free.",
       "badgeStateBacked": true,
-      "badgeTaxFree": true
+      "badgeTaxFree": true,
+      "source": "https://www.statesavings.ie/"
     },
     {
       "id": "state-savings-instalment-6yr",
@@ -470,7 +481,8 @@
       "crossBorder": false,
       "notes": "You save monthly for the first year, then leave the lump sum to grow for 5 more years. Tax-free.",
       "badgeStateBacked": true,
-      "badgeTaxFree": true
+      "badgeTaxFree": true,
+      "source": "https://www.statesavings.ie/"
     },
     {
       "id": "state-savings-bond-3yr",
@@ -489,7 +501,8 @@
       "crossBorder": false,
       "notes": "Shortest lock-in of the fixed State Savings products. Tax-free.",
       "badgeStateBacked": true,
-      "badgeTaxFree": true
+      "badgeTaxFree": true,
+      "source": "https://www.statesavings.ie/"
     },
     {
       "id": "state-savings-prize-bonds",
@@ -508,7 +521,8 @@
       "crossBorder": false,
       "notes": "Not a guaranteed interest rate — your capital is entered into a weekly prize draw instead of earning interest. The variable rate used to size the prize fund rose to 1.5% from August 2026. Any prize winnings are entirely tax-free.",
       "badgeStateBacked": true,
-      "badgeTaxFree": true
+      "badgeTaxFree": true,
+      "source": "https://www.statesavings.ie/"
     },
 
     {
@@ -527,7 +541,8 @@
       "protection": "Irish DGS (€100,000)",
       "crossBorder": false,
       "notes": "Dividend rates are declared annually by each credit union's board based on surplus income — typically 0.5%–1.5% AER and never guaranteed in advance. A dividend rate of 1.00% is shown as a representative mid-range figure; check your own credit union directly. Share accounts are separate from deposit/notice accounts and treated differently for tax.",
-      "creditUnion": true
+      "creditUnion": true,
+      "source": "https://www.creditunion.ie/what-we-offer/savings/return-of-savings/"
     }
   ]
 }
