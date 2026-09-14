@@ -21,6 +21,7 @@ import { fileURLToPath } from 'url';
 import Anthropic from '@anthropic-ai/sdk';
 import { checkGuardrails } from './guardrails.js';
 import { articleFilePath, renderArticle } from './article-template.js';
+import { updateNewsIndex } from './update-news-index.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const NEWS_ITEMS_PATH = path.join(__dirname, 'data', 'news-items.json');
@@ -127,7 +128,10 @@ async function main() {
   fs.mkdirSync(path.dirname(outputPath), { recursive: true });
   fs.writeFileSync(outputPath, html);
 
+  updateNewsIndex(REPO_ROOT, { dateIso, title: draft.title, slug: draft.slug, metaDescription: draft.metaDescription });
+
   console.log(`Draft written to ${relativePath}`);
+  console.log('news/index.html updated with new card.');
 }
 
 main()
