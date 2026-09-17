@@ -42,13 +42,20 @@ export function articleFilePath(dateIso, slug) {
 }
 
 /** Renders a complete HTML document for one news/ article. */
-export function renderArticle({ title, metaDescription, bodyHtml, dateIso, slug }) {
+export function renderArticle({ title, metaDescription, bodyHtml, dateIso, slug, tags = [] }) {
   if (!SLUG_PATTERN.test(slug)) {
     throw new Error(`Invalid slug: "${slug}" (must be kebab-case)`);
   }
   const url = `https://borrowclever.ie/news/${dateIso}-${slug}.html`;
   const safeTitle = escapeHtml(title);
   const safeDescription = escapeHtml(metaDescription);
+  const safeTags = tags.map(escapeHtml);
+  const keywordsMeta = safeTags.length
+    ? `<meta name="keywords" content="${safeTags.join(', ')}">\n`
+    : '';
+  const tagChips = safeTags.length
+    ? `\n    <div class="tag-list">${safeTags.map((t) => `<span class="tag-chip">${t}</span>`).join('')}</div>`
+    : '';
 
   const jsonLd = [
     {
@@ -67,6 +74,7 @@ export function renderArticle({ title, metaDescription, bodyHtml, dateIso, slug 
       datePublished: dateIso,
       dateModified: dateIso,
       inLanguage: 'en-IE',
+      ...(tags.length ? { keywords: tags.join(', ') } : {}),
       publisher: { '@type': 'Organization', name: 'BorrowClever', url: 'https://borrowclever.ie' },
       isPartOf: { '@type': 'WebSite', url: 'https://borrowclever.ie', name: 'BorrowClever' },
     },
@@ -88,7 +96,7 @@ export function renderArticle({ title, metaDescription, bodyHtml, dateIso, slug 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${safeTitle} | BorrowClever</title>
 <meta name="description" content="${safeDescription}">
-<meta name="robots" content="index, follow">
+${keywordsMeta}<meta name="robots" content="index, follow">
 <link rel="canonical" href="${url}">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="BorrowClever">
@@ -119,6 +127,8 @@ ${escapeForInlineScript(JSON.stringify(jsonLd, null, 2))}
 .content ul, .content ol { margin: 0.5rem 0 1rem 1.25rem; display: flex; flex-direction: column; gap: 0.4rem; }
 .content ul li, .content ol li { font-size: 0.92rem; color: #888; line-height: 1.65; }
 .content a { color: #22c55e; }
+.tag-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+.tag-chip { font-size: 0.72rem; font-weight: 600; color: #888; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 999px; padding: 0.3rem 0.7rem; }
 @media (max-width: 900px) { .content { padding: 3rem 5%; } }
 </style>
 </head>
@@ -152,7 +162,7 @@ ${escapeForInlineScript(JSON.stringify(jsonLd, null, 2))}
 <div class="page-header">
   <div class="page-header-inner">
     <div class="eyebrow">News</div>
-    <h1>${safeTitle}</h1>
+    <h1>${safeTitle}</h1>${tagChips}
   </div>
 </div>
 
