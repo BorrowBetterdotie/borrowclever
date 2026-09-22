@@ -211,6 +211,15 @@ function ldScript(blocks) {
     }
   }
 
+  // Same for news/ articles written by scripts/content-agent/draft-article.js.
+  const newsDir = path.join(__dirname, 'news');
+  if (fs.existsSync(newsDir)) {
+    for (const file of fs.readdirSync(newsDir).sort()) {
+      if (!file.endsWith('.html')) continue;
+      pages.push({ loc: `/news/${file}`, lastmod: buildDate, changefreq: 'monthly', priority: '0.6' });
+    }
+  }
+
   const xml =
     `<?xml version="1.0" encoding="UTF-8"?>\n` +
     `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
