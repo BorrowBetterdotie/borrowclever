@@ -51,6 +51,37 @@ test('renderArticle includes valid JSON-LD', () => {
   assert.equal(jsonLd[1].headline, 'Test Article');
 });
 
+test('renderArticle includes keywords meta, JSON-LD keywords, and tag chips when tags are given', () => {
+  const html = renderArticle({
+    title: 'ECB Rate Watch',
+    metaDescription: "A roundup of this week's Irish financial news.",
+    bodyHtml: '<p>Body content.</p>',
+    dateIso: '2026-09-08',
+    slug: 'ecb-rate-watch',
+    tags: ['ECB', 'Interest Rates'],
+  });
+
+  assert.match(html, /<meta name="keywords" content="ECB, Interest Rates">/);
+  assert.match(html, /<div class="tag-list"><span class="tag-chip">ECB<\/span><span class="tag-chip">Interest Rates<\/span><\/div>/);
+
+  const match = html.match(/<script type="application\/ld\+json">\n([\s\S]*?)\n<\/script>/);
+  const jsonLd = JSON.parse(match[1]);
+  assert.equal(jsonLd[1].keywords, 'ECB, Interest Rates');
+});
+
+test('renderArticle omits keywords meta and tag chips when no tags are given', () => {
+  const html = renderArticle({
+    title: 'ECB Rate Watch',
+    metaDescription: "A roundup of this week's Irish financial news.",
+    bodyHtml: '<p>Body content.</p>',
+    dateIso: '2026-09-08',
+    slug: 'ecb-rate-watch',
+  });
+
+  assert.doesNotMatch(html, /name="keywords"/);
+  assert.doesNotMatch(html, /class="tag-list"/);
+});
+
 test('renderArticle rejects a non-kebab-case slug', () => {
   assert.throws(() => {
     renderArticle({

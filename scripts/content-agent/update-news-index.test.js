@@ -59,6 +59,29 @@ test('insertNewsCard bumps the CollectionPage dateModified', () => {
   assert.match(html, /"@type": "CollectionPage",\s*"dateModified": "2026-09-14"/);
 });
 
+test('insertNewsCard renders tag chips when tags are provided', () => {
+  const html = insertNewsCard(FIXTURE, {
+    dateIso: '2026-09-14',
+    title: 'New Article',
+    slug: 'new-article',
+    metaDescription: 'desc',
+    tags: ['ECB', 'Inflation'],
+  });
+
+  assert.match(html, /<span class="news-card-tags"><span class="tag-chip">ECB<\/span><span class="tag-chip">Inflation<\/span><\/span>/);
+});
+
+test('insertNewsCard omits the tags span when no tags are given', () => {
+  const html = insertNewsCard(FIXTURE, {
+    dateIso: '2026-09-14',
+    title: 'New Article',
+    slug: 'new-article',
+    metaDescription: 'desc',
+  });
+
+  assert.doesNotMatch(html, /news-card-tags/);
+});
+
 test('insertNewsCard throws if the news-list marker is missing', () => {
   assert.throws(() => {
     insertNewsCard('<div>no list here</div>', {
