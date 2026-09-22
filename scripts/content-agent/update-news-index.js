@@ -27,12 +27,15 @@ function formatDate(dateIso) {
   return date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 }
 
-function renderCard({ dateIso, title, slug, metaDescription }) {
+function renderCard({ dateIso, title, slug, metaDescription, tags = [] }) {
   const href = `/news/${dateIso}-${slug}.html`;
+  const tagList = tags.length
+    ? `\n      <span class="news-card-tags">${tags.map((t) => `<span class="tag-chip">${escapeHtml(t)}</span>`).join('')}</span>`
+    : '';
   return `    <a href="${href}" class="news-card">
       <span class="news-card-date">${formatDate(dateIso)}</span>
       <span class="news-card-title">${escapeHtml(title)}</span>
-      <span class="news-card-desc">${escapeHtml(metaDescription)}</span>
+      <span class="news-card-desc">${escapeHtml(metaDescription)}</span>${tagList}
     </a>`;
 }
 
