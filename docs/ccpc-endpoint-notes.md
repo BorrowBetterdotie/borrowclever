@@ -186,6 +186,64 @@ cross-check script still applies a polite delay and identifying
 User-Agent regardless, since this is an internal tool being used outside
 its intended (browser, single comparison run) context.
 
+## Mortgage endpoints (added 2026-07-22)
+
+Mortgages are **not** on the `/loan/get-loans` endpoint — TypeId 9–15
+return `[]` even at mortgage-scale `Amount`/`Term`. They live on three
+dedicated endpoints, found by grepping the Next.js chunks of the CCPC's
+mortgage comparison tool pages
+(`www.ccpc.ie/manage-your-money/buying-a-home/mortgage-comparison-tools/...`):
+
+```
+POST https://compare.ccpc.ie/mortgage/get-first-time-buyers-mortgages
+POST https://compare.ccpc.ie/mortgage/get-home-movers-mortgages
+POST https://compare.ccpc.ie/mortgage/get-switchers-mortgages
+Content-Type: application/json
+
+{"typeId": 10, "subProductType": "All", "provider": "All",
+ "houseValue": 333333, "depositAmount": 33333, "amount": 300000,
+ "term": 25, "isCustomTerm": false, "berRating": "C1",
+ "feature": "All", "sortBy": "FullRate"}
+```
+
+Key differences from the loans endpoint:
+
+- Fields are **camelCase**, not PascalCase (the loans endpoint 500s on
+  camelCase; the mortgage endpoints use it — do not assume one convention
+  across the API).
+- `term` is in **years**. `typeId: 10` is the mortgage product type (also
+  used by `text-panel/get-help-text-details` for mortgage help text).
+- **LTV filters server-side**: the derived LTV from
+  `houseValue`/`depositAmount`/`amount` determines which LTV-banded
+  products are returned (e.g. a 90% LTV query returns "LTV over 80%"
+  products; a 60% query returns "LTV up to 60%" bands). To capture every
+  band you must query multiple deposit scenarios.
+- **`berRating` does NOT filter server-side** — responses are
+  byte-identical for `berRating: "A1"` vs `"C1"`. Each product instead
+  carries a `BER` array (`["A","B"]` for green rates, all letters +
+  `"Exempt"` when unconditional) and the frontend filters client-side.
+- FTB and home-mover responses carry identical pricing (verified 0 rate
+  differences across matching products); switchers get a separate
+  116-product set with `MortgageCustType: "Switchers"`.
+
+Response fields (per product): `ProviderName`, `ProductName` (embeds the
+LTV band as free text), `SubProductType` ("5 Year fixed" / "Variable"),
+`MortgageCustType`, `DiscountedRate` (initial rate — matches
+lender-published headline), `DiscountedTerm` (fixed years),
+`FollowOnRate` (roll-to variable), `FullRate` (**APRC** — confirmed by
+cross-checking AIB: 1yr fixed >80% at 3.50% rolling to 4.15% variable
+gives FullRate 4.18), `BER` array, `Term`, `Website`, plus the same
+numeric-keyed attribute objects as other endpoints (fees, cashback —
+field Names "Cashback" / "Cashback description").
+
+Ten providers as of 2026-07-22: AIB, Avant Money, Bank of Ireland,
+Credit Union Mortgages, EBS d.a.c, Haven Mortgages Limited, ICS
+Mortgages, MoCo, Nua Money Limited, ptsb. (Finance Ireland is absent —
+their own site confirms new-business lending is closed.)
+
+Used as data source + cross-check for `mortgages.json` (see
+`docs/mortgage-market-research-2026-07-22.md`).
+
 ## Re-verification
 
 If `check-rates-ccpc.mjs` starts reporting `CCPC_SCHEMA_CHANGED_OR_UNAVAILABLE`
