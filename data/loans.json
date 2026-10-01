@@ -1,6 +1,6 @@
 {
   "meta": {
-    "last_full_review": "2026-07-22"
+    "last_full_review": "2026-09-15"
   },
   "loans": [
     {
@@ -9,7 +9,7 @@
       "product": "SBCI Home Energy Upgrade",
       "icon": "BOI",
       "iconCls": "boi",
-      "apr": 2.95,
+      "apr": 3.00,
       "rateType": "Variable",
       "green": true,
       "seai": true,
@@ -63,6 +63,16 @@
       "notes": "Electric or plug-in hybrid only / energy efficiency works"
     },
     {
+      "id": "revolut-personal",
+      "lender": "Revolut",
+      "product": "Personal Loan",
+      "icon": "REV",
+      "iconCls": "rev",
+      "apr": 6.50,
+      "rateType": "Variable",
+      "notes": "Best-case rate shown — Revolut's own €10,000/60-month representative example (6.31% variable / 6.5% APR). Range 6.5–12.99% APR by credit score. €1k–€50k, up to 60 months"
+    },
+    {
       "id": "ptsb-personal",
       "lender": "PTSB",
       "product": "Personal Loan",
@@ -100,16 +110,6 @@
       "homepage": true
     },
     {
-      "id": "revolut-personal",
-      "lender": "Revolut",
-      "product": "Personal Loan",
-      "icon": "REV",
-      "iconCls": "rev",
-      "apr": 8.41,
-      "rateType": "Variable",
-      "notes": "Average rate shown. Range 6.5–12.99% by credit score. €1k–€50k, up to 60 months"
-    },
-    {
       "id": "avant-personal",
       "lender": "Avant Money",
       "product": "Personal Loan (under €30k)",
@@ -118,16 +118,6 @@
       "apr": 8.50,
       "rateType": "Fixed",
       "notes": "Max APR 19.9%. €5k–€29,999, up to 84 months"
-    },
-    {
-      "id": "aib-home-improvement",
-      "lender": "AIB",
-      "product": "Home Improvement Loan",
-      "icon": "AIB",
-      "iconCls": "aib",
-      "apr": 8.65,
-      "rateType": "Variable",
-      "notes": "€1k–€75k, up to 120 months"
     },
     {
       "id": "firstchoice-cu",
@@ -150,6 +140,16 @@
       "typeNote": "3-hour decision",
       "notes": "3-hour decision for existing customers. €1k–€75k, up to 60 months",
       "homepage": true
+    },
+    {
+      "id": "aib-home-improvement",
+      "lender": "AIB",
+      "product": "Home Improvement Loan",
+      "icon": "AIB",
+      "iconCls": "aib",
+      "apr": 8.95,
+      "rateType": "Variable",
+      "notes": "AIB does not price a separate Home Improvement Loan — uses the same rate as AIB Personal Loan (8.65% variable / 8.95% APR). €1k–€75k, up to 120 months"
     },
     {
       "id": "cu-average",
