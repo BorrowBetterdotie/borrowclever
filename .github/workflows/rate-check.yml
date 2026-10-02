@@ -38,6 +38,12 @@ jobs:
           node scripts/append-rate-history.mjs
           node scripts/build-rate-tracker.mjs
 
+      # Move the "Rates verified" stamp on loans.html and cards.html to
+      # today. It only goes live when the PR below is merged, so merging is
+      # the sign-off that flagged rows were reviewed (see PR body).
+      - name: Stamp loans and cards pages as verified
+        run: node scripts/stamp-verified.mjs
+
       # main is protected (PRs only), so results are pushed to a fresh
       # branch and opened as a PR rather than committed directly.
       - name: Commit results to a branch
@@ -45,7 +51,7 @@ jobs:
         run: |
           git config user.name "borrowclever-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add rates/ rate-tracker/
+          git add rates/ rate-tracker/ data/loans.json data/cards.json loans.html cards.html sitemap.xml
           if git diff --staged --quiet; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
@@ -66,7 +72,9 @@ jobs:
             --base main \
             --head "${{ steps.commit.outputs.branch }}" \
             --title "Rate check: $(date +%Y-%m-%d)" \
-            --body "Automated fortnightly rate check results. Check outcome: ${{ steps.check.outcome }}. CCPC cross-check outcome: ${{ steps.check_ccpc.outcome }}."
+            --body "Automated fortnightly rate check results. Check outcome: ${{ steps.check.outcome }}. CCPC cross-check outcome: ${{ steps.check_ccpc.outcome }}.
+
+          ⚠️ This PR also moves the **Rates verified** stamp on loans.html and cards.html to $(date +'%-d %B %Y'). Before merging, resolve every CHANGED / PARSE_FAILED / UNREACHABLE row in rates/CHANGES-$(date +%Y-%m-%d).md (correct products.json and data/*.json, or confirm the published rate by hand). If you can't, drop the changes to loans.html, cards.html, data/loans.json, data/cards.json and sitemap.xml from this PR before merging."
 
       - name: Fail workflow if issues detected
         if: always() && (steps.check.outcome == 'failure' || steps.check_ccpc.outcome == 'failure')
