@@ -361,6 +361,7 @@ ${JSON.stringify(jsonld, null, 2)}
   <ul class="nav-links">
     <li><a href="/loans.html">Compare loans</a></li>
     <li><a href="/cards.html">Compare cards</a></li>
+    <li><a href="/savings.html">Compare savings</a></li>
     <li><a href="/rate-tracker/" class="active">Rate tracker</a></li>
     <li><a href="/calculator/">Calculator</a></li>
     <li><a href="/#signup" class="nav-cta">Newsletter</a></li>
@@ -374,6 +375,7 @@ ${JSON.stringify(jsonld, null, 2)}
 <div class="mobile-nav" id="mobile-nav">
   <a href="/loans.html">Compare loans</a>
   <a href="/cards.html">Compare cards</a>
+  <a href="/savings.html">Compare savings</a>
   <a href="/rate-tracker/" class="active">Rate tracker</a>
   <a href="/calculator/">Calculator</a>
   <a href="/#signup" class="mobile-cta">Newsletter</a>
@@ -434,6 +436,8 @@ ${groupSections}
   <a href="/" class="footer-logo">Borrow<span>Clever</span></a>
   <div class="footer-links">
     <a href="/about.html">About</a>
+    <a href="/guides/">Guides</a>
+    <a href="/news/">News</a>
     <a href="/how-we-make-money.html">How we make money</a>
     <a href="/privacy.html">Privacy Policy</a>
   </div>
