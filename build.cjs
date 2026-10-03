@@ -190,6 +190,7 @@ function ldScript(blocks) {
     { loc: '/calculator/',   lastmod: buildDate,                   changefreq: 'monthly', priority: '0.8' },
     { loc: '/about.html',   lastmod: buildDate,                    changefreq: 'monthly', priority: '0.4' },
     { loc: '/how-we-make-money.html', lastmod: buildDate,          changefreq: 'monthly', priority: '0.4' },
+    { loc: '/api-docs.html', lastmod: buildDate,                   changefreq: 'monthly', priority: '0.4' },
     { loc: '/privacy.html', lastmod: buildDate,                    changefreq: 'monthly', priority: '0.2' },
   ];
 

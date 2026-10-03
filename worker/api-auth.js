@@ -25,13 +25,17 @@ export function todayUTC() {
   return new Date().toISOString().slice(0, 10);
 }
 
-export function secondsUntilNextUTCMidnight() {
-  const now = new Date();
-  const nextMidnight = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + 1);
-  return Math.ceil((nextMidnight - now.getTime()) / 1000);
+export function monthStartUTC() {
+  return todayUTC().slice(0, 7) + "-01";
 }
 
-// Looks up a presented key. Returns { ok: true, keyHash, dailyLimit } or
+export function secondsUntilNextUTCMonth() {
+  const now = new Date();
+  const nextMonth = Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 1, 1);
+  return Math.ceil((nextMonth - now.getTime()) / 1000);
+}
+
+// Looks up a presented key. Returns { ok: true, keyHash, monthlyLimit } or
 // { ok: false, status, body } ready to hand straight to Response.json().
 export async function authenticateApiKey(request, env) {
   const auth = request.headers.get("authorization") || "";
@@ -50,7 +54,7 @@ export async function authenticateApiKey(request, env) {
 
   const keyHash = await hashApiKey(match[1]);
   const row = await env.DB.prepare(
-    "SELECT key_hash, daily_limit, status FROM api_keys WHERE key_hash = ?"
+    "SELECT key_hash, monthly_limit, status FROM api_keys WHERE key_hash = ?"
   ).bind(keyHash).first();
 
   if (!row) {
@@ -60,14 +64,16 @@ export async function authenticateApiKey(request, env) {
     return { ok: false, status: 401, body: { error: { code: "revoked", message: "This API key has been revoked." } } };
   }
 
-  return { ok: true, keyHash: row.key_hash, dailyLimit: row.daily_limit };
+  return { ok: true, keyHash: row.key_hash, monthlyLimit: row.monthly_limit };
 }
 
-export async function getUsageToday(env, keyHash) {
+// Usage rows stay per-day (handy for spotting spikes); the limit is checked
+// against the sum since the 1st of the current UTC month.
+export async function getUsageThisMonth(env, keyHash) {
   const row = await env.DB.prepare(
-    "SELECT count FROM api_usage WHERE key_hash = ? AND day = ?"
-  ).bind(keyHash, todayUTC()).first();
-  return row ? row.count : 0;
+    "SELECT COALESCE(SUM(count), 0) AS used FROM api_usage WHERE key_hash = ? AND day >= ?"
+  ).bind(keyHash, monthStartUTC()).first();
+  return row ? row.used : 0;
 }
 
 // Caller wraps this in ctx.waitUntil(...run()) — same fire-and-forget

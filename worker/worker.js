@@ -15,7 +15,7 @@
  */
 
 import { PRODUCTS } from "./products.generated.js";
-import { generateApiKey, hashApiKey, authenticateApiKey, getUsageToday, usageIncrementStatement, secondsUntilNextUTCMidnight } from "./api-auth.js";
+import { generateApiKey, hashApiKey, authenticateApiKey, getUsageThisMonth, usageIncrementStatement, secondsUntilNextUTCMonth } from "./api-auth.js";
 import { API_DATA } from "./api-data.generated.js";
 
 const BOT_RE = /bot|crawl|spider|slurp|bingpreview|facebookexternalhit|embedly|pinterest|whatsapp|telegram|discord|slackbot|twitterbot|linkedinbot|headless|lighthouse|gtmetrix|pingdom|uptimerobot|monitor|curl|wget|python-requests|node-fetch|go-http-client|okhttp|axios/i;
@@ -108,6 +108,10 @@ async function handleStats(request, env) {
   return new Response(html, { headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" } });
 }
 
+// Default monthly request allowance per tier. Enterprise has no default:
+// the limit is agreed per customer and passed as monthly_limit.
+const TIER_LIMITS = { free: 100, paid: 10000, enterprise: null };
+
 async function handleIssueKey(request, env) {
   const token = request.headers.get("x-admin-token") || "";
   if (!env.ADMIN_TOKEN || token !== env.ADMIN_TOKEN) {
@@ -122,20 +126,31 @@ async function handleIssueKey(request, env) {
   }
 
   const email = String(payload.email || "").trim();
-  const tier = payload.tier === "paid" ? "paid" : "free";
+  const tier = Object.hasOwn(TIER_LIMITS, payload.tier) ? payload.tier : "free";
   if (!email) {
     return Response.json({ error: { code: "bad_request", message: "email is required." } }, { status: 400 });
   }
 
-  const dailyLimit = tier === "paid" ? 10000 : 100;
+  // Enterprise deals are bespoke, so they must say how many calls they include.
+  let monthlyLimit = TIER_LIMITS[tier];
+  if (payload.monthly_limit !== undefined) {
+    monthlyLimit = Number(payload.monthly_limit);
+    if (!Number.isInteger(monthlyLimit) || monthlyLimit <= 0) {
+      return Response.json({ error: { code: "bad_request", message: "monthly_limit must be a positive integer." } }, { status: 400 });
+    }
+  }
+  if (monthlyLimit === null) {
+    return Response.json({ error: { code: "bad_request", message: "monthly_limit is required for enterprise keys." } }, { status: 400 });
+  }
+
   const { plaintext, keyPrefix } = generateApiKey();
   const keyHash = await hashApiKey(plaintext);
 
   await env.DB.prepare(
-    "INSERT INTO api_keys (key_hash, key_prefix, email, tier, daily_limit, status, created_at) VALUES (?, ?, ?, ?, ?, 'active', ?)"
-  ).bind(keyHash, keyPrefix, email, tier, dailyLimit, new Date().toISOString()).run();
+    "INSERT INTO api_keys (key_hash, key_prefix, email, tier, monthly_limit, status, created_at) VALUES (?, ?, ?, ?, ?, 'active', ?)"
+  ).bind(keyHash, keyPrefix, email, tier, monthlyLimit, new Date().toISOString()).run();
 
-  return Response.json({ key: plaintext, key_prefix: keyPrefix, tier, daily_limit: dailyLimit });
+  return Response.json({ key: plaintext, key_prefix: keyPrefix, tier, monthly_limit: monthlyLimit });
 }
 
 async function handleKeyUsage(request, env) {
@@ -145,7 +160,7 @@ async function handleKeyUsage(request, env) {
   }
 
   const rows = await env.DB.prepare(
-    "SELECT k.key_prefix, k.email, k.tier, k.daily_limit, k.status, " +
+    "SELECT k.key_prefix, k.email, k.tier, k.monthly_limit, k.status, " +
     "SUM(CASE WHEN u.day >= date('now','start of month') THEN u.count ELSE 0 END) AS this_month, " +
     "SUM(u.count) AS all_time " +
     "FROM api_keys k LEFT JOIN api_usage u ON u.key_hash = k.key_hash " +
@@ -161,14 +176,14 @@ async function handleApi(request, env, ctx, resource) {
     return Response.json(auth.body, { status: auth.status });
   }
 
-  const usedToday = await getUsageToday(env, auth.keyHash);
-  if (usedToday >= auth.dailyLimit) {
-    const retryAfter = secondsUntilNextUTCMidnight();
+  const usedThisMonth = await getUsageThisMonth(env, auth.keyHash);
+  if (usedThisMonth >= auth.monthlyLimit) {
+    const retryAfter = secondsUntilNextUTCMonth();
     return Response.json(
       {
         error: {
           code: "rate_limited",
-          message: `Daily limit of ${auth.dailyLimit} requests reached.`,
+          message: `Monthly limit of ${auth.monthlyLimit} requests reached.`,
           reset: new Date(Date.now() + retryAfter * 1000).toISOString(),
         },
       },
