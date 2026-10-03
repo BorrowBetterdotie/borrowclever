@@ -4,17 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>API Docs | BorrowClever</title>
-<meta name="description" content="BorrowClever Loans & Cards API: authenticated JSON access to Ireland's independent loan and credit card rate comparisons.">
+<meta name="description" content="BorrowClever Loans &amp; Cards API: JSON access to Irish personal loan and credit card rates. Free for non-commercial use, Paid from €29/month.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://borrowclever.ie/api-docs.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="BorrowClever">
 <meta property="og:url" content="https://borrowclever.ie/api-docs.html">
 <meta property="og:title" content="API Docs | BorrowClever">
-<meta property="og:description" content="BorrowClever Loans & Cards API: authenticated JSON access to Ireland's independent loan and credit card rate comparisons.">
+<meta property="og:description" content="BorrowClever Loans &amp; Cards API: JSON access to Irish personal loan and credit card rates. Free for non-commercial use, Paid from €29/month.">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="API Docs | BorrowClever">
-<meta name="twitter:description" content="BorrowClever Loans & Cards API: authenticated JSON access to Ireland's independent loan and credit card rate comparisons.">
+<meta name="twitter:description" content="BorrowClever Loans &amp; Cards API: JSON access to Irish personal loan and credit card rates. Free for non-commercial use, Paid from €29/month.">
 <link rel="stylesheet" href="site.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,6 +37,14 @@
 .content pre code { background: none; padding: 0; }
 .info-box { background: rgba(34,197,94,0.06); border: 1px solid rgba(34,197,94,0.2); border-radius: 12px; padding: 1.25rem 1.5rem; margin: 2rem 0; }
 .info-box p { font-size: 0.88rem; color: #f0f0f0; margin: 0; font-weight: 500; }
+.plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1rem 0 1.5rem; }
+.plan { background: #141414; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1.25rem 1.25rem 0.75rem; }
+.plan-name { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #4ade80; margin-bottom: 0.4rem; }
+.plan-price { font-size: 1.5rem; font-weight: 700; color: #f0f0f0; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+.plan-price span { font-size: 0.85rem; font-weight: 500; color: rgba(255,255,255,0.6); }
+.content .plan ul { margin-left: 1rem; }
+.content .plan ul li { font-size: 0.85rem; }
+@media (max-width: 700px) { .plans { grid-template-columns: 1fr; } }
 .divider { border: none; border-top: 1px solid rgba(255,255,255,0.08); margin: 2rem 0; }
 @media (max-width: 900px) { .content { padding: 3rem 5%; } }
 </style>
@@ -80,7 +88,41 @@
   <h2>Base URL and authentication</h2>
   <p>All requests require an API key, sent as a bearer token:</p>
   <pre><code>Authorization: Bearer bc_live_your_key_here</code></pre>
-  <p>Keys are issued manually. Email <a href="mailto:hello@borrowclever.ie">hello@borrowclever.ie</a> to request one.</p>
+  <p>To get a key, <a href="mailto:hello@borrowclever.ie?subject=API%20key%20request&amp;body=Name%3A%0ACompany%20/%20project%20%28if%20any%29%3A%0AWhat%20you%27ll%20use%20the%20data%20for%3A%0APlan%20%28Free%20non-commercial%20/%20Paid%20/%20Enterprise%29%3A%0ARoughly%20how%20many%20requests%20per%20month%3A%0A">email hello@borrowclever.ie</a> with your name, what you'll use the data for, which plan you want and roughly how many requests a month you expect. Keys are issued by hand.</p>
+
+  <hr class="divider">
+
+  <h2>Plans</h2>
+  <div class="plans">
+    <div class="plan">
+      <div class="plan-name">Free</div>
+      <div class="plan-price">€0</div>
+      <ul>
+        <li>100 requests/month</li>
+        <li>Non-commercial use only</li>
+        <li>Loans and cards endpoints</li>
+      </ul>
+    </div>
+    <div class="plan">
+      <div class="plan-name">Paid</div>
+      <div class="plan-price">€29<span>/month</span></div>
+      <ul>
+        <li>10,000 requests/month</li>
+        <li>Commercial use</li>
+        <li>Loans and cards endpoints</li>
+      </ul>
+    </div>
+    <div class="plan">
+      <div class="plan-name">Enterprise</div>
+      <div class="plan-price">Contact us</div>
+      <ul>
+        <li>Custom request volume</li>
+        <li>Commercial use</li>
+        <li>Custom terms and invoicing</li>
+      </ul>
+    </div>
+  </div>
+  <p><strong>Non-commercial</strong> means personal projects, research, education and journalism. If the data is used in a product or service you charge for, sell advertising on, or run for a business, it's commercial and needs a Paid or Enterprise plan. Paid plans are invoiced monthly. For Enterprise, <a href="mailto:hello@borrowclever.ie?subject=API%20key%20request&amp;body=Name%3A%0ACompany%20/%20project%20%28if%20any%29%3A%0AWhat%20you%27ll%20use%20the%20data%20for%3A%0APlan%20%28Free%20non-commercial%20/%20Paid%20/%20Enterprise%29%3A%0ARoughly%20how%20many%20requests%20per%20month%3A%0A">get in touch</a>.</p>
 
   <hr class="divider">
 
@@ -166,12 +208,13 @@
   <hr class="divider">
 
   <h2>Rate limits</h2>
-  <p>Limits are per key, per UTC day:</p>
+  <p>Limits are per key, per calendar month (UTC), and reset at midnight UTC on the 1st:</p>
   <ul>
-    <li><strong>Free</strong> — 100 requests/day</li>
-    <li><strong>Paid</strong> — 10,000 requests/day</li>
+    <li><strong>Free</strong> — 100 requests/month</li>
+    <li><strong>Paid</strong> — 10,000 requests/month</li>
+    <li><strong>Enterprise</strong> — as agreed</li>
   </ul>
-  <p>Exceeding your limit returns <code>429</code> with a <code>Retry-After</code> header (seconds until the next UTC midnight).</p>
+  <p>Exceeding your limit returns <code>429</code> with a <code>Retry-After</code> header (seconds until the limit resets). Rates change at most a few times a month, so caching responses for a day is plenty.</p>
 
   <hr class="divider">
 
@@ -180,7 +223,7 @@
   <ul>
     <li><code>401 unauthorized</code> — missing or unknown key</li>
     <li><code>401 revoked</code> — key has been revoked</li>
-    <li><code>429 rate_limited</code> — daily limit reached</li>
+    <li><code>429 rate_limited</code> — monthly limit reached</li>
   </ul>
 
   <div class="info-box">
@@ -196,6 +239,7 @@
     <a href="guides/">Guides</a>
     <a href="news/">News</a>
     <a href="how-we-make-money.html">How we make money</a>
+    <a href="api-docs.html">API</a>
     <a href="privacy.html">Privacy Policy</a>
   </div>
   <div class="footer-note">BorrowClever is an independent financial comparison service. Rates sourced from lender websites and CCPC.ie. Always verify with the lender before applying. This is not financial advice. © 2026 BorrowClever Ireland Limited.</div>

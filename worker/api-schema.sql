@@ -7,8 +7,8 @@ CREATE TABLE IF NOT EXISTS api_keys (
   key_hash    TEXT    PRIMARY KEY,          -- sha256(plaintext key), hex — never store the plaintext key
   key_prefix  TEXT    NOT NULL,              -- first 8 chars after "bc_live_", for display/support lookups only
   email       TEXT    NOT NULL,
-  tier        TEXT    NOT NULL DEFAULT 'free',    -- 'free' | 'paid' — descriptive label, not what's enforced
-  daily_limit INTEGER NOT NULL DEFAULT 100,        -- the number actually checked on every request
+  tier          TEXT    NOT NULL DEFAULT 'free',  -- 'free' | 'paid' | 'enterprise' — descriptive label, not what's enforced
+  monthly_limit INTEGER NOT NULL DEFAULT 100,     -- requests per UTC calendar month; the number actually checked on every request
   status      TEXT    NOT NULL DEFAULT 'active',   -- 'active' | 'revoked'
   created_at  TEXT    NOT NULL
 );
