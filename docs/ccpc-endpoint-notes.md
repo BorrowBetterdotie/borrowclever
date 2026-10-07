@@ -69,9 +69,9 @@ checking.
 
 Only `TypeId: 5` is relevant to borrowclever's loan tables. TypeId 3/4
 (credit cards) use a **separate endpoint**
-(`POST /credit-card/get-credit-cards`, documented in an earlier session —
-not re-verified here since this task is loans-only) and are out of scope
-for `check-rates-ccpc.mjs`.
+(`POST /credit-card/get-credit-cards`) — see "Credit card endpoint" below.
+`check-rates-ccpc.mjs` stays loans-only; `check-rates.mjs` uses both
+endpoints as its fallback for lender pages that block automated requests.
 
 ## Response field shape (TypeId 5)
 
@@ -193,3 +193,51 @@ across the board, re-run the TypeId sweep (`Amount: 10000, Term: 5,
 TypeId: 1..10`) and diff the field shape against this document before
 assuming the integration needs a rewrite — CCPC could have renamed fields,
 changed the TypeId taxonomy, or moved the endpoint.
+
+## Credit card endpoint (verified 2026-10-07)
+
+```
+POST https://compare.ccpc.ie/credit-card/get-credit-cards
+Content-Type: application/json
+
+{"TypeId": 3}
+```
+
+- `TypeId: 3` returns 15 credit cards (AIB, BOI, PTSB, An Post Money, Avant
+  Money, Revolut). `Amount`/`Term`/`Balance` in the body made no difference.
+  `TypeId: 4` is student cards (not tracked).
+- Top-level `ProviderName`, `ProductName`, `Website`, `LastEdited`. The rates
+  are **not** top-level fields — they sit in numeric-keyed attribute objects,
+  looked up by `Name`:
+  - `"APR:"` — representative APR, e.g. `"22.9"` (string). This is what
+    `check-rates.mjs` compares with products.json's `apr`.
+  - `"Annual (nominal) interest rate charged on purchases:"` — matches
+    products.json's `purchaseRate`.
+  - `"Introductory rate on balance transferred:"` / `"…on new purchases:"` —
+    free text.
+- On 2026-10-07 every tracked card's `"APR:"` matched products.json. BOI
+  Affinity is the only tracked card with no CCPC entry (checked on BOI's own
+  page instead, which is readable).
+
+## Fallback for bot-protected lender pages (2026-10-07)
+
+AIB (`aib.ie`, `personal.aib.ie`) and PTSB (`ptsb.ie`) return an Akamai
+"Access Denied" HTTP 403 to every non-browser client, including requests
+with a browser User-Agent and normal Accept headers, and including their
+homepages, so it isn't a moved URL. Revolut returns a Cloudflare challenge
+(`cf-mitigated: challenge`). This is deliberate bot protection, so the
+checker doesn't try to get round it.
+
+Instead, `lenders.csv`'s `ccpc_product` column maps each row to its CCPC
+entry explicitly as `loan|<ProviderName>|<ProductName>` or
+`card|<ProviderName>|<ProductName>` (exact name, case-insensitive; a unique
+prefix also matches, for CCPC names with a rate range in them such as
+"Revolut Personal Loan from 6.50% to 12.99%"). When a lender page is
+unreachable or unparseable, `check-rates.mjs` checks the row against that
+CCPC figure instead and writes `source=ccpc` in the snapshot CSV. Every row
+also gets a `ccpc_rate` column, so a lender-page parser misread is easy to
+spot.
+
+`check-rates-ccpc.mjs` ignores `source=ccpc` snapshot rows when it looks for
+the lender-scraper's figure. Otherwise CCPC would be compared with itself
+and show up as a two-source CONFIRMED.
