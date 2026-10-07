@@ -335,11 +335,10 @@ function checkPublishedFigures(lenders, productsById, ccpc) {
       const dataApr = data && data.apr != null ? String(data.apr) : null;
       const pageApr = page.get(slug) ?? null;
       const productsApr = pct(product.apr ?? product.rate);
-      // products.json rows checked against CCPC's "from X%" (lenders.csv 4th
-      // field) publish the lender's advertised floor, not the APR the page shows.
-      const [ccpcKind, provider, ccpcName, field] = (row.ccpc_product || "").split("|");
-      const productsIsApr = field?.trim() !== "from";
-      const ccpcApr = row.ccpc_product ? ccpcRateFor(ccpc, [ccpcKind, provider, ccpcName].join("|")).rate : null;
+      // Uses the same CCPC figure as the products.json check, including the
+      // "from X%" field where lenders.csv asks for it (Revolut: its own €10k
+      // representative example is the 6.5% floor, not CCPC's Rate field).
+      const ccpcApr = row.ccpc_product ? ccpcRateFor(ccpc, row.ccpc_product).rate : null;
 
       const issues = [];
       if (!row.data_id) issues.push(`no data_id in lenders.csv for this ${kind}`);
@@ -349,9 +348,9 @@ function checkPublishedFigures(lenders, productsById, ccpc) {
       else if (pageApr === null) issues.push(`${src.page} row for ${slug} has no APR cell`);
       if (dataApr && pageApr && !ratesEqual(dataApr, pageApr)) issues.push(`${src.page} shows ${pageApr}%, ${src.data} has ${dataApr}%`);
       const shown = dataApr ?? pageApr;
-      if (shown && productsIsApr && productsApr && !ratesEqual(shown, productsApr)) issues.push(`products.json has ${productsApr}%`);
+      if (shown && productsApr && !ratesEqual(shown, productsApr)) issues.push(`products.json has ${productsApr}%`);
       if (shown && ccpcApr && !ratesEqual(shown, ccpcApr)) issues.push(`CCPC APR is ${ccpcApr}%`);
-      findings.push({ lender: row.lender, product: row.product, slug, dataId: row.data_id, dataApr, pageApr, productsApr: productsIsApr ? productsApr : null, ccpcApr, issues });
+      findings.push({ lender: row.lender, product: row.product, slug, dataId: row.data_id, dataApr, pageApr, productsApr, ccpcApr, issues });
     }
 
     // Products shown on the site but not tracked in lenders.csv aren't checked at all.

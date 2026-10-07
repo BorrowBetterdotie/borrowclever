@@ -105,9 +105,9 @@
       "product": "Personal Loan",
       "icon": "REV",
       "iconCls": "rev",
-      "apr": 8.31,
+      "apr": 6.50,
       "rateType": "Variable",
-      "notes": "Representative rate on €10k over 5 years (per CCPC.ie). Range 6.5–12.99% by credit score. €1k–€50k, up to 60 months"
+      "notes": "Revolut's representative example: €10k over 60 months at 6.31% variable (6.5% APR). Range 6.5–12.99% APR by credit score. €1k–€50k, up to 60 months"
     },
     {
       "id": "avant-personal",

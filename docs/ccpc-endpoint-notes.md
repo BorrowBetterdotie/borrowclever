@@ -241,3 +241,14 @@ spot.
 `check-rates-ccpc.mjs` ignores `source=ccpc` snapshot rows when it looks for
 the lender-scraper's figure. Otherwise CCPC would be compared with itself
 and show up as a two-source CONFIRMED.
+
+### Revolut personal loan: lender figure vs CCPC (2026-10-07)
+
+CCPC's `Rate` for "Revolut Personal Loan from 6.50% to 12.99%" is **8.31**
+at €10k/5 years. Revolut's own €10,000/60-month representative example,
+which Luke confirmed by hand at
+`https://www.revolut.com/en-IE/personal-loans/10000-eur-loan/`, is **6.31%
+variable / 6.5% APR** (€194.77/month, €11,686.20 total). The site publishes
+the lender's own figure. Its `lenders.csv` row uses the `|from` field, so the
+check reads 6.5 from CCPC's product name instead of 8.31. If Revolut changes
+its example, the "from" figure in CCPC's name should change too.
