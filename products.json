@@ -145,7 +145,7 @@
     "monthly": "€194.77",
     "costOfCredit": "€1,686.20",
     "totalRepayable": "€11,686.20",
-    "notes": "Best-case rate shown — Revolut's own €10,000/60-month representative example (6.31% variable / 6.5% APR). Range 6.5–12.99% APR by credit score. €1k–€50k, up to 60 months"
+    "notes": "Revolut's own €10,000/60-month representative example (6.31% variable / 6.5% APR, €194.77/month, €11,686.20 total) — confirmed by hand 7 Oct 2026 at revolut.com/en-IE/personal-loans/10000-eur-loan/ (the site blocks automated checks). Range 6.5–12.99% APR by credit score. €1k–€50k, up to 60 months"
   },
   {
     "slug": "avant-loan-personal",
