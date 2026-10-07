@@ -33,6 +33,9 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: node scripts/content-agent/draft-article.js
 
+      - name: Refresh sitemap
+        run: node scripts/build-sitemap.cjs
+
       - name: Commit draft and open PR
         id: commit
         run: |
@@ -42,6 +45,8 @@ jobs:
           if git diff --staged --quiet; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
+            # Ship the refreshed sitemap with the article so it's indexed on merge.
+            git add sitemap.xml
             branch="automated/content-$(date +%Y%m%d%H%M%S)"
             git checkout -b "$branch"
             git commit -m "Content agent: draft $(date +%Y-%m-%d)"
