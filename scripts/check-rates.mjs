@@ -18,10 +18,16 @@
 // Every row's CCPC figure is also shown alongside the scraped one, so a
 // misparsed lender page is easy to spot. See docs/ccpc-endpoint-notes.md.
 //
+// It also checks what the site actually shows: the APR in data/loans.json and
+// data/cards.json and the APR cell in loans.html and cards.html (matched via
+// lenders.csv's data_id column and each row's /go/<slug> link) must agree with
+// products.json and CCPC. Any disagreement is listed under "Page / data
+// mismatches" in the CHANGES report.
+//
 // Run:  node scripts/check-rates.mjs
 
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
-import { fetchCcpcLoans, fetchCcpcCards, ccpcAttr } from "./lib/ccpc.mjs";
+import { fetchCcpcLoans, fetchCcpcCards, ccpcAttr, CCPC_AMOUNT } from "./lib/ccpc.mjs";
 
 const USER_AGENT = "BorrowClever-RateChecker/1.0 (+https://borrowclever.ie)";
 const REQUEST_DELAY_MS = 1500;
@@ -125,6 +131,46 @@ function pctNear(html, keyword, window = 350) {
   }
 }
 
+// Visible page text for the anchored parsers below: scripts and styles
+// dropped (their JSON blobs are full of stray percentages), the entities
+// these lender pages actually use decoded, whitespace collapsed.
+function pageText(html) {
+  return html
+    .replace(/<script[\s\S]*?<\/script>/gi, " ")
+    .replace(/<style[\s\S]*?<\/style>/gi, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;|&#160;/g, " ")
+    .replace(/&#8211;|&ndash;/g, "–")
+    .replace(/&euro;|&#8364;/g, "€")
+    .replace(/&#0?37;/g, "%")
+    .replace(/\s+/g, " ");
+}
+
+const RATE = String.raw`(\d{1,2}(?:\.\d{1,2})?)\s*%`;
+
+// The rate captured by a pattern anchored on the exact wording a lender uses
+// for its representative APR (e.g. "Typical Annual Percentage Rate (APR) of
+// 22.1%"). Every match must agree — if the page quotes two different figures
+// in that wording, that's ambiguous and returns null.
+function rateAfter(html, pattern) {
+  const found = [...pageText(html).matchAll(new RegExp(pattern, "gi"))].map((m) => m[1]);
+  if (found.length === 0 || found.some((r) => !ratesEqual(r, found[0]))) return null;
+  return found[0];
+}
+
+// Lenders that tier the rate by loan size: find the tier rows ("€A … €B …")
+// matched by `rowPattern` (groups: min, max, apr) and return the APR of the tier
+// covering CCPC_AMOUNT (€10k, the site's comparison basis). The same tier can
+// be repeated in several tables on one page; they must all agree.
+function aprForAmountTier(html, rowPattern, amount = CCPC_AMOUNT) {
+  const num = (s) => Number(s.replace(/,/g, ""));
+  const hits = [...pageText(html).matchAll(new RegExp(rowPattern, "gi"))]
+    .filter((m) => num(m[1]) <= amount && amount <= num(m[2]))
+    .map((m) => m[3]);
+  if (hits.length === 0 || hits.some((r) => !ratesEqual(r, hits[0]))) return null;
+  return hits[0];
+}
+
 // Generic default: anchor on the product name from lenders.csv. Works when a
 // lender's page mentions the product by roughly the name we track it under.
 function defaultParser(html, row) {
@@ -151,11 +197,13 @@ const PARSERS = {
     const id = row.products_json_id;
     if (id.includes("sbci-energy")) return pctNear(html, "SBCI") || pctNear(html, "energy upgrade");
     if (id.includes("loan-green")) return pctNear(html, "green car") || pctNear(html, "home improvement loan");
-    if (id === "boi-card-platinum") return pctNear(html, "platinum advantage");
-    if (id === "boi-card-affinity") return pctNear(html, "affinity");
-    if (id === "boi-card-classic") return pctNear(html, "classic credit card") || pctNear(html, "classic card");
-    if (id === "boi-card-aer") return pctNear(html, "aer credit card") || pctNear(html, "aer club");
-    return pctNear(html, "personal loan") || pctNear(html, "representative apr");
+    // Card pages lead with intro offers ("0% … for first 6 months", "2.9% on
+    // balance transfers") and the nominal rate, so anchor on the
+    // representative-example wording: "Typical Annual Percentage Rate (APR) of 22.1%".
+    if (id.startsWith("boi-card-")) return rateAfter(html, String.raw`Typical Annual Percentage Rate \(APR\) of ` + RATE);
+    // Rate table rows: "€10,000 – €19,999 8.1% 8.3% …" (amount band, nominal, APR).
+    if (id === "boi-loan-personal") return aprForAmountTier(html, String.raw`€([\d,]+) [–-] €([\d,]+) \d{1,2}(?:\.\d{1,2})?% ` + RATE);
+    return null;
   },
 
   "PTSB": (html, row) => {
@@ -178,8 +226,16 @@ const PARSERS = {
   },
 
   "Avant Money": (html, row) => {
-    if (row.products_json_id === "avant-card-one") return pctNear(html, "one card") || pctNear(html, "representative apr");
-    return pctNear(html, "personal loan") || pctNear(html, "representative apr");
+    // The card page leads with 0% intro offers; its representative example
+    // reads "Annual Percentage Rate up to: 22.9%".
+    if (row.products_json_id === "avant-card-one") return rateAfter(html, String.raw`Annual Percentage Rate up to:? ` + RATE);
+    // Rate table rows: "€5,000 to €19,999 8.2% – 18.3% 8.5% – 19.9%" (band,
+    // fixed-rate range, APR range). Our figure is the APR floor of the €10k band;
+    // the page's representative example is a €30k loan, so it can't be used.
+    if (row.products_json_id === "avant-loan-personal") {
+      return aprForAmountTier(html, String.raw`€([\d,]+) to €([\d,]+) \d{1,2}(?:\.\d{1,2})?% [–-] \d{1,2}(?:\.\d{1,2})?% ` + RATE);
+    }
+    return null;
   },
 
   // The page's loan calculator embeds the full rate table in a hidden input:
@@ -195,8 +251,11 @@ const PARSERS = {
     return null;
   },
 
+  // "The average rate charged by an ILCU affiliated credit union … for a
+  // personal loan is 10.42% APR." Other loan types on the page have their own
+  // averages, and the 12% legal maximum is quoted too, so anchor on this sentence.
   "Credit Union average": (html) =>
-    pctNear(html, "average") || pctNear(html, "ILCU") || pctNear(html, "typical"),
+    rateAfter(html, String.raw`for a personal loan is ` + RATE + String.raw` APR`),
 };
 
 function getParser(lenderName) {
@@ -232,6 +291,78 @@ function ccpcRateFor(ccpc, spec) {
     : kind === "card" ? ccpcAttr(entry, "APR:") : entry.Rate;
   const rate = raw === undefined || raw === null ? null : String(Number(raw));
   return { rate, product: `${entry.ProviderName} — ${entry.ProductName}`, detail: rate ? "" : "CCPC entry has no rate" };
+}
+
+// ── published pages vs data ─────────────────────────────────────────────
+// loans.html and cards.html are hand-maintained HTML, and data/loans.json /
+// data/cards.json (which feed /api and the homepage) are edited separately
+// from products.json. Any of them can go stale while products.json is right,
+// so check every APR the site shows: the data file, the page's APR cell, the
+// products.json value and CCPC's APR must all agree.
+// lenders.csv data_id maps each tracked product to its data/*.json id; page
+// rows are identified by their /go/<products.json slug> link.
+const PUBLISHED = {
+  loan: { data: "data/loans.json", key: "loans", page: "loans.html" },
+  card: { data: "data/cards.json", key: "cards", page: "cards.html" },
+};
+
+// slug → APR string from each <tr> of a comparison table: the
+// `<span class="apr …">8.30%</span>` cell and the row's /go/<slug> link.
+function pageAprs(html) {
+  const out = new Map();
+  for (const tr of html.split(/<tr[\s>]/).slice(1)) {
+    const slug = tr.match(/href="\/go\/([a-z0-9-]+)"/)?.[1];
+    const apr = tr.match(/<span class="apr[^"]*">\s*(\d{1,2}(?:\.\d{1,2})?)\s*%/)?.[1];
+    if (slug) out.set(slug, apr ?? null);
+  }
+  return out;
+}
+
+function checkPublishedFigures(lenders, productsById, ccpc) {
+  const read = (p) => readFileSync(new URL(`../${p}`, import.meta.url), "utf8");
+  const findings = [];
+  for (const [kind, src] of Object.entries(PUBLISHED)) {
+    const dataById = new Map(JSON.parse(read(src.data))[src.key].map((d) => [d.id, d]));
+    const page = pageAprs(read(src.page));
+    const rows = lenders.filter((r) => productsById.get(r.products_json_id)?.category === kind);
+    const trackedData = new Set(rows.map((r) => r.data_id));
+    const trackedSlugs = new Set(rows.map((r) => r.products_json_id));
+
+    for (const row of rows) {
+      const slug = row.products_json_id;
+      const product = productsById.get(slug);
+      const data = dataById.get(row.data_id);
+      const dataApr = data && data.apr != null ? String(data.apr) : null;
+      const pageApr = page.get(slug) ?? null;
+      const productsApr = pct(product.apr ?? product.rate);
+      // products.json rows checked against CCPC's "from X%" (lenders.csv 4th
+      // field) publish the lender's advertised floor, not the APR the page shows.
+      const [ccpcKind, provider, ccpcName, field] = (row.ccpc_product || "").split("|");
+      const productsIsApr = field?.trim() !== "from";
+      const ccpcApr = row.ccpc_product ? ccpcRateFor(ccpc, [ccpcKind, provider, ccpcName].join("|")).rate : null;
+
+      const issues = [];
+      if (!row.data_id) issues.push(`no data_id in lenders.csv for this ${kind}`);
+      else if (!data) issues.push(`${src.data} has no "${row.data_id}"`);
+      else if (dataApr === null) issues.push(`${src.data} "${row.data_id}" has no apr`);
+      if (!page.has(slug)) issues.push(`no ${src.page} row links to /go/${slug}`);
+      else if (pageApr === null) issues.push(`${src.page} row for ${slug} has no APR cell`);
+      if (dataApr && pageApr && !ratesEqual(dataApr, pageApr)) issues.push(`${src.page} shows ${pageApr}%, ${src.data} has ${dataApr}%`);
+      const shown = dataApr ?? pageApr;
+      if (shown && productsIsApr && productsApr && !ratesEqual(shown, productsApr)) issues.push(`products.json has ${productsApr}%`);
+      if (shown && ccpcApr && !ratesEqual(shown, ccpcApr)) issues.push(`CCPC APR is ${ccpcApr}%`);
+      findings.push({ lender: row.lender, product: row.product, slug, dataId: row.data_id, dataApr, pageApr, productsApr: productsIsApr ? productsApr : null, ccpcApr, issues });
+    }
+
+    // Products shown on the site but not tracked in lenders.csv aren't checked at all.
+    for (const id of dataById.keys()) {
+      if (!trackedData.has(id)) findings.push({ lender: dataById.get(id).lender, product: dataById.get(id).product, slug: "", dataId: id, issues: [`${src.data} "${id}" isn't mapped to any lenders.csv row (data_id), so it's never checked`] });
+    }
+    for (const slug of page.keys()) {
+      if (!trackedSlugs.has(slug)) findings.push({ lender: "", product: slug, slug, dataId: "", issues: [`${src.page} links to /go/${slug}, which isn't tracked in lenders.csv`] });
+    }
+  }
+  return findings;
 }
 
 function ratesEqual(a, b) {
@@ -350,14 +481,21 @@ async function main() {
     push({ lender, product, id, rateType, ccpcSpec, currentRate, scrapedRate, status, detail: "" });
   }
 
+  let mismatches;
+  try {
+    mismatches = checkPublishedFigures(lenders, productsById, ccpc).filter((f) => f.issues.length);
+  } catch (e) {
+    mismatches = [{ lender: "", product: "loans.html / cards.html", slug: "", dataId: "", issues: [`page/data check failed: ${(e && e.message) || e}`] }];
+  }
+
   writeSnapshot(date, results);
-  writeChangesReport(date, results);
+  writeChangesReport(date, results, mismatches);
 
   const failCount = results.filter((r) => r.status === "PARSE_FAILED" || r.status === "UNREACHABLE").length;
   const changedCount = results.filter((r) => r.status === "CHANGED").length;
-  console.log(`Checked ${results.length} products: ${results.length - failCount - changedCount} OK, ${changedCount} changed, ${failCount} need attention.`);
+  console.log(`Checked ${results.length} products: ${results.length - failCount - changedCount} OK, ${changedCount} changed, ${failCount} need attention. ${mismatches.length} page/data mismatch(es).`);
 
-  if (failCount > 0) process.exitCode = 1;
+  if (failCount > 0 || mismatches.length > 0) process.exitCode = 1;
 }
 
 function slugify(s) {
@@ -378,17 +516,22 @@ function writeSnapshot(date, results) {
   writeFileSync(new URL(`../rates/rates-${date}.csv`, import.meta.url), [header, ...lines].join("\n") + "\n");
 }
 
-function writeChangesReport(date, results) {
+function writeChangesReport(date, results, mismatches) {
   const flagged = results.filter((r) => r.status !== "OK");
   const viaCcpc = results.filter((r) => r.status === "OK" && r.source === "ccpc");
   const pctCell = (v) => (v ? `${v}%` : "—");
   let md;
-  if (flagged.length === 0) {
-    md = `No changes detected — ${results.length} products checked, all current as of ${date}.\n`;
+  if (flagged.length === 0 && mismatches.length === 0) {
+    md = `No changes detected — ${results.length} products checked, all current as of ${date}. loans.html, cards.html and data/*.json match products.json and CCPC.\n`;
   } else {
     const changed = flagged.filter((r) => r.status === "CHANGED");
     const failed = flagged.filter((r) => r.status !== "CHANGED");
-    md = `# Rate check — ${date}\n\n${flagged.length} of ${results.length} products need attention.\n`;
+    md = `# Rate check — ${date}\n\n${flagged.length} of ${results.length} products need attention. ${mismatches.length} published page/data figure${mismatches.length === 1 ? "" : "s"} disagree${mismatches.length === 1 ? "s" : ""}.\n`;
+    if (mismatches.length) {
+      md += `\n## Page / data mismatches\n\nThe APR shown on loans.html or cards.html, the one in data/*.json, products.json and CCPC's APR should all agree. Fix the stale one(s) — the page and the data file are edited by hand, separately from products.json.\n\n`;
+      md += `| Lender | Product | data/*.json | Page | products.json | CCPC APR | Problem |\n|---|---|---|---|---|---|---|\n`;
+      md += mismatches.map((f) => `| ${f.lender} | ${f.product} | ${pctCell(f.dataApr)} | ${pctCell(f.pageApr)} | ${pctCell(f.productsApr)} | ${pctCell(f.ccpcApr)} | ${f.issues.join("; ")} (\`${f.dataId || "—"}\` → \`${f.slug || "—"}\`) |`).join("\n") + "\n";
+    }
     if (changed.length) {
       md += `\n## Changed rates\n\nIf "Found" comes from the lender page and CCPC still matches "Published", the lender-page parser has most likely picked up the wrong figure (an intro offer or a different loan-size tier) — confirm before editing products.json.\n\n`;
       md += `| Lender | Product | Published | Found | Found via | CCPC | Source |\n|---|---|---|---|---|---|---|\n`;

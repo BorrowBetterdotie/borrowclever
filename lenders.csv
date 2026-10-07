@@ -1,27 +1,27 @@
-lender,product,source_url,rate_type,products_json_id,ccpc_product
-Bank of Ireland,SBCI Home Energy Upgrade,https://personalbanking.bankofireland.com/borrow/loans/home-energy-upgrade-loan-scheme/,nominal,boi-loan-sbci-energy,loan|Bank of Ireland|Home Energy Upgrade Loan Scheme
-AIB,SBCI Home Energy Upgrade,https://www.aib.ie/our-products/loans/Personal-Lending-Interest-Rates,nominal,aib-loan-sbci-energy,loan|AIB|SBCI Home Energy Upgrade Loan Scheme
-PTSB,SBCI Home Energy Upgrade,https://www.ptsb.ie/borrowing/sbci-heuls-loan/,nominal,ptsb-loan-sbci-energy,loan|ptsb|SBCI Home Energy Upgrade Loan
-AIB,Green Personal Loan,https://www.aib.ie/our-products/loans/Personal-Lending-Interest-Rates,nominal,aib-loan-green,loan|AIB|Green Personal Loan
-Bank of Ireland,Green Car / Home Improvement,https://personalbanking.bankofireland.com/borrow/loans/home-improvement-loan/,nominal,boi-loan-green,loan|Bank of Ireland|Green home improvement loan
-PTSB,Personal Loan,https://www.ptsb.ie/borrowing/loans/personal-loan/,nominal,ptsb-loan-personal,loan|ptsb|Personal Loan
-Bank of Ireland,Personal Loan,https://personalbanking.bankofireland.com/borrow/loans/personal-loan/,nominal,boi-loan-personal,loan|Bank of Ireland|Personal Loan
-An Post Money,Personal Loan,https://www.anpost.com/Money/Low-Fixed-Rate-Loans,nominal,anpost-loan-personal,loan|An Post Money|An Post Money Personal Loan
-Revolut,Personal Loan,https://www.revolut.com/en-IE/personal-loans/,nominal,revolut-loan-personal,loan|Revolut|Revolut Personal Loan|from
-Avant Money,Personal Loan (under €30k),https://www.avantmoney.ie/personal-loans,nominal,avant-loan-personal,loan|Avant Money|Personal Loan
-AIB,Home Improvement Loan,https://www.aib.ie/our-products/loans/Personal-Lending-Interest-Rates,nominal,aib-loan-home,loan|AIB|Personal Loan
-First Choice CU,Personal Loan (€15k–€25k),https://www.firstchoicecreditunion.ie/loans/personal-loans,nominal,firstchoice-loan-personal,
-AIB,Personal Loan,https://www.aib.ie/our-products/loans/personal-loan,nominal,aib-loan-personal,loan|AIB|Personal Loan
-Credit Union average,Personal Loan — ILCU affiliated,https://www.creditunion.ie/what-we-offer/loans/cu-loan-rates/,apr,cu-loan-average,loan|Credit Union|Standard Personal Loan (Rate varies by CU)
-AIB,Click Visa,https://www.aib.ie/our-products/credit-cards/click-visa-card,apr,aib-card-click,card|AIB|CLICK Visa Credit Card
-AIB,Platinum Visa,https://www.aib.ie/our-products/credit-cards/platinum-visa-card,apr,aib-card-platinum,card|AIB|Platinum Visa Card
-Revolut,Credit Card,https://www.revolut.com/en-IE/,apr,revolut-card,card|Revolut|Revolut Credit Card
-Bank of Ireland,Platinum Advantage,https://personalbanking.bankofireland.com/borrow/credit-cards/platinum-advantage-card/features-benefits/,apr,boi-card-platinum,card|Bank of Ireland|Platinum Advantage Credit Card
-Bank of Ireland,Affinity,https://personalbanking.bankofireland.com/borrow/credit-cards/affinity-cards/features-benefits/,apr,boi-card-affinity,
-Bank of Ireland,Classic,https://personalbanking.bankofireland.com/borrow/credit-cards/classic-credit-card/,apr,boi-card-classic,card|Bank of Ireland|Classic Credit Card
-PTSB,Ice Visa,https://www.ptsb.ie/everyday-banking/credit-cards/ice-visa-credit-card/,apr,ptsb-card-ice,card|ptsb|ICE Visa Credit Card
-Bank of Ireland,Aer Credit Card,https://personalbanking.bankofireland.com/borrow/credit-cards/aer-credit-card/travel-rewards/,apr,boi-card-aer,card|Bank of Ireland|Aer Credit Card
-AIB,'be',https://www.aib.ie/our-products/credit-cards/be-visa-card,apr,aib-card-be,card|AIB|be Visa Card
-An Post Money,Classic,https://www.anpost.com/Money/Credit-Card,apr,anpost-card-classic,card|An Post Money|An Post Money Classic Credit Card
-An Post Money,Flex,https://www.anpost.com/Money/Credit-Card,apr,anpost-card-flex,card|An Post Money|An Post Money Flex Credit Card
-Avant Money,One Card,https://www.avantmoney.ie/credit-cards/one-card,apr,avant-card-one,card|Avant Money|One Card
+lender,product,source_url,rate_type,products_json_id,ccpc_product,data_id
+Bank of Ireland,SBCI Home Energy Upgrade,https://personalbanking.bankofireland.com/borrow/loans/home-energy-upgrade-loan-scheme/,nominal,boi-loan-sbci-energy,loan|Bank of Ireland|Home Energy Upgrade Loan Scheme,boi-sbci-green
+AIB,SBCI Home Energy Upgrade,https://www.aib.ie/our-products/loans/Personal-Lending-Interest-Rates,nominal,aib-loan-sbci-energy,loan|AIB|SBCI Home Energy Upgrade Loan Scheme,aib-sbci-green
+PTSB,SBCI Home Energy Upgrade,https://www.ptsb.ie/borrowing/sbci-heuls-loan/,nominal,ptsb-loan-sbci-energy,loan|ptsb|SBCI Home Energy Upgrade Loan,ptsb-sbci-green
+AIB,Green Personal Loan,https://www.aib.ie/our-products/loans/Personal-Lending-Interest-Rates,nominal,aib-loan-green,loan|AIB|Green Personal Loan,aib-green-personal
+Bank of Ireland,Green Car / Home Improvement,https://personalbanking.bankofireland.com/borrow/loans/home-improvement-loan/,nominal,boi-loan-green,loan|Bank of Ireland|Green home improvement loan,boi-green-car
+PTSB,Personal Loan,https://www.ptsb.ie/borrowing/loans/personal-loan/,nominal,ptsb-loan-personal,loan|ptsb|Personal Loan,ptsb-personal
+Bank of Ireland,Personal Loan,https://personalbanking.bankofireland.com/borrow/loans/personal-loan/,nominal,boi-loan-personal,loan|Bank of Ireland|Personal Loan,boi-personal
+An Post Money,Personal Loan,https://www.anpost.com/Money/Low-Fixed-Rate-Loans,nominal,anpost-loan-personal,loan|An Post Money|An Post Money Personal Loan,anpost-personal
+Revolut,Personal Loan,https://www.revolut.com/en-IE/personal-loans/,nominal,revolut-loan-personal,loan|Revolut|Revolut Personal Loan|from,revolut-personal
+Avant Money,Personal Loan (under €30k),https://www.avantmoney.ie/personal-loans,nominal,avant-loan-personal,loan|Avant Money|Personal Loan,avant-personal
+AIB,Home Improvement Loan,https://www.aib.ie/our-products/loans/Personal-Lending-Interest-Rates,nominal,aib-loan-home,loan|AIB|Personal Loan,aib-home-improvement
+First Choice CU,Personal Loan (€15k–€25k),https://www.firstchoicecreditunion.ie/loans/personal-loans,nominal,firstchoice-loan-personal,,firstchoice-cu
+AIB,Personal Loan,https://www.aib.ie/our-products/loans/personal-loan,nominal,aib-loan-personal,loan|AIB|Personal Loan,aib-personal
+Credit Union average,Personal Loan — ILCU affiliated,https://www.creditunion.ie/what-we-offer/loans/cu-loan-rates/,apr,cu-loan-average,loan|Credit Union|Standard Personal Loan (Rate varies by CU),cu-average
+AIB,Click Visa,https://www.aib.ie/our-products/credit-cards/click-visa-card,apr,aib-card-click,card|AIB|CLICK Visa Credit Card,aib-click
+AIB,Platinum Visa,https://www.aib.ie/our-products/credit-cards/platinum-visa-card,apr,aib-card-platinum,card|AIB|Platinum Visa Card,aib-platinum
+Revolut,Credit Card,https://www.revolut.com/en-IE/,apr,revolut-card,card|Revolut|Revolut Credit Card,revolut-credit-card
+Bank of Ireland,Platinum Advantage,https://personalbanking.bankofireland.com/borrow/credit-cards/platinum-advantage-card/features-benefits/,apr,boi-card-platinum,card|Bank of Ireland|Platinum Advantage Credit Card,boi-platinum-advantage
+Bank of Ireland,Affinity,https://personalbanking.bankofireland.com/borrow/credit-cards/affinity-cards/features-benefits/,apr,boi-card-affinity,,boi-affinity
+Bank of Ireland,Classic,https://personalbanking.bankofireland.com/borrow/credit-cards/classic-credit-card/,apr,boi-card-classic,card|Bank of Ireland|Classic Credit Card,boi-classic
+PTSB,Ice Visa,https://www.ptsb.ie/everyday-banking/credit-cards/ice-visa-credit-card/,apr,ptsb-card-ice,card|ptsb|ICE Visa Credit Card,ptsb-ice
+Bank of Ireland,Aer Credit Card,https://personalbanking.bankofireland.com/borrow/credit-cards/aer-credit-card/travel-rewards/,apr,boi-card-aer,card|Bank of Ireland|Aer Credit Card,boi-aer
+AIB,'be',https://www.aib.ie/our-products/credit-cards/be-visa-card,apr,aib-card-be,card|AIB|be Visa Card,aib-be
+An Post Money,Classic,https://www.anpost.com/Money/Credit-Card,apr,anpost-card-classic,card|An Post Money|An Post Money Classic Credit Card,anpost-classic
+An Post Money,Flex,https://www.anpost.com/Money/Credit-Card,apr,anpost-card-flex,card|An Post Money|An Post Money Flex Credit Card,anpost-flex
+Avant Money,One Card,https://www.avantmoney.ie/credit-cards/one-card,apr,avant-card-one,card|Avant Money|One Card,avant-one-card
