@@ -2,7 +2,8 @@ name: Content agent
 
 on:
   schedule:
-    - cron: '0 7 * * *'
+    # Weekly, Monday 07:00 UTC
+    - cron: '0 7 * * 1'
   workflow_dispatch: {}
 
 permissions:
@@ -23,7 +24,7 @@ jobs:
         run: npm install
 
       - name: Fetch news (stage 1)
-        run: node scripts/content-agent/fetch-news.js --since 24
+        run: node scripts/content-agent/fetch-news.js --since 168
 
       - name: Show fetched items
         run: cat scripts/content-agent/data/news-items.json
@@ -63,5 +64,5 @@ jobs:
           gh pr create \
             --base main \
             --head "${{ steps.commit.outputs.branch }}" \
-            --title "Content agent draft: $(date +%Y-%m-%d)" \
+            --title "Content agent weekly draft: $(date +%Y-%m-%d)" \
             --body "Automated draft from the content-agent pipeline. Review for accuracy, tone, and whether it should be linked from the site before merging."

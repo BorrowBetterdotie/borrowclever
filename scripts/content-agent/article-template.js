@@ -96,7 +96,7 @@ export function renderArticle({ title, metaDescription, bodyHtml, dateIso, slug,
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${safeTitle} | BorrowClever</title>
 <meta name="description" content="${safeDescription}">
-${keywordsMeta}<meta name="robots" content="index, follow">
+${keywordsMeta}<meta name="robots" content="noindex, follow">
 <link rel="canonical" href="${url}">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="BorrowClever">
