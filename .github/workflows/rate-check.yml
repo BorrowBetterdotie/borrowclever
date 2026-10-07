@@ -74,7 +74,7 @@ jobs:
             --title "Rate check: $(date +%Y-%m-%d)" \
             --body "Automated fortnightly rate check results. Check outcome: ${{ steps.check.outcome }}. CCPC cross-check outcome: ${{ steps.check_ccpc.outcome }}.
 
-          ⚠️ This PR also moves the **Rates verified** stamp on loans.html and cards.html to $(date +'%-d %B %Y'). Before merging, resolve every CHANGED / PARSE_FAILED / UNREACHABLE row in rates/CHANGES-$(date +%Y-%m-%d).md (correct products.json and data/*.json, or confirm the published rate by hand). If you can't, drop the changes to loans.html, cards.html, data/loans.json, data/cards.json and sitemap.xml from this PR before merging."
+          ⚠️ This PR also moves the **Rates verified** stamp on loans.html and cards.html to $(date +'%-d %B %Y'). Before merging, resolve every CHANGED / PARSE_FAILED / UNREACHABLE row and every page/data mismatch in rates/CHANGES-$(date +%Y-%m-%d).md (correct products.json, data/*.json and loans.html / cards.html, or confirm the published rate by hand). If you can't, drop the changes to loans.html, cards.html, data/loans.json, data/cards.json and sitemap.xml from this PR before merging."
 
       - name: Fail workflow if issues detected
         if: always() && (steps.check.outcome == 'failure' || steps.check_ccpc.outcome == 'failure')

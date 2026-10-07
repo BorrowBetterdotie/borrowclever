@@ -1,6 +1,6 @@
 {
   "meta": {
-    "last_full_review": "2026-07-22"
+    "last_full_review": "2026-10-07"
   },
   "loans": [
     {
@@ -9,7 +9,7 @@
       "product": "SBCI Home Energy Upgrade",
       "icon": "BOI",
       "iconCls": "boi",
-      "apr": 2.95,
+      "apr": 3.00,
       "rateType": "Variable",
       "green": true,
       "seai": true,
@@ -105,9 +105,9 @@
       "product": "Personal Loan",
       "icon": "REV",
       "iconCls": "rev",
-      "apr": 8.41,
+      "apr": 6.50,
       "rateType": "Variable",
-      "notes": "Average rate shown. Range 6.5–12.99% by credit score. €1k–€50k, up to 60 months"
+      "notes": "Revolut's representative example: €10k over 60 months at 6.31% variable (6.5% APR). Range 6.5–12.99% APR by credit score. €1k–€50k, up to 60 months"
     },
     {
       "id": "avant-personal",
@@ -125,7 +125,7 @@
       "product": "Home Improvement Loan",
       "icon": "AIB",
       "iconCls": "aib",
-      "apr": 8.65,
+      "apr": 8.95,
       "rateType": "Variable",
       "notes": "€1k–€75k, up to 120 months"
     },

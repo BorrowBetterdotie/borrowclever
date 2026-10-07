@@ -24,6 +24,12 @@ function readMeta(file) {
   return JSON.parse(fs.readFileSync(path.join(ROOT, 'data', file), 'utf8')).meta;
 }
 
+// Pages merged into another URL are kept as meta-refresh stubs (GitHub Pages
+// can't send a 301). They must stay out of the sitemap.
+function isRedirectStub(file) {
+  return /<meta\s+http-equiv=["']refresh["']/i.test(fs.readFileSync(file, 'utf8'));
+}
+
 const loansMeta = readMeta('loans.json');
 const cardsMeta = readMeta('cards.json');
 const savingsMeta = readMeta('savings.json');
