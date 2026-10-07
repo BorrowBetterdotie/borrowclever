@@ -22,21 +22,13 @@
 // Run:  node scripts/check-rates-ccpc.mjs
 
 import { readFileSync, writeFileSync, mkdirSync, readdirSync } from "node:fs";
+import { fetchCcpcLoans } from "./lib/ccpc.mjs";
 
 // Unlike check-rates.mjs, this makes exactly one request per run — CCPC's
 // TypeId:5 response already returns every personal loan product across
-// every lender in one call, so there's no "between requests" to space out.
-// A polite identifying User-Agent and timeout still apply to that one call.
-const USER_AGENT = "BorrowClever-CrossCheck/1.0 (+https://borrowclever.ie)";
-const FETCH_TIMEOUT_MS = 8000;
-const CCPC_URL = "https://compare.ccpc.ie/loan/get-loans";
-// Matches the site's own published methodology (see loans.html): all figures
-// are quoted on €10,000 borrowed over 60 months (5 years). CCPC's `Amount`
-// tiers rates for several lenders (confirmed in docs/ccpc-endpoint-notes.md),
-// so this must match exactly, not just be "a reasonable loan size".
-const CCPC_AMOUNT = 10000;
-const CCPC_TERM_YEARS = 5;
-const CCPC_TYPE_ID = 5; // personal loans — confirmed by content in docs/ccpc-endpoint-notes.md
+// every lender in one call. The request itself (identifying User-Agent,
+// timeout, €10k/5-year query, response validation) lives in lib/ccpc.mjs,
+// shared with check-rates.mjs's fallback for bot-blocked lender pages.
 
 function today() {
   return new Date().toISOString().slice(0, 10);
@@ -121,65 +113,6 @@ function scoreCandidate(targetTokens, candidateTokens) {
   let intersection = 0;
   for (const t of candidateSet) if (targetSet.has(t)) intersection++;
   return { intersection, extra: candidateSet.size - intersection };
-}
-
-// ── CCPC fetch ───────────────────────────────────────────────────────────
-// Distinguishes two different failure modes on purpose (see Task 4 in the
-// originating request): a network/HTTP failure (UNREACHABLE) is a different
-// signal from "we got a 200 but the data doesn't look like what we expect"
-// (CCPC_SCHEMA_CHANGED_OR_UNAVAILABLE, i.e. the undocumented endpoint's
-// shape or behaviour has drifted since docs/ccpc-endpoint-notes.md was
-// written) — the latter needs a human to re-run the Task 1 research, not
-// just a retry.
-async function fetchCcpcLoans(url = CCPC_URL) {
-  let res;
-  try {
-    res = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "User-Agent": USER_AGENT },
-      body: JSON.stringify({ Amount: CCPC_AMOUNT, Term: CCPC_TERM_YEARS, TypeId: CCPC_TYPE_ID }),
-      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
-    });
-  } catch (e) {
-    const reason = e && e.name === "TimeoutError" ? "timeout" : (e && e.message) || String(e);
-    return { ok: false, runStatus: "UNREACHABLE", detail: reason };
-  }
-
-  if (!res.ok) {
-    return { ok: false, runStatus: "UNREACHABLE", detail: `HTTP ${res.status}` };
-  }
-
-  // A wrong/moved endpoint returns HTTP 200 with the Angular app's HTML
-  // shell, not JSON — confirmed in docs/ccpc-endpoint-notes.md. Status alone
-  // is not enough to trust the response.
-  const contentType = res.headers.get("content-type") || "";
-  if (!contentType.includes("application/json")) {
-    return { ok: false, runStatus: "CCPC_SCHEMA_CHANGED_OR_UNAVAILABLE", detail: `unexpected content-type: ${contentType || "(none)"}` };
-  }
-
-  let data;
-  try {
-    data = await res.json();
-  } catch (e) {
-    return { ok: false, runStatus: "CCPC_SCHEMA_CHANGED_OR_UNAVAILABLE", detail: "response was not valid JSON" };
-  }
-
-  if (!Array.isArray(data)) {
-    return { ok: false, runStatus: "CCPC_SCHEMA_CHANGED_OR_UNAVAILABLE", detail: "response was not a JSON array" };
-  }
-
-  if (data.length === 0) {
-    return { ok: false, runStatus: "CCPC_SCHEMA_CHANGED_OR_UNAVAILABLE", detail: "response array was empty — expected personal loan products at TypeId 5" };
-  }
-
-  const missingFields = data.filter(
-    (item) => typeof item.ProviderName !== "string" || typeof item.ProductName !== "string" || typeof item.Rate !== "number"
-  );
-  if (missingFields.length > 0) {
-    return { ok: false, runStatus: "CCPC_SCHEMA_CHANGED_OR_UNAVAILABLE", detail: `${missingFields.length} of ${data.length} entries missing expected fields (ProviderName/ProductName/Rate) — CCPC's response shape may have changed, see docs/ccpc-endpoint-notes.md` };
-  }
-
-  return { ok: true, data };
 }
 
 // ── lender-scraper snapshot lookup ──────────────────────────────────────
@@ -306,7 +239,10 @@ async function main() {
     }
 
     const scraperRow = scraperById.get(p.slug);
-    const scraperAvailable = scraperRow && (scraperRow.status === "OK" || scraperRow.status === "CHANGED") && scraperRow.scraped_rate;
+    // Rows check-rates.mjs verified via its CCPC fallback (lender page blocked)
+    // carry CCPC's own figure — counting that as the "lender-scraper" source
+    // would make CCPC agree with itself and report a fake two-source CONFIRMED.
+    const scraperAvailable = scraperRow && (scraperRow.status === "OK" || scraperRow.status === "CHANGED") && scraperRow.scraped_rate && scraperRow.source !== "ccpc";
     const scraperRate = scraperAvailable ? scraperRow.scraped_rate : null;
 
     if (ccpcMatch) ccpcMatch.matched = true;

@@ -9,9 +9,19 @@
 // Never writes to products.json. Updating the live comparison table stays a
 // manual, reviewed step — this script only detects and reports discrepancies.
 //
+// CCPC fallback: AIB and PTSB serve every request from a non-browser client an
+// Akamai "Access Denied" (HTTP 403), and Revolut serves a Cloudflare challenge.
+// That's deliberate bot protection, so this script does not try to get round
+// it. When a lender page is unreachable or unparseable, the row is checked
+// against the same product's figure on CCPC's comparison tool instead (mapped
+// explicitly via lenders.csv's ccpc_product column) and marked source=ccpc.
+// Every row's CCPC figure is also shown alongside the scraped one, so a
+// misparsed lender page is easy to spot. See docs/ccpc-endpoint-notes.md.
+//
 // Run:  node scripts/check-rates.mjs
 
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { fetchCcpcLoans, fetchCcpcCards, ccpcAttr } from "./lib/ccpc.mjs";
 
 const USER_AGENT = "BorrowClever-RateChecker/1.0 (+https://borrowclever.ie)";
 const REQUEST_DELAY_MS = 1500;
@@ -172,7 +182,18 @@ const PARSERS = {
     return pctNear(html, "personal loan") || pctNear(html, "representative apr");
   },
 
-  "First Choice CU": defaultParser,
+  // The page's loan calculator embeds the full rate table in a hidden input:
+  // "min|max|rate|apr|…|Product####min|max|…" per tier, "@@@@" between
+  // products. Read the APR for the tier covering the €15k–€25k band tracked.
+  "First Choice CU": (html) => {
+    const m = html.match(/id="VarCalcAIRRanges"[^>]*value="([^"]+)"/);
+    if (!m) return null;
+    for (const tier of m[1].split(/@@@@|####/)) {
+      const [min, max, , apr, , , , name] = tier.split("|");
+      if (name === "Personal Loan" && Number(min) <= 15001 && Number(max) >= 25000 && /^\d{1,2}(\.\d{1,2})?$/.test(apr)) return apr;
+    }
+    return null;
+  },
 
   "Credit Union average": (html) =>
     pctNear(html, "average") || pctNear(html, "ILCU") || pctNear(html, "typical"),
@@ -180,6 +201,42 @@ const PARSERS = {
 
 function getParser(lenderName) {
   return PARSERS[lenderName] || defaultParser;
+}
+
+// ── CCPC fallback ──────────────────────────────────────────────────────
+// lenders.csv ccpc_product is "loan|<ProviderName>|<ProductName>" or
+// "card|…". Exact product-name match first (case-insensitive); otherwise a
+// unique prefix match, for CCPC names that carry a rate range in them (e.g.
+// "Revolut Personal Loan from 6.50% to 12.99%"). Ambiguous → no match.
+// An optional 4th field "from" checks the "from X%" figure in that name
+// instead of the Rate field — for products.json rows that publish the
+// lender's advertised best-case rate rather than CCPC's €10k/5-year one.
+function findCcpcEntry(ccpc, spec) {
+  if (!spec) return { entry: null, detail: "no CCPC counterpart mapped in lenders.csv" };
+  const [kind, provider, productName, field] = spec.split("|").map((x) => x.trim());
+  const source = kind === "card" ? ccpc.cards : ccpc.loans;
+  if (!source.ok) return { entry: null, detail: `CCPC ${kind} data unavailable: ${source.runStatus} — ${source.detail}` };
+  const lc = (x) => String(x).toLowerCase();
+  const sameLender = source.data.filter((c) => lc(c.ProviderName) === lc(provider));
+  const exact = sameLender.filter((c) => lc(c.ProductName) === lc(productName));
+  const prefix = sameLender.filter((c) => lc(c.ProductName).startsWith(lc(productName)));
+  const hits = exact.length ? exact : prefix;
+  if (hits.length !== 1) return { entry: null, detail: `CCPC: ${hits.length} matches for "${spec}"` };
+  return { entry: hits[0], kind, field };
+}
+
+function ccpcRateFor(ccpc, spec) {
+  const { entry, kind, field, detail } = findCcpcEntry(ccpc, spec);
+  if (!entry) return { rate: null, detail };
+  const raw = field === "from" ? entry.ProductName.match(/\bfrom\s+(\d{1,2}(?:\.\d{1,2})?)\s*%/i)?.[1]
+    : kind === "card" ? ccpcAttr(entry, "APR:") : entry.Rate;
+  const rate = raw === undefined || raw === null ? null : String(Number(raw));
+  return { rate, product: `${entry.ProviderName} — ${entry.ProductName}`, detail: rate ? "" : "CCPC entry has no rate" };
+}
+
+function ratesEqual(a, b) {
+  if (a === null || a === undefined || b === null || b === undefined) return false;
+  return Math.abs(parseFloat(a) - parseFloat(b)) < 0.005;
 }
 
 // ── main ───────────────────────────────────────────────────────────────
@@ -201,10 +258,34 @@ async function main() {
   // re-fetching the same page per product would multiply load for nothing.
   const pageCache = new Map();
 
+  // Two requests, one per category — each returns every lender's products.
+  const ccpc = { loans: await fetchCcpcLoans(), cards: await fetchCcpcCards() };
+  for (const [k, v] of Object.entries(ccpc)) if (!v.ok) console.log(`CCPC ${k} unavailable: ${v.runStatus} — ${v.detail}`);
+
   const results = [];
+  const push = (r) => results.push(withCcpc(r));
+
+  // Attach the CCPC figure to every row, and stand it in for the lender page
+  // when that page couldn't be read.
+  function withCcpc(r) {
+    const c = ccpcRateFor(ccpc, r.ccpcSpec);
+    r.ccpcRate = c.rate;
+    r.source = "lender";
+    if (r.scrapedRate) return r;
+    if (!c.rate) {
+      if (r.ccpcSpec) r.detail += ` · CCPC fallback unavailable: ${c.detail}`;
+      return r;
+    }
+    const reason = r.status === "PARSE_FAILED" ? "unparseable" : `unreachable (${r.detail})`;
+    r.scrapedRate = c.rate;
+    r.source = "ccpc";
+    r.status = ratesEqual(c.rate, r.currentRate) ? "OK" : "CHANGED";
+    r.detail = `lender page ${reason} — rate taken from CCPC: ${c.product}`;
+    return r;
+  }
 
   for (const row of lenders) {
-    const { lender, product, source_url: url, rate_type: rateType, products_json_id: id } = row;
+    const { lender, product, source_url: url, rate_type: rateType, products_json_id: id, ccpc_product: ccpcSpec } = row;
     const product_entry = productsById.get(id);
     const currentValue = product_entry
       ? (rateType === "apr" ? (product_entry.apr ?? product_entry.rate) : (product_entry.rate ?? product_entry.purchaseRate))
@@ -212,7 +293,7 @@ async function main() {
     const currentRate = currentValue ? pct(currentValue) : null;
 
     if (!url) {
-      results.push({ lender, product, id, rateType, currentRate, scrapedRate: null, status: "PARSE_FAILED", detail: "no source_url in lenders.csv" });
+      push({ lender, product, id, rateType, ccpcSpec, currentRate, scrapedRate: null, status: "PARSE_FAILED", detail: "no source_url in lenders.csv" });
       continue;
     }
 
@@ -226,7 +307,7 @@ async function main() {
         const res = await fetchWithTimeout(url);
         if (!res.ok) {
           pageCache.set(url, null);
-          results.push({ lender, product, id, rateType, currentRate, scrapedRate: null, status: "UNREACHABLE", detail: `HTTP ${res.status}` });
+          push({ lender, product, id, rateType, ccpcSpec, currentRate, scrapedRate: null, status: "UNREACHABLE", detail: `HTTP ${res.status}` });
           continue;
         }
         html = await res.text();
@@ -235,13 +316,13 @@ async function main() {
     } catch (e) {
       pageCache.set(url, null);
       const reason = e && e.name === "TimeoutError" ? "timeout" : (e && e.message) || String(e);
-      results.push({ lender, product, id, rateType, currentRate, scrapedRate: null, status: "UNREACHABLE", detail: reason });
+      push({ lender, product, id, rateType, ccpcSpec, currentRate, scrapedRate: null, status: "UNREACHABLE", detail: reason });
       continue;
     }
 
     if (html === null) {
       // A previous row already found this URL unreachable this run.
-      results.push({ lender, product, id, rateType, currentRate, scrapedRate: null, status: "UNREACHABLE", detail: "source page unreachable (see earlier row)" });
+      push({ lender, product, id, rateType, ccpcSpec, currentRate, scrapedRate: null, status: "UNREACHABLE", detail: "source page unreachable (see earlier row)" });
       continue;
     }
 
@@ -261,12 +342,12 @@ async function main() {
       mkdirSync(new URL("../rates/debug/", import.meta.url), { recursive: true });
       const debugFile = new URL(`../rates/debug/${slugify(lender)}-${id}-${date}.html`, import.meta.url);
       writeFileSync(debugFile, html);
-      results.push({ lender, product, id, rateType, currentRate, scrapedRate: null, status: "PARSE_FAILED", detail: "parser found no matching rate — raw HTML saved to rates/debug/" });
+      push({ lender, product, id, rateType, ccpcSpec, currentRate, scrapedRate: null, status: "PARSE_FAILED", detail: "parser found no matching rate — raw HTML saved to rates/debug/" });
       continue;
     }
 
-    const status = currentRate !== null && scrapedRate === currentRate ? "OK" : "CHANGED";
-    results.push({ lender, product, id, rateType, currentRate, scrapedRate, status, detail: "" });
+    const status = currentRate !== null && ratesEqual(scrapedRate, currentRate) ? "OK" : "CHANGED";
+    push({ lender, product, id, rateType, ccpcSpec, currentRate, scrapedRate, status, detail: "" });
   }
 
   writeSnapshot(date, results);
@@ -284,9 +365,12 @@ function slugify(s) {
 }
 
 function writeSnapshot(date, results) {
-  const header = "lender,product,products_json_id,rate_type,current_rate,scraped_rate,status,detail";
+  // scraped_rate is the figure the status was decided on; source says where
+  // it came from ("lender" page or the "ccpc" fallback). ccpc_rate is CCPC's
+  // figure for the same product whenever one is mapped, for comparison.
+  const header = "lender,product,products_json_id,rate_type,current_rate,scraped_rate,status,detail,source,ccpc_rate";
   const lines = results.map((r) =>
-    [r.lender, r.product, r.id, r.rateType, r.currentRate ?? "", r.scrapedRate ?? "", r.status, r.detail]
+    [r.lender, r.product, r.id, r.rateType, r.currentRate ?? "", r.scrapedRate ?? "", r.status, r.detail, r.source, r.ccpcRate ?? ""]
       .map(csvCell)
       .join(",")
   );
@@ -296,6 +380,8 @@ function writeSnapshot(date, results) {
 
 function writeChangesReport(date, results) {
   const flagged = results.filter((r) => r.status !== "OK");
+  const viaCcpc = results.filter((r) => r.status === "OK" && r.source === "ccpc");
+  const pctCell = (v) => (v ? `${v}%` : "—");
   let md;
   if (flagged.length === 0) {
     md = `No changes detected — ${results.length} products checked, all current as of ${date}.\n`;
@@ -304,14 +390,20 @@ function writeChangesReport(date, results) {
     const failed = flagged.filter((r) => r.status !== "CHANGED");
     md = `# Rate check — ${date}\n\n${flagged.length} of ${results.length} products need attention.\n`;
     if (changed.length) {
-      md += `\n## Changed rates\n\n| Lender | Product | Published | Scraped | Source |\n|---|---|---|---|---|\n`;
-      md += changed.map((r) => `| ${r.lender} | ${r.product} | ${r.currentRate ?? "—"}% | ${r.scrapedRate}% | \`${r.id}\` |`).join("\n") + "\n";
+      md += `\n## Changed rates\n\nIf "Found" comes from the lender page and CCPC still matches "Published", the lender-page parser has most likely picked up the wrong figure (an intro offer or a different loan-size tier) — confirm before editing products.json.\n\n`;
+      md += `| Lender | Product | Published | Found | Found via | CCPC | Source |\n|---|---|---|---|---|---|---|\n`;
+      md += changed.map((r) => `| ${r.lender} | ${r.product} | ${pctCell(r.currentRate)} | ${r.scrapedRate}% | ${r.source} | ${pctCell(r.ccpcRate)} | \`${r.id}\` |`).join("\n") + "\n";
     }
     if (failed.length) {
       md += `\n## Needs attention (${failed.map((r) => r.status).filter((v, i, a) => a.indexOf(v) === i).join(" / ")})\n\n`;
       md += `| Lender | Product | Status | Detail |\n|---|---|---|---|\n`;
       md += failed.map((r) => `| ${r.lender} | ${r.product} | ${r.status} | ${r.detail} |`).join("\n") + "\n";
     }
+  }
+  if (viaCcpc.length) {
+    md += `\n## Verified via CCPC fallback\n\nThe lender's own page couldn't be read (AIB, PTSB and Revolut block automated requests), so these were checked against CCPC's comparison tool only. They match the published rate.\n\n`;
+    md += `| Lender | Product | Published | CCPC | Detail |\n|---|---|---|---|---|\n`;
+    md += viaCcpc.map((r) => `| ${r.lender} | ${r.product} | ${pctCell(r.currentRate)} | ${r.scrapedRate}% | ${r.detail} |`).join("\n") + "\n";
   }
   writeFileSync(new URL(`../rates/CHANGES-${date}.md`, import.meta.url), md);
 }
