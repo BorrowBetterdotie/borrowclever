@@ -15,6 +15,11 @@ function today() {
   return new Date().toISOString().split('T')[0];
 }
 
+// Pages marked noindex (e.g. news roundups) stay out of the sitemap.
+function isNoindex(file) {
+  return /<meta name="robots" content="[^"]*noindex/.test(fs.readFileSync(file, 'utf8'));
+}
+
 function readMeta(file) {
   return JSON.parse(fs.readFileSync(path.join(ROOT, 'data', file), 'utf8')).meta;
 }
@@ -43,6 +48,7 @@ function buildSitemap() {
   if (fs.existsSync(guidesDir)) {
     for (const file of fs.readdirSync(guidesDir).sort()) {
       if (!file.endsWith('.html')) continue;
+      if (isNoindex(path.join(guidesDir, file))) continue;
       pages.push({ loc: `/guides/${file}`, lastmod: buildDate, changefreq: 'monthly', priority: '0.7' });
     }
   }
@@ -52,6 +58,7 @@ function buildSitemap() {
   if (fs.existsSync(examplesDir)) {
     for (const file of fs.readdirSync(examplesDir).sort()) {
       if (!file.endsWith('.html')) continue;
+      if (isNoindex(path.join(examplesDir, file))) continue;
       pages.push({ loc: `/examples/${file}`, lastmod: buildDate, changefreq: 'monthly', priority: '0.7' });
     }
   }
@@ -61,6 +68,7 @@ function buildSitemap() {
   if (fs.existsSync(newsDir)) {
     for (const file of fs.readdirSync(newsDir).sort()) {
       if (!file.endsWith('.html')) continue;
+      if (isNoindex(path.join(newsDir, file))) continue;
       pages.push({ loc: `/news/${file}`, lastmod: buildDate, changefreq: 'monthly', priority: '0.6' });
     }
   }

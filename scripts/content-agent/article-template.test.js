@@ -22,6 +22,18 @@ test('renderArticle embeds title, description, and body', () => {
   assert.match(html, /<link rel="canonical" href="https:\/\/borrowclever\.ie\/news\/2026-09-08-ecb-rate-watch\.html">/);
 });
 
+test('renderArticle marks roundups noindex so they stay out of search', () => {
+  const html = renderArticle({
+    title: 'Weekly Roundup',
+    metaDescription: 'desc',
+    bodyHtml: '<p>body</p>',
+    dateIso: '2026-10-12',
+    slug: 'weekly-roundup',
+  });
+
+  assert.match(html, /<meta name="robots" content="noindex, follow">/);
+});
+
 test('renderArticle escapes HTML-significant characters in title', () => {
   const html = renderArticle({
     title: 'Rates & "Terms" <Update>',

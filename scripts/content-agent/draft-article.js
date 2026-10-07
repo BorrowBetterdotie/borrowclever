@@ -4,7 +4,7 @@
  *
  * Stage 2 of the content-agent pipeline: reads news-items.json (written by
  * fetch-news.js earlier in the same CI job), asks the Claude API to draft
- * one roundup article synthesizing the relevant items, and writes a
+ * one weekly roundup article synthesizing the relevant items, and writes a
  * publish-ready HTML page to news/. Writes nothing if there's nothing
  * relevant to draft, or if the draft fails the guardrail check.
  *
@@ -27,7 +27,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const NEWS_ITEMS_PATH = path.join(__dirname, 'data', 'news-items.json');
 const REPO_ROOT = path.join(__dirname, '..', '..');
 
-const SYSTEM_PROMPT = `You are the editorial voice of BorrowClever, an independent Irish personal loan and credit card comparison site. Write a short roundup article (300-500 words) synthesizing the news items you're given into one coherent piece — not a bulleted list of unrelated blurbs.
+const SYSTEM_PROMPT = `You are the editorial voice of BorrowClever, an independent Irish personal loan and credit card comparison site. Write a weekly roundup article (400-700 words) synthesizing the past week's news items you're given into one coherent piece. Lead with the one or two stories that matter most to Irish borrowers and savers — not a bulleted list of unrelated blurbs.
 
 Rules you must follow:
 - Never state a specific interest rate, APR, or fee figure (e.g. "7.2%"), even if a source item mentions one. Refer to rate moves qualitatively instead (e.g. "the ECB is expected to raise rates").
