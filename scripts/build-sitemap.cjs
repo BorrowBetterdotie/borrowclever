@@ -19,6 +19,12 @@ function readMeta(file) {
   return JSON.parse(fs.readFileSync(path.join(ROOT, 'data', file), 'utf8')).meta;
 }
 
+// Pages merged into another URL are kept as meta-refresh stubs (GitHub Pages
+// can't send a 301). They must stay out of the sitemap.
+function isRedirectStub(file) {
+  return /<meta\s+http-equiv=["']refresh["']/i.test(fs.readFileSync(file, 'utf8'));
+}
+
 const loansMeta = readMeta('loans.json');
 const cardsMeta = readMeta('cards.json');
 const savingsMeta = readMeta('savings.json');
@@ -42,7 +48,7 @@ function buildSitemap() {
   const guidesDir = path.join(ROOT, 'guides');
   if (fs.existsSync(guidesDir)) {
     for (const file of fs.readdirSync(guidesDir).sort()) {
-      if (!file.endsWith('.html')) continue;
+      if (!file.endsWith('.html') || isRedirectStub(path.join(guidesDir, file))) continue;
       pages.push({ loc: `/guides/${file}`, lastmod: buildDate, changefreq: 'monthly', priority: '0.7' });
     }
   }
@@ -51,7 +57,7 @@ function buildSitemap() {
   const examplesDir = path.join(ROOT, 'examples');
   if (fs.existsSync(examplesDir)) {
     for (const file of fs.readdirSync(examplesDir).sort()) {
-      if (!file.endsWith('.html')) continue;
+      if (!file.endsWith('.html') || isRedirectStub(path.join(examplesDir, file))) continue;
       pages.push({ loc: `/examples/${file}`, lastmod: buildDate, changefreq: 'monthly', priority: '0.7' });
     }
   }
@@ -60,7 +66,7 @@ function buildSitemap() {
   const newsDir = path.join(ROOT, 'news');
   if (fs.existsSync(newsDir)) {
     for (const file of fs.readdirSync(newsDir).sort()) {
-      if (!file.endsWith('.html')) continue;
+      if (!file.endsWith('.html') || isRedirectStub(path.join(newsDir, file))) continue;
       pages.push({ loc: `/news/${file}`, lastmod: buildDate, changefreq: 'monthly', priority: '0.6' });
     }
   }
