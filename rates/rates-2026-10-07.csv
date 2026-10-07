@@ -1,0 +1,27 @@
+lender,product,products_json_id,rate_type,current_rate,scraped_rate,status,detail,source,ccpc_rate
+Bank of Ireland,SBCI Home Energy Upgrade,boi-loan-sbci-energy,nominal,3,3,OK,,lender,3
+AIB,SBCI Home Energy Upgrade,aib-loan-sbci-energy,nominal,3.55,3.55,OK,lender page unreachable (HTTP 403) — rate taken from CCPC: AIB — SBCI Home Energy Upgrade Loan Scheme,ccpc,3.55
+PTSB,SBCI Home Energy Upgrade,ptsb-loan-sbci-energy,nominal,4.20,4.2,OK,lender page unreachable (HTTP 403) — rate taken from CCPC: ptsb — SBCI Home Energy Upgrade Loan,ccpc,4.2
+AIB,Green Personal Loan,aib-loan-green,nominal,6.40,6.4,OK,lender page unreachable (source page unreachable (see earlier row)) — rate taken from CCPC: AIB — Green Personal Loan,ccpc,6.4
+Bank of Ireland,Green Car / Home Improvement,boi-loan-green,nominal,6.50,6.5,OK,,lender,6.5
+PTSB,Personal Loan,ptsb-loan-personal,nominal,7.20,7.2,OK,lender page unreachable (HTTP 403) — rate taken from CCPC: ptsb — Personal Loan,ccpc,7.2
+Bank of Ireland,Personal Loan,boi-loan-personal,nominal,8.30,8.3,OK,,lender,8.3
+An Post Money,Personal Loan,anpost-loan-personal,nominal,8.40,8.4,OK,lender page unparseable — rate taken from CCPC: An Post Money — An Post Money Personal Loan,ccpc,8.4
+Revolut,Personal Loan,revolut-loan-personal,nominal,6.50,6.5,OK,lender page unreachable (HTTP 403) — rate taken from CCPC: Revolut — Revolut Personal Loan from 6.50% to 12.99%,ccpc,6.5
+Avant Money,Personal Loan (under €30k),avant-loan-personal,nominal,8.50,8.5,OK,,lender,8.5
+AIB,Home Improvement Loan,aib-loan-home,nominal,8.95,8.95,OK,lender page unreachable (source page unreachable (see earlier row)) — rate taken from CCPC: AIB — Personal Loan,ccpc,8.95
+First Choice CU,Personal Loan (€15k–€25k),firstchoice-loan-personal,nominal,8.84,8.84,OK,,lender,
+AIB,Personal Loan,aib-loan-personal,nominal,8.95,8.95,OK,lender page unreachable (HTTP 403) — rate taken from CCPC: AIB — Personal Loan,ccpc,8.95
+Credit Union average,Personal Loan — ILCU affiliated,cu-loan-average,apr,10.42,10.42,OK,,lender,10.42
+AIB,Click Visa,aib-card-click,apr,13.8,13.8,OK,lender page unreachable (HTTP 403) — rate taken from CCPC: AIB — CLICK Visa Credit Card,ccpc,13.8
+AIB,Platinum Visa,aib-card-platinum,apr,17.0,17,OK,lender page unreachable (HTTP 403) — rate taken from CCPC: AIB — Platinum Visa Card,ccpc,17
+Revolut,Credit Card,revolut-card,apr,17.99,17.99,OK,lender page unreachable (HTTP 403) — rate taken from CCPC: Revolut — Revolut Credit Card,ccpc,17.99
+Bank of Ireland,Platinum Advantage,boi-card-platinum,apr,19.6,19.6,OK,,lender,19.6
+Bank of Ireland,Affinity,boi-card-affinity,apr,20.2,20.2,OK,,lender,
+Bank of Ireland,Classic,boi-card-classic,apr,22.1,22.1,OK,,lender,22.1
+PTSB,Ice Visa,ptsb-card-ice,apr,22.53,22.53,OK,lender page unreachable (HTTP 403) — rate taken from CCPC: ptsb — ICE Visa Credit Card,ccpc,22.53
+Bank of Ireland,Aer Credit Card,boi-card-aer,apr,22.7,22.7,OK,,lender,22.7
+AIB,'be',aib-card-be,apr,22.9,22.9,OK,lender page unreachable (HTTP 403) — rate taken from CCPC: AIB — be Visa Card,ccpc,22.9
+An Post Money,Classic,anpost-card-classic,apr,22.9,22.9,OK,lender page unparseable — rate taken from CCPC: An Post Money — An Post Money Classic Credit Card,ccpc,22.9
+An Post Money,Flex,anpost-card-flex,apr,15.7,15.7,OK,lender page unparseable — rate taken from CCPC: An Post Money — An Post Money Flex Credit Card,ccpc,15.7
+Avant Money,One Card,avant-card-one,apr,22.9,22.9,OK,,lender,22.9
