@@ -28,7 +28,7 @@
       "apr": 15.7,
       "balanceTransferOffer": null,
       "annualFee": 0,
-      "notes": "0% on purchases for 9 months (Ireland's longest purchase intro). Money transfers 5.9% for 24 months. Instalment plan from 8.6% APR on purchases over €250."
+      "notes": "0% on purchases for 9 months (the longest purchase intro among the cards in this table). Money transfers 5.9% for 24 months. Instalment plan from 8.6% APR on purchases over €250."
     },
     {
       "id": "aib-platinum",
@@ -143,7 +143,7 @@
       "network": "Mastercard",
       "purchaseRate": "16.8%",
       "apr": 22.9,
-      "balanceTransferOffer": "0% on balance transfers for 12 months (must transfer within 90 days of opening), then reverts to 16.8% / 22.9% APR. Ireland's longest 0% balance-transfer window.",
+      "balanceTransferOffer": "0% on balance transfers for 12 months (must transfer within 90 days of opening), then reverts to 16.8% / 22.9% APR. The longest 0% balance-transfer window among the cards in this table.",
       "annualFee": 0,
       "notes": null
     },
@@ -158,7 +158,7 @@
       "apr": 22.9,
       "balanceTransferOffer": "0% on balance transfers for 9 months (must transfer within 90 days of opening), then reverts to 16.8% standard rate.",
       "annualFee": 0,
-      "notes": "Also 0% on purchases (3 mths) & 0% on money transfers (12 mths). €150 cashback on a €1,000+ balance transfer. One of Ireland's longest 0% BT windows."
+      "notes": "Also 0% on purchases (3 mths) & 0% on money transfers (12 mths). €150 cashback on a €1,000+ balance transfer. Second-longest 0% BT window in this table, after An Post Money Classic."
     }
   ]
 }
