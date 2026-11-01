@@ -107,7 +107,7 @@
       "iconCls": "rev",
       "apr": 6.50,
       "rateType": "Variable",
-      "notes": "Revolut's representative example: €10k over 60 months at 6.31% variable (6.5% APR). Range 6.5–12.99% APR by credit score. €1k–€50k, up to 60 months"
+      "notes": "Best-case rate: Revolut's own representative example (€10k over 60 months at 6.31% variable, 6.5% APR). Your rate depends on credit score (range 6.5–12.99% APR). €1k–€50k, up to 60 months"
     },
     {
       "id": "avant-personal",
@@ -160,7 +160,7 @@
       "apr": 10.42,
       "rateType": "Variable",
       "creditUnion": true,
-      "notes": "ILCU survey avg, Jul/Aug 2025. Max legal rate 12.68% APR"
+      "notes": "ILCU survey average from July/August 2025 — over a year old and may be out of date; no newer ILCU or CCPC average confirmed. Rates vary by credit union. Max legal rate 12.68% APR"
     }
   ]
 }

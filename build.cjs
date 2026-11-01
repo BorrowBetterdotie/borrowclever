@@ -53,7 +53,7 @@ const LOANS_FAQ = [
   },
   {
     q: 'How do credit union loan rates work in Ireland?',
-    a: 'Credit union rates vary significantly by institution, loan amount, and individual member circumstances. The ILCU average is based on a survey of affiliated credit unions conducted in July/August 2025. The maximum legal rate for Irish credit unions is 12.68% APR.',
+    a: 'Credit union rates vary significantly by institution, loan amount, and individual member circumstances. The ILCU average is based on a survey of affiliated credit unions conducted in July/August 2025, so it is over a year old and may not reflect current credit union rates. The maximum legal rate for Irish credit unions is 12.68% APR.',
   },
   {
     q: 'How are the loan cost figures calculated?',
