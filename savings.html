@@ -14,7 +14,12 @@
 <meta property="og:url" content="https://borrowclever.ie/savings.html">
 <meta property="og:title" content="Savings & Deposit Account Comparison Ireland 2026 | BorrowClever">
 <meta property="og:description" content="Compare every deposit and savings account available to Irish savers — banks, An Post State Savings, credit unions, and EU digital banks — ranked by AER. Independently verified.">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://borrowclever.ie/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="BorrowClever — Compare Irish loans by what they really cost">
+<meta name="twitter:image" content="https://borrowclever.ie/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Savings & Deposit Account Comparison Ireland 2026 | BorrowClever">
 <meta name="twitter:description" content="Compare every deposit and savings account available to Irish savers — banks, An Post State Savings, credit unions, and EU digital banks — ranked by AER. Independently verified.">
 <!-- JSONLD_START -->
@@ -24,7 +29,6 @@
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "BorrowClever",
-    "legalName": "BorrowClever Ireland Limited",
     "url": "https://borrowclever.ie",
     "logo": "https://borrowclever.ie/logo.svg",
     "description": "Ireland's independent personal loan and credit card comparison service. Rates verified fortnightly from lender websites and CCPC.ie."
@@ -373,11 +377,13 @@ tbody tr.section-row td { background: #141414; color: #555; border-color: rgba(2
 <nav>
   <a href="/" class="nav-logo">Borrow<span>Clever</span></a>
   <ul class="nav-links">
-    <li><a href="loans.html">Compare loans</a></li>
-    <li><a href="cards.html">Compare cards</a></li>
-    <li><a href="savings.html" class="active">Compare savings</a></li>
+    <li><a href="/loans.html">Compare loans</a></li>
+    <li><a href="/cards.html">Compare cards</a></li>
+    <li><a href="/savings.html" class="active">Compare savings</a></li>
     <li><a href="/rate-tracker/">Rate tracker</a></li>
     <li><a href="/calculator/">Calculator</a></li>
+    <li><a href="/guides/">Guides</a></li>
+    <li><a href="/news/">News</a></li>
     <li><a href="/#signup" class="nav-cta">Newsletter</a></li>
   </ul>
   <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
@@ -387,11 +393,13 @@ tbody tr.section-row td { background: #141414; color: #555; border-color: rgba(2
 
 <!-- MOBILE NAV DROPDOWN -->
 <div class="mobile-nav" id="mobile-nav">
-  <a href="loans.html">Compare loans</a>
-  <a href="cards.html">Compare cards</a>
-  <a href="savings.html" class="active">Compare savings</a>
+  <a href="/loans.html">Compare loans</a>
+  <a href="/cards.html">Compare cards</a>
+  <a href="/savings.html" class="active">Compare savings</a>
   <a href="/rate-tracker/">Rate tracker</a>
   <a href="/calculator/">Calculator</a>
+  <a href="/guides/">Guides</a>
+  <a href="/news/">News</a>
   <a href="/#signup" class="mobile-cta">Newsletter</a>
 </div>
 <!-- Mobile segmented nav (Loans | Cards | Savings) — shown on mobile only -->
@@ -1117,7 +1125,7 @@ tbody tr.section-row td { background: #141414; color: #555; border-color: rgba(2
 
 <!-- DISCLAIMER -->
 <div class="disclaimer">
-  <strong>Rates verified <!-- LAST_VERIFIED_START -->8 September 2026<!-- LAST_VERIFIED_END --></strong> from provider websites and independent Irish savings-rate trackers. Always confirm the current rate, tax treatment and full account terms directly with the provider before opening an account. Rates are subject to change and individual eligibility, and cross-border EU accounts carry additional considerations (self-declared DIRT, non-Irish deposit protection, currency/IBAN requirements). This comparison is for informational purposes only and does not constitute financial advice. BorrowClever Ireland Limited accepts no responsibility for errors or changes in provider rates subsequent to publication.
+  <strong>Rates verified <!-- LAST_VERIFIED_START -->8 September 2026<!-- LAST_VERIFIED_END --></strong> from provider websites and independent Irish savings-rate trackers. Always confirm the current rate, tax treatment and full account terms directly with the provider before opening an account. Rates are subject to change and individual eligibility, and cross-border EU accounts carry additional considerations (self-declared DIRT, non-Irish deposit protection, currency/IBAN requirements). This comparison is for informational purposes only and does not constitute financial advice. BorrowClever accepts no responsibility for errors or changes in provider rates subsequent to publication.
 </div>
 
 <!-- FOOTER -->
@@ -1131,7 +1139,7 @@ tbody tr.section-row td { background: #141414; color: #555; border-color: rgba(2
     <a href="api-docs.html">API</a>
     <a href="privacy.html">Privacy Policy</a>
   </div>
-  <div class="footer-note">BorrowClever is an independent financial comparison service. Rates sourced from provider websites and independent trackers. Always verify with the provider before applying. This is not financial advice. © 2026 BorrowClever Ireland Limited. Lender logos provided by <a href="https://logo.dev" target="_blank" rel="noopener noreferrer">Logo.dev</a>.</div>
+  <div class="footer-note">BorrowClever is an independent financial comparison service. Rates sourced from provider websites and independent trackers. Always verify with the provider before applying. This is not financial advice. © 2026 BorrowClever. Lender logos provided by <a href="https://logo.dev" target="_blank" rel="noopener noreferrer">Logo.dev</a>.</div>
 </footer>
 
 <script>
@@ -1181,5 +1189,9 @@ mobileNav.querySelectorAll('a').forEach(a => {
 })();
 </script>
 
+<!-- bc:analytics:start -->
+<!-- Cloudflare Web Analytics — token is set in scripts/lib/site-chrome.mjs -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "REPLACE_WITH_CF_WEB_ANALYTICS_TOKEN"}'></script>
+<!-- bc:analytics:end -->
 </body>
 </html>

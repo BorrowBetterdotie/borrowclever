@@ -14,7 +14,12 @@
 <meta property="og:url" content="https://borrowclever.ie/">
 <meta property="og:title" content="Compare Loans &amp; Credit Cards Ireland | BorrowClever">
 <meta property="og:description" content="Compare every Irish personal loan and credit card by total cost of credit. Independent rankings, no commission influence. Rates verified fortnightly.">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://borrowclever.ie/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="BorrowClever — Compare Irish loans by what they really cost">
+<meta name="twitter:image" content="https://borrowclever.ie/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Compare Loans &amp; Credit Cards Ireland | BorrowClever">
 <meta name="twitter:description" content="Compare every Irish personal loan and credit card by total cost of credit. Independent rankings, no commission influence. Rates verified fortnightly.">
 <!-- JSONLD_START -->
@@ -24,7 +29,6 @@
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "BorrowClever",
-    "legalName": "BorrowClever Ireland Limited",
     "url": "https://borrowclever.ie",
     "logo": "https://borrowclever.ie/logo.svg",
     "description": "Ireland's independent personal loan and credit card comparison service. Rates verified fortnightly from lender websites and CCPC.ie."
@@ -829,12 +833,14 @@ h1 { color: #ffffff; }
 <nav>
   <div class="nav-logo">Borrow<span>Clever</span></div>
   <ul class="nav-links">
-    <li><a href="loans.html">Compare loans</a></li>
-    <li><a href="cards.html">Compare cards</a></li>
-    <li><a href="savings.html">Compare savings</a></li>
+    <li><a href="/loans.html">Compare loans</a></li>
+    <li><a href="/cards.html">Compare cards</a></li>
+    <li><a href="/savings.html">Compare savings</a></li>
     <li><a href="#features">How it works</a></li>
     <li><a href="/rate-tracker/">Rate tracker</a></li>
     <li><a href="/calculator/">Calculator</a></li>
+    <li><a href="/guides/">Guides</a></li>
+    <li><a href="/news/">News</a></li>
     <li><a href="#signup" class="nav-cta">Newsletter</a></li>
   </ul>
   <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
@@ -844,12 +850,14 @@ h1 { color: #ffffff; }
 
 <!-- MOBILE NAV DROPDOWN -->
 <div class="mobile-nav" id="mobile-nav">
-  <a href="loans.html">Compare loans</a>
-  <a href="cards.html">Compare cards</a>
-  <a href="savings.html">Compare savings</a>
+  <a href="/loans.html">Compare loans</a>
+  <a href="/cards.html">Compare cards</a>
+  <a href="/savings.html">Compare savings</a>
   <a href="#features">How it works</a>
   <a href="/rate-tracker/">Rate tracker</a>
   <a href="/calculator/">Calculator</a>
+  <a href="/guides/">Guides</a>
+  <a href="/news/">News</a>
   <a href="#signup" class="mobile-cta">Newsletter</a>
 </div>
 <nav class="seg-nav" aria-label="Compare loans, cards or savings">
@@ -884,8 +892,8 @@ h1 { color: #ffffff; }
     <!-- floating top-right mini card -->
     <div class="mini-card">
       <div class="mini-label">You could save</div>
-      <div class="mini-stat">€<!-- HERO_SAVING_START -->467<!-- HERO_SAVING_END --></div>
-      <div class="mini-sub">on a €10k loan vs AIB</div>
+      <div class="mini-stat">€<!-- HERO_SAVING_START -->686<!-- HERO_SAVING_END --></div>
+      <div class="mini-sub"><!-- HERO_SAVING_LABEL_START -->Revolut vs AIB personal loan, €10k over 5 yrs<!-- HERO_SAVING_LABEL_END --></div>
     </div>
 
     <!-- floating bottom-left mini card -->
@@ -902,8 +910,8 @@ h1 { color: #ffffff; }
 <!-- EMAIL SIGNUP BAR -->
 <div class="email-section" id="signup">
   <div>
-    <div class="email-label">Subscribe to receive our newsletter</div>
-    <div class="email-sublabel">Get notified when lender rates change and new comparison guides go live.</div>
+    <div class="email-label">Get rate-change alerts</div>
+    <div class="email-sublabel">One email when Irish loan or card rates move — plus new guides. No spam, unsubscribe anytime.</div>
   </div>
   <div class="brevo-form-wrapper">
     <form id="brevo-email-form" class="brevo-custom-form" novalidate>
@@ -974,7 +982,7 @@ h1 { color: #ffffff; }
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#22c55e" stroke-width="1.5"><circle cx="10" cy="10" r="7"/><path d="M10 7v3l2 2"/></svg>
       </div>
       <h3>Credit unions included</h3>
-      <p>Bonkers and Switcher compare banks only. We include credit union rates — which are often better for car loans and home improvements.</p>
+      <p>Most comparison sites leave credit unions out. We include their published rates — often better for car loans and home improvements.</p>
     </div>
     <div class="feat-card">
       <div class="feat-num">03</div>
@@ -1031,7 +1039,7 @@ h1 { color: #ffffff; }
     <a href="api-docs.html">API</a>
     <a href="privacy.html">Privacy Policy</a>
   </div>
-  <div class="footer-note">BorrowClever is an independent financial comparison service. Rates sourced from lender websites and CCPC.ie. Always verify with the lender before applying. This is not financial advice. © 2026 BorrowClever Ireland Limited. Lender logos provided by <a href="https://logo.dev" target="_blank" rel="noopener noreferrer">Logo.dev</a>.</div>
+  <div class="footer-note">BorrowClever is an independent financial comparison service. Rates sourced from lender websites and CCPC.ie. Always verify with the lender before applying. This is not financial advice. © 2026 BorrowClever. Lender logos provided by <a href="https://logo.dev" target="_blank" rel="noopener noreferrer">Logo.dev</a>.</div>
 </footer>
 
 <script>
@@ -1151,6 +1159,9 @@ document.getElementById('brevo-email-form').addEventListener('submit', function(
 });
 </script>
 
-
+<!-- bc:analytics:start -->
+<!-- Cloudflare Web Analytics — token is set in scripts/lib/site-chrome.mjs -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "REPLACE_WITH_CF_WEB_ANALYTICS_TOKEN"}'></script>
+<!-- bc:analytics:end -->
 </body>
 </html>

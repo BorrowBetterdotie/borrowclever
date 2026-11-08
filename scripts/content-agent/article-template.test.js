@@ -144,3 +144,30 @@ test('renderArticle neutralizes </script> inside JSON-LD without breaking the JS
   const jsonLd = JSON.parse(match[1]);
   assert.equal(jsonLd[1].headline, maliciousTitle);
 });
+
+test('renderArticle includes shared nav, social image, analytics and no company suffix', () => {
+  const html = renderArticle({
+    title: 'Shared Chrome',
+    metaDescription: 'desc',
+    bodyHtml: '<p>body</p>',
+    dateIso: '2026-11-09',
+    slug: 'shared-chrome',
+  });
+
+  for (const [href, label] of [
+    ['/loans.html', 'Compare loans'], ['/cards.html', 'Compare cards'], ['/savings.html', 'Compare savings'],
+    ['/rate-tracker/', 'Rate tracker'], ['/calculator/', 'Calculator'], ['/guides/', 'Guides'],
+  ]) {
+    assert.match(html, new RegExp(`<li><a href="${href}">${label}</a></li>`));
+    assert.match(html, new RegExp(`\\n  <a href="${href}">${label}</a>`));
+  }
+  assert.match(html, /<li><a href="\/news\/" class="active">News<\/a><\/li>/);
+  assert.match(html, /<meta property="og:image" content="https:\/\/borrowclever\.ie\/og-image\.png">/);
+  assert.match(html, /<meta property="og:image:width" content="1200">/);
+  assert.match(html, /<meta property="og:image:height" content="630">/);
+  assert.match(html, /<meta name="twitter:image" content="https:\/\/borrowclever\.ie\/og-image\.png">/);
+  assert.match(html, /<meta name="twitter:card" content="summary_large_image">/);
+  assert.match(html, /static\.cloudflareinsights\.com\/beacon\.min\.js[\s\S]*<\/body>/);
+  assert.match(html, /© 2026 BorrowClever\./);
+  assert.doesNotMatch(html, /Ireland Limited|legalName/);
+});

@@ -112,7 +112,35 @@ ${cardsTable}
 </body></html>
 `);
 
-// 3) optional in-place injection into the real page
+// 3) headline saving figures — homepage hero (index.html) and loans.html header.
+// Both use the same basis: the difference in total cost of credit on €10,000
+// over 60 months, taken from products.json costOfCredit. Only the comparison
+// differs, and each label says which:
+//   hero:  cheapest standard personal loan (no SEAI/green conditions) vs AIB's personal loan
+//   loans: cheapest loan listed (any product) vs the costliest loan listed
+const cost = (p) => Number(String(p.costOfCredit ?? "").replace(/[^0-9.]/g, "")) || null;
+const costed = loans.filter((p) => cost(p) !== null).sort((a, b) => cost(a) - cost(b));
+const eur = (n) => "€" + Math.round(n).toLocaleString("en-IE");
+const savingFigures = (() => {
+  const standard = costed.filter((p) => p.product === "personal");
+  const aib = costed.find((p) => p.slug === "aib-loan-personal");
+  const cheapest = costed[0], costliest = costed[costed.length - 1];
+  if (!standard.length || !aib || !cheapest) throw new Error("build-table: products.json is missing loans needed for the saving figures");
+  const bestStd = standard[0];
+  return {
+    heroSaving: Math.round(cost(aib) - cost(bestStd)).toLocaleString("en-IE"),
+    heroLabel: `${esc(bestStd.lenderName)} vs AIB personal loan, €10k over 5 yrs`,
+    maxSaving: eur(cost(costliest) - cost(cheapest)),
+    maxLabel: "Max saving on €10k over 5 yrs, cheapest vs costliest loan listed",
+  };
+})();
+const injectMarker = (html, tag, value, file) => {
+  const re = new RegExp(`(<!-- ${tag}_START -->)[\\s\\S]*?(<!-- ${tag}_END -->)`, "g");
+  if (!re.test(html)) throw new Error(`build-table: marker ${tag} not found in ${file}`);
+  return html.replace(re, `$1${value}$2`);
+};
+
+// 4) optional in-place injection into the real page
 const target = process.argv[2] || new URL("./index.html", import.meta.url).pathname;
 if (existsSync(target)) {
   let html = readFileSync(target, "utf8");
@@ -122,11 +150,22 @@ if (existsSync(target)) {
   };
   html = inject(html, "loans", loansTable);
   html = inject(html, "cards", cardsTable);
+  html = injectMarker(html, "HERO_SAVING", savingFigures.heroSaving, target);
+  html = injectMarker(html, "HERO_SAVING_LABEL", savingFigures.heroLabel, target);
   writeFileSync(target, html);
   console.log(`Injected loans + cards into ${target}.`);
 } else {
   console.log(`No target page at ${target} — wrote table-preview.html only. Add the marker pairs to your page and re-run with: node build-table.mjs path/to/index.html`);
 }
+
+const loansPage = new URL("./loans.html", import.meta.url);
+if (existsSync(loansPage)) {
+  let html = readFileSync(loansPage, "utf8");
+  html = injectMarker(html, "LOANS_MAX_SAVING", savingFigures.maxSaving, "loans.html");
+  html = injectMarker(html, "LOANS_MAX_SAVING_LABEL", savingFigures.maxLabel, "loans.html");
+  writeFileSync(loansPage, html);
+}
+console.log(`Saving figures: hero €${savingFigures.heroSaving} (${savingFigures.heroLabel}); loans ${savingFigures.maxSaving} (${savingFigures.maxLabel}).`);
 
 console.log(`Rendered ${loans.length} loans + ${cards.length} cards from products.json.`);
 
@@ -158,8 +197,9 @@ function CSS() {
 .bc-note{font-size:.82rem;color:var(--bc-muted);line-height:1.4}
 .bc-row--featured{background:var(--bc-featured);box-shadow:inset 3px 0 0 var(--bc-accent)}
 .bc-act{text-align:right;white-space:nowrap}
-.bc-cta{display:inline-block;font-weight:600;font-size:.9rem;color:#fff;background:var(--bc-accent);border-radius:9px;padding:.5rem .9rem;text-decoration:none;transition:background .15s ease}
+.bc-cta{display:inline-block;font-weight:600;font-size:.9rem;color:#fff;background:var(--bc-accent);border-radius:9px;padding:.5rem .9rem;text-decoration:none;transition:background .15s ease,transform 100ms ease-out}
 .bc-cta:hover{background:var(--bc-accent-ink)}
+.bc-cta:active{transform:scale(0.97)}
 .bc-cta:focus-visible{outline:3px solid #99f6e4;outline-offset:2px}
 .bc-vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .bc-disclaimer{margin-top:1.5rem;font-size:.8rem;color:var(--bc-muted)}
