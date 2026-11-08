@@ -14,7 +14,12 @@
 <meta property="og:url" content="https://borrowclever.ie/about.html">
 <meta property="og:title" content="About BorrowClever | Independent Irish Loan & Credit Card Comparison">
 <meta property="og:description" content="Who runs BorrowClever and why it exists: an independent Irish comparison site ranking loans and credit cards by total cost of credit, including credit unions other sites leave out.">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://borrowclever.ie/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="BorrowClever — Compare Irish loans by what they really cost">
+<meta name="twitter:image" content="https://borrowclever.ie/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="About BorrowClever | Independent Irish Loan & Credit Card Comparison">
 <meta name="twitter:description" content="Who runs BorrowClever and why it exists: an independent Irish comparison site ranking loans and credit cards by total cost of credit, including credit unions other sites leave out.">
 <!-- JSONLD_START -->
@@ -24,7 +29,6 @@
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "BorrowClever",
-    "legalName": "BorrowClever Ireland Limited",
     "url": "https://borrowclever.ie",
     "logo": "https://borrowclever.ie/logo.svg",
     "description": "Ireland's independent personal loan and credit card comparison service. Rates verified fortnightly from lender websites and CCPC.ie."
@@ -150,12 +154,14 @@
 <nav>
   <a href="index.html" class="nav-logo">Borrow<span>Clever</span></a>
   <ul class="nav-links">
-    <li><a href="loans.html">Compare loans</a></li>
-    <li><a href="cards.html">Compare cards</a></li>
-    <li><a href="savings.html">Compare savings</a></li>
+    <li><a href="/loans.html">Compare loans</a></li>
+    <li><a href="/cards.html">Compare cards</a></li>
+    <li><a href="/savings.html">Compare savings</a></li>
     <li><a href="/rate-tracker/">Rate tracker</a></li>
     <li><a href="/calculator/">Calculator</a></li>
-    <li><a href="index.html#signup" class="nav-cta">Newsletter</a></li>
+    <li><a href="/guides/">Guides</a></li>
+    <li><a href="/news/">News</a></li>
+    <li><a href="/#signup" class="nav-cta">Newsletter</a></li>
   </ul>
   <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
     <span></span><span></span><span></span>
@@ -164,12 +170,14 @@
 
 <!-- MOBILE NAV -->
 <div class="mobile-nav" id="mobile-nav">
-  <a href="loans.html">Compare loans</a>
-  <a href="cards.html">Compare cards</a>
-  <a href="savings.html">Compare savings</a>
+  <a href="/loans.html">Compare loans</a>
+  <a href="/cards.html">Compare cards</a>
+  <a href="/savings.html">Compare savings</a>
   <a href="/rate-tracker/">Rate tracker</a>
   <a href="/calculator/">Calculator</a>
-  <a href="index.html#signup" class="mobile-cta">Newsletter</a>
+  <a href="/guides/">Guides</a>
+  <a href="/news/">News</a>
+  <a href="/#signup" class="mobile-cta">Newsletter</a>
 </div>
 
 <!-- PAGE HEADER -->
@@ -197,11 +205,8 @@
 
   <hr class="divider">
 
-  <h2>Company details</h2>
-  <div class="info-box">
-    <p>BorrowClever Ireland Limited</p>
-  </div>
-  <p>Contact: <a href="mailto:luke@borrowclever.ie">luke@borrowclever.ie</a></p>
+  <h2>Contact</h2>
+  <p>Email: <a href="mailto:luke@borrowclever.ie">luke@borrowclever.ie</a></p>
 
   <hr class="divider">
 
@@ -221,7 +226,7 @@
     <a href="api-docs.html">API</a>
     <a href="privacy.html">Privacy Policy</a>
   </div>
-  <div class="footer-note">BorrowClever is an independent financial comparison service. Rates sourced from lender websites and CCPC.ie. Always verify with the lender before applying. This is not financial advice. © 2026 BorrowClever Ireland Limited.</div>
+  <div class="footer-note">BorrowClever is an independent financial comparison service. Rates sourced from lender websites and CCPC.ie. Always verify with the lender before applying. This is not financial advice. © 2026 BorrowClever.</div>
 </footer>
 
 <script>
@@ -240,5 +245,9 @@ mobileNav.querySelectorAll('a').forEach(a => {
 });
 </script>
 
+<!-- bc:analytics:start -->
+<!-- Cloudflare Web Analytics — token is set in scripts/lib/site-chrome.mjs -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "REPLACE_WITH_CF_WEB_ANALYTICS_TOKEN"}'></script>
+<!-- bc:analytics:end -->
 </body>
 </html>

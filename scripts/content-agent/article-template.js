@@ -8,6 +8,8 @@
  * getting site structure subtly wrong.
  */
 
+import { navLinks, mobileNavLinks, socialImageMeta, analyticsBeacon } from '../lib/site-chrome.mjs';
+
 function escapeHtml(str) {
   return String(str)
     .replace(/&/g, '&amp;')
@@ -103,7 +105,8 @@ ${keywordsMeta}<meta name="robots" content="noindex, follow">
 <meta property="og:url" content="${url}">
 <meta property="og:title" content="${safeTitle}">
 <meta property="og:description" content="${safeDescription}">
-<meta name="twitter:card" content="summary">
+${socialImageMeta()}
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${safeTitle}">
 <meta name="twitter:description" content="${safeDescription}">
 <script type="application/ld+json">
@@ -138,11 +141,7 @@ ${escapeForInlineScript(JSON.stringify(jsonLd, null, 2))}
 <nav>
   <a href="/" class="nav-logo">Borrow<span>Clever</span></a>
   <ul class="nav-links">
-    <li><a href="/loans.html">Compare loans</a></li>
-    <li><a href="/cards.html">Compare cards</a></li>
-    <li><a href="/rate-tracker/">Rate tracker</a></li>
-    <li><a href="/calculator/">Calculator</a></li>
-    <li><a href="/#signup" class="nav-cta">Newsletter</a></li>
+${navLinks(`/news/${dateIso}-${slug}.html`)}
   </ul>
   <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
     <span></span><span></span><span></span>
@@ -151,11 +150,7 @@ ${escapeForInlineScript(JSON.stringify(jsonLd, null, 2))}
 
 <!-- MOBILE NAV -->
 <div class="mobile-nav" id="mobile-nav">
-  <a href="/loans.html">Compare loans</a>
-  <a href="/cards.html">Compare cards</a>
-  <a href="/rate-tracker/">Rate tracker</a>
-  <a href="/calculator/">Calculator</a>
-  <a href="/#signup" class="mobile-cta">Newsletter</a>
+${mobileNavLinks(`/news/${dateIso}-${slug}.html`)}
 </div>
 
 <!-- PAGE HEADER -->
@@ -180,7 +175,7 @@ ${bodyHtml}
     <a href="/api-docs.html">API</a>
     <a href="/privacy.html">Privacy Policy</a>
   </div>
-  <div class="footer-note">BorrowClever is an independent financial comparison service. Rates sourced from lender websites and CCPC.ie. Always verify with the lender before applying. This is not financial advice. © 2026 BorrowClever Ireland Limited.</div>
+  <div class="footer-note">BorrowClever is an independent financial comparison service. Rates sourced from lender websites and CCPC.ie. Always verify with the lender before applying. This is not financial advice. © 2026 BorrowClever.</div>
 </footer>
 
 <script>
@@ -199,6 +194,7 @@ mobileNav.querySelectorAll('a').forEach(a => {
 });
 </script>
 
+${analyticsBeacon()}
 </body>
 </html>
 `;

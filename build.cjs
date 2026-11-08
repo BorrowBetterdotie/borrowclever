@@ -6,13 +6,6 @@ const path = require('path');
 
 // ── helpers ───────────────────────────────────────────────────────────────────
 
-function calcInterest(apr, principal = 10_000, months = 60) {
-  const i      = Math.pow(1 + apr / 100, 1 / 12) - 1;
-  const pow    = Math.pow(1 + i, months);
-  const monthly = principal * i * pow / (pow - 1);
-  return Math.round(monthly * months - principal);
-}
-
 // Inject content between <!-- TAG_START --> and <!-- TAG_END --> (all occurrences)
 function inject(html, tag, content) {
   const re = new RegExp(`<!-- ${tag}_START -->[\\s\\S]*?<!-- ${tag}_END -->`, 'g');
@@ -112,7 +105,6 @@ function org() {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'BorrowClever',
-    legalName: 'BorrowClever Ireland Limited',
     url: BASE,
     logo: `${BASE}/logo.svg`,
     description: "Ireland's independent personal loan, credit card and savings comparison service. Rates verified periodically from provider websites and CCPC.ie.",
@@ -192,14 +184,9 @@ require('./scripts/build-sitemap.cjs');
     return;
   }
 
-  const aib = loans.find(l => l.id === 'aib-personal');
-  if (!aib) {
-    console.error('[build] ERROR: aib-personal not found in loans.json — homepage hero unchanged');
-    return;
-  }
-
+  // The hero saving figure (HERO_SAVING markers) is written by build-table.mjs
+  // from products.json, on the same basis as the loans.html "Max saving" stat.
   const bestFeatured = featured[0];
-  const saving = calcInterest(aib.apr) - calcInterest(bestFeatured.apr);
 
   // JSON-LD for homepage
   const buildDate = today();
@@ -215,11 +202,10 @@ require('./scripts/build-sitemap.cjs');
   const indexPath = path.join(__dirname, 'index.html');
   let html = fs.readFileSync(indexPath, 'utf8');
 
-  html = inject(html, 'HERO_SAVING', String(saving));
   html = inject(html, 'JSONLD', jsonld);
 
   fs.writeFileSync(indexPath, html, 'utf8');
-  console.log(`[build] index.html: best ${bestFeatured.apr.toFixed(2)}% | saving €${saving}`);
+  console.log(`[build] index.html: best ${bestFeatured.apr.toFixed(2)}%`);
 })();
 
 // ── Step 3: loans.html ────────────────────────────────────────────────────────

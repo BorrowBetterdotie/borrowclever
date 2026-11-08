@@ -11,6 +11,7 @@
 // Run:  node scripts/build-worked-examples.mjs   (part of npm run build)
 
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { navLinks, mobileNavLinks, socialImageMeta, analyticsBeacon } from "./lib/site-chrome.mjs";
 import { amortize, payoff } from "../lib/amortization.mjs";
 
 const BASE = "https://borrowclever.ie";
@@ -89,7 +90,8 @@ function page({ path, title, ogTitle, description, eyebrow, h1, sub, body, faqs,
 <meta property="og:url" content="${url}">
 <meta property="og:title" content="${esc(ogTitle)}">
 <meta property="og:description" content="${esc(description)}">
-<meta name="twitter:card" content="summary">
+${socialImageMeta()}
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${esc(ogTitle)}">
 <meta name="twitter:description" content="${esc(description)}">
 <script type="application/ld+json">
@@ -158,12 +160,7 @@ details.schedule .table-wrap { border: none; border-top: 1px solid rgba(255,255,
 <nav>
   <a href="/" class="nav-logo">Borrow<span>Clever</span></a>
   <ul class="nav-links">
-    <li><a href="/loans.html">Compare loans</a></li>
-    <li><a href="/cards.html">Compare cards</a></li>
-    <li><a href="/savings.html">Compare savings</a></li>
-    <li><a href="/rate-tracker/">Rate tracker</a></li>
-    <li><a href="/calculator/">Calculator</a></li>
-    <li><a href="/#signup" class="nav-cta">Newsletter</a></li>
+${navLinks(`/examples/${path}`)}
   </ul>
   <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
     <span></span><span></span><span></span>
@@ -172,12 +169,7 @@ details.schedule .table-wrap { border: none; border-top: 1px solid rgba(255,255,
 
 <!-- MOBILE NAV -->
 <div class="mobile-nav" id="mobile-nav">
-  <a href="/loans.html">Compare loans</a>
-  <a href="/cards.html">Compare cards</a>
-  <a href="/savings.html">Compare savings</a>
-  <a href="/rate-tracker/">Rate tracker</a>
-  <a href="/calculator/">Calculator</a>
-  <a href="/#signup" class="mobile-cta">Newsletter</a>
+${mobileNavLinks(`/examples/${path}`)}
 </div>
 
 <!-- PAGE HEADER -->
@@ -219,7 +211,7 @@ ${related.map((r) => `      <a href="${r.href}" class="guide-link">${esc(r.label
     <a href="/api-docs.html">API</a>
     <a href="/privacy.html">Privacy Policy</a>
   </div>
-  <div class="footer-note">BorrowClever is an independent financial comparison service. Rates sourced from lender websites and CCPC.ie. Always verify with the lender before applying. This is not financial advice. © 2026 BorrowClever Ireland Limited.</div>
+  <div class="footer-note">BorrowClever is an independent financial comparison service. Rates sourced from lender websites and CCPC.ie. Always verify with the lender before applying. This is not financial advice. © 2026 BorrowClever.</div>
 </footer>
 
 <script>
@@ -238,6 +230,7 @@ mobileNav.querySelectorAll('a').forEach(a => {
 });
 </script>
 
+${analyticsBeacon()}
 </body>
 </html>
 `;

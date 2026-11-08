@@ -11,6 +11,7 @@
 // fortnightly workflow runs it after append-rate-history.mjs)
 
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { navLinks, mobileNavLinks, socialImageMeta, analyticsBeacon } from "./lib/site-chrome.mjs";
 
 const BASE = "https://borrowclever.ie";
 const history = JSON.parse(readFileSync(new URL("../rates/rate-history.json", import.meta.url), "utf8"));
@@ -290,7 +291,8 @@ const html = `<!DOCTYPE html>
 <meta property="og:url" content="${BASE}/rate-tracker/">
 <meta property="og:title" content="Irish Loan Rate Tracker — How Rates Have Moved">
 <meta property="og:description" content="${esc(description)}">
-<meta name="twitter:card" content="summary">
+${socialImageMeta()}
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Irish Loan Rate Tracker — How Rates Have Moved">
 <meta name="twitter:description" content="${esc(description)}">
 <script type="application/ld+json">
@@ -359,12 +361,7 @@ ${JSON.stringify(jsonld, null, 2)}
 <nav>
   <a href="/" class="nav-logo">Borrow<span>Clever</span></a>
   <ul class="nav-links">
-    <li><a href="/loans.html">Compare loans</a></li>
-    <li><a href="/cards.html">Compare cards</a></li>
-    <li><a href="/savings.html">Compare savings</a></li>
-    <li><a href="/rate-tracker/" class="active">Rate tracker</a></li>
-    <li><a href="/calculator/">Calculator</a></li>
-    <li><a href="/#signup" class="nav-cta">Newsletter</a></li>
+${navLinks("/rate-tracker/")}
   </ul>
   <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
     <span></span><span></span><span></span>
@@ -373,12 +370,7 @@ ${JSON.stringify(jsonld, null, 2)}
 
 <!-- MOBILE NAV -->
 <div class="mobile-nav" id="mobile-nav">
-  <a href="/loans.html">Compare loans</a>
-  <a href="/cards.html">Compare cards</a>
-  <a href="/savings.html">Compare savings</a>
-  <a href="/rate-tracker/" class="active">Rate tracker</a>
-  <a href="/calculator/">Calculator</a>
-  <a href="/#signup" class="mobile-cta">Newsletter</a>
+${mobileNavLinks("/rate-tracker/")}
 </div>
 
 <!-- PAGE HEADER -->
@@ -442,7 +434,7 @@ ${groupSections}
     <a href="/api-docs.html">API</a>
     <a href="/privacy.html">Privacy Policy</a>
   </div>
-  <div class="footer-note">BorrowClever is an independent financial comparison service. Rates sourced from lender websites and CCPC.ie. Always verify with the lender before applying. This is not financial advice. © 2026 BorrowClever Ireland Limited.</div>
+  <div class="footer-note">BorrowClever is an independent financial comparison service. Rates sourced from lender websites and CCPC.ie. Always verify with the lender before applying. This is not financial advice. © 2026 BorrowClever.</div>
 </footer>
 
 <script>
@@ -461,6 +453,7 @@ mobileNav.querySelectorAll('a').forEach(a => {
 });
 </script>
 
+${analyticsBeacon()}
 </body>
 </html>
 `;

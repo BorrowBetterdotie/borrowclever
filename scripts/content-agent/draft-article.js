@@ -84,7 +84,9 @@ async function draftFromClaude(items) {
   const anthropic = new Anthropic(); // reads ANTHROPIC_API_KEY from env
   const message = await anthropic.messages.create({
     model: 'claude-sonnet-5',
-    max_tokens: 2048,
+    // A 400-700 word roundup as HTML inside a tool call runs close to 2,048
+    // tokens; that limit truncated the 19 and 26 Oct 2026 runs.
+    max_tokens: 4096,
     system: SYSTEM_PROMPT,
     tools: [DRAFT_TOOL],
     tool_choice: { type: 'tool', name: 'submit_draft' },
